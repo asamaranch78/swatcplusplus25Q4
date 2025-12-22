@@ -20,7 +20,7 @@ public:
 };
 
 std::string Car::info(){
-    return "Car: " + brand + " " + model + ", Year: " + to_string(year) +
+    return "Car: " + brand + "model: " + model + ", Year: " + to_string(year) +
            ", Fuel: " + (fuel == Petrol ? "Petrol" : fuel == Diesel ? "Diesel" : "Electric") +
            ", Weight: " + to_string(weigth) + "kg, Doors: " + to_string(numDoors) +
            ", Trunk Capacity: " + to_string(trunkCapacity) + "L";

@@ -1,25 +1,31 @@
 #include "Vehicle.h"
 #include "Car.h"
 #include "Bike.h"
+#include "Truck.h"
 #include <iostream>
 #include <vector>
+#include <map>
 
 
 using namespace std;
 
+/* Declaración de funciones Auxiliares*/
 void clearScreen();
 void mainMenu();
 void typeMenu();
-void addVehicle(vector<Vehicle*> &vehicles);
+void addVehicle(map<int,Vehicle*> &vehicles);
+
+/* Funciones de entrada de tipos de clases */
 Car * inputCar();
 Bike* inputBike();
+Truck * inputTruck();
 
 using namespace std;
 
 int main(){
     bool flag {true};
     int option{-1};
-    vector <Vehicle*> vehicles;
+    map <int,Vehicle*> vehicles;
  
     do
     {
@@ -36,7 +42,8 @@ int main(){
             case 2: // Listar Vehículos
                 clearScreen();
                 for(const auto& v : vehicles){
-                    cout << v->info() << endl;
+                    cout << v.first ;
+                    cout << "-" + v.second->info() << endl;
                 }
                 cout<< vehicles.size() << " vehicles available:\n"<<endl;
                 break;
@@ -64,7 +71,7 @@ void clearScreen() {
 }
 
 // Añade un vehículo según el tipo seleccionado
-void addVehicle(vector<Vehicle*> &vehicles){ 
+void addVehicle(map<int,Vehicle*> &vehicles){ 
     int option{-1};
     bool flag{true};
 
@@ -77,14 +84,18 @@ void addVehicle(vector<Vehicle*> &vehicles){
         switch(option){
             case 1:
                 clearScreen();
-                vehicles.push_back(inputCar());
+                vehicles.insert({vehicles.size() + 1, inputCar()});
                 break;
           
             case 2:
                 clearScreen();
-                vehicles.push_back(inputBike());
+                vehicles.insert({vehicles.size() + 1, inputBike()});
                 break;
 
+            case 3:
+                clearScreen();
+                vehicles.insert({vehicles.size() + 1, inputTruck()});
+                break;
             case 0:
                 clearScreen();
                 flag=false;
@@ -127,6 +138,7 @@ void typeMenu(){
     cout << "Selecciona opcion:";
 }
 
+// Funciones de entrada de datos para cada tipo de vehículo
 Car * inputCar(){
     string brand, model;
     int year, numDoors;
@@ -164,7 +176,6 @@ Car * inputCar(){
             fuel = Vehicle::Petrol; // Default to Petrol
             break;
     }
-
     return new Car(brand, model, year, fuel, weight, numDoors, trunkCapacity);
 
 }
@@ -226,4 +237,44 @@ Bike* inputBike(){
     }
 
     return new Bike(brand, model, year, fuel, weight, hasCarrier, type);
+}
+
+Truck * inputTruck(){
+    string brand, model;
+    int year, numAxles;
+    double weight, maxLoad;
+    int fuelOption;
+    Vehicle::fuelType fuel;
+
+    cout << "Enter brand: ";
+    cin >> brand;
+    cout << "Enter model: ";
+    cin >> model;
+    cout << "Enter year: ";
+    cin >> year;
+    cout << "Enter weight (kg): ";
+    cin >> weight;
+    cout << "Enter max load (kg): ";
+    cin >> maxLoad;
+    cout << "Enter number of axles: ";
+    cin >> numAxles;
+    cout << "Select fuel type (0 - Petrol, 1 - Diesel, 2 - Electric): ";
+    cin >> fuelOption;
+
+    switch(fuelOption){
+        case 0:
+            fuel = Vehicle::Petrol;
+            break;
+        case 1:
+            fuel = Vehicle::Diesel;
+            break;
+        case 2:
+            fuel = Vehicle::Electric;
+            break;
+        default:
+            fuel = Vehicle::Petrol; // Default to Petrol
+            break;
+    }
+
+    return new Truck(brand, model, year, fuel, weight, maxLoad, numAxles);
 }

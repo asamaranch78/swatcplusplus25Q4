@@ -23,13 +23,5 @@ class Vehicle{
 
         ~Vehicle() = default;
 };
-/*
-string Vehicle::info(){
-    return "Vehicle: " + brand + " " + model + ", Year: " + to_string(year) +
-           ", Fuel: " + (fuel == Petrol ? "Petrol" : fuel == Diesel ? "Diesel" : "Electric") +
-           ", Weight: " + to_string(weigth) + "kg";
-}
-double Vehicle::fuelEfficiency(){
-    return 20.0 - (weigth / 1000.0);
-}*/
+
 #endif
