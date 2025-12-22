@@ -3,6 +3,8 @@
 #include "Bike.h"
 #include "Truck.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <vector>
 #include <map>
 
@@ -14,6 +16,8 @@ void clearScreen();
 void mainMenu();
 void typeMenu();
 void addVehicle(map<int,Vehicle*> &vehicles);
+void saveToFile(const map<int,Vehicle*> &vehicles);
+void loadFromFile(map<int,Vehicle*> &vehicles);
 
 /* Funciones de entrada de tipos de clases */
 Car * inputCar();
@@ -47,6 +51,19 @@ int main(){
                 }
                 cout<< vehicles.size() << " vehicles available:\n"<<endl;
                 break;
+
+            case 4: // Guardar Datos
+                clearScreen();
+                saveToFile(vehicles);
+                cout << "Data saved.\n"<<endl;
+                break;
+            
+            case 5: // Cargar Datos
+                clearScreen();
+                loadFromFile(vehicles);
+                cout << "Data loaded.\n"<<endl;
+                break;
+
             case 0: // Salir
                 clearScreen();
                 flag=false;
@@ -96,6 +113,7 @@ void addVehicle(map<int,Vehicle*> &vehicles){
                 clearScreen();
                 vehicles.insert({vehicles.size() + 1, inputTruck()});
                 break;
+
             case 0:
                 clearScreen();
                 flag=false;
@@ -278,3 +296,55 @@ Truck * inputTruck(){
 
     return new Truck(brand, model, year, fuel, weight, maxLoad, numAxles);
 }
+
+void saveToFile(const map<int,Vehicle*> &vehicles) {
+    
+    std::ofstream file("data.csv"); // crea o sobrescribe el fichero
+    
+    if (!file) { // comprobar si se abrió correctamente
+        std::cerr << "Failed to open File\n";
+    }else{
+        for(const auto& v : vehicles){
+            file <<v.second->toCSV() << "\n";
+        }
+    }
+    
+    file.close();
+    }
+
+
+
+void loadFromFile(map<int,Vehicle*> &vehicles) {
+        std::ifstream file("data.csv");
+        string line;
+    
+        if (!file) {
+            std::cerr << "Failed to open File\n";
+        } else {
+                  
+    
+            while (std::getline(file, line)) {
+                std::stringstream ss(line);
+                vector <string> aux;
+                string tempLine;
+                while(std::getline(ss, tempLine, ',')){
+                    aux.push_back(tempLine);
+                }
+                if(aux[0]=="Car"){
+                    Car* car = new Car("","",0,Vehicle::Petrol,0.0,0,0.0);
+                    car->fromCSV(line);
+                    vehicles.insert({vehicles.size() + 1, car});
+                } else if(aux[0]=="Bike"){
+                    Bike* bike = new Bike("","",0,Vehicle::Petrol,0.0,false,Bike::Hybrid);
+                    bike->fromCSV(line);
+                    vehicles.insert({vehicles.size() + 1, bike});
+                } else if(aux[0]=="Truck"){
+                    Truck* truck = new Truck("","",0,Vehicle::Petrol,0.0,0.0,0);
+                    truck->fromCSV(line);
+                    vehicles.insert({vehicles.size() + 1, truck});
+                }
+            }
+        }
+    
+        file.close();
+    }

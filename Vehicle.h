@@ -18,6 +18,10 @@ class Vehicle{
 
         virtual double fuelEfficiency()=0;
 
+        virtual string toCSV()=0;
+
+        virtual void fromCSV(const string)=0;
+
         Vehicle(string b, string m, int y, Vehicle::fuelType f, double w)
             : brand{b}, model{m}, year{y}, fuel{f}, weigth{w} {}
 
