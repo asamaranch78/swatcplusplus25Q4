@@ -4,8 +4,6 @@
 
 class Car : public Vehicle
 {
-    static constexpr inline double weight_factor = 1500;
-
     private:
         double trunkCapacity;
         int numDoors;

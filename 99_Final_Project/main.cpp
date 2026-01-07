@@ -231,7 +231,7 @@ int main()
                 }
                 else
                 {
-                    pause_app("No data was saved.\nPress enter to continue");
+                    pause_app("No data was saved.\nPress enter to continue.");
                 }
                 break;
 

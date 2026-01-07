@@ -4,8 +4,6 @@
 
 class Truck : public Vehicle
 {
-    static constexpr inline double weight_factor = 1900;
-    
     private:
         TruckType tType;
 
@@ -18,7 +16,7 @@ class Truck : public Vehicle
                
         // Getters for this derived class.
         inline TruckType get_truck_type() const { return this->tType; };
-        
+
         // Helper for truck type enum.
         std::string get_truck_type_string() const;
 

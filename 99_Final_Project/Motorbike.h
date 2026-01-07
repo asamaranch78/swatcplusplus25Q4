@@ -4,8 +4,6 @@
 
 class Motorbike : public Vehicle
 {
-    static constexpr inline double weight_factor = 1150;
-
     private:
         MotorbikeType bType;
 
