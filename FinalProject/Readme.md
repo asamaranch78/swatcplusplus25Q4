@@ -1,32 +1,34 @@
+
 # Final project 
 
 Create a C++ application that manages different types of vehicles (e.g., Car, Bike, Truck) using Object-Oriented Programming principles.
 The system should allow users to add, list, sort, filter, and compute fuel efficiency for vehicles. 
 Additionally, implement data persistence in textfile (csv) (saving/loading) and leverage modern C++ features like STL containers, and lambdas. Extra bonus: smart pointers
 
-## Core Objectives
+## Core Objectives - OOP Design
 
-- OOP Design
-  - Base Class:
-  - Vehicle
-    - Common attributes: brand, model, year, fuelType, weight.
-    - Common methods: info(), fuelEfficiency().
-  - Derived Classes:
-    - Car, Bike, Truck...
-      - Specialized attributes:
-      - Car: numDoors, trunkCapacity, etc.
-      - Bike: type (e.g., mountain, road), hasCarrier, etc.
-      - Truck: payloadCapacity, numAxles, etc.
-  - Use virtual methods for info() and fuelEfficiency().
-  - Override methods: fuelEfficiency() and info() for each type.
+- Base Class:
+- Vehicle
+  - Common attributes: brand, model, year, fuelType, weight.
+  - Common methods: info(), fuelEfficiency().
+- Derived Classes:
+  - Car, Bike, Truck...
+    - Specialized attributes:
+    - Car: numDoors, trunkCapacity, etc.
+    - Bike: type (e.g., mountain, road), hasCarrier, etc.
+    - Truck: payloadCapacity, numAxles, etc.
+- Use virtual methods for info() and fuelEfficiency().
+- Override methods: fuelEfficiency() and info() for each type.
+
+More detail design later
    
 ## Data Management
   
-    Use std::map or std::unordered_set for indexing of vehicles by ID or brand.
-    Enums:
-    Define enums for fixed values like FuelType { Petrol, Diesel, Electric }.
-    Sample Data:
-    Preload a few vehicles for testing.
+Use std::map or std::unordered_set for indexing of vehicles by ID or brand.
+Enums:
+Define enums for fixed values like FuelType { Petrol, Diesel, Electric }.
+Sample Data:
+Preload a few vehicles for testing.
 
 ## Mandatory Actions
 

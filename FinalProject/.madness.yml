@@ -1,0 +1,5 @@
+# madness.yml
+sidebar: false       # Hide the sidebar
+mermaid: true        # Enable Mermaid diagrams
+port: 3000           # Optional: change port
+
