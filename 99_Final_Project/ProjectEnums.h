@@ -5,18 +5,19 @@ enum class VehicleType
     Car,
     Truck,
     Motorbike,
-    All
+    Unknown
 };
 
 enum class CarType
 {
     Sedan,           
     Station_wagon,
-    MPV,             // Multi-purpose vehicle
+    MPV,
     Van,
     Sports_car,
-    SUV,             // Sports Utility Vehicle
-    Off_road
+    SUV,
+    Off_road,
+    Unknown
 };
 
 enum class MotorbikeType
@@ -27,7 +28,8 @@ enum class MotorbikeType
     Naked,
     Scooter,
     Touring,
-    Motocross
+    Motocross,
+    Unknown
 };
 
 enum class TruckType
@@ -35,14 +37,15 @@ enum class TruckType
     Two_axle,
     Three_axle,
     Four_axle,
-    Five_axle
+    Five_axle,
+    Unknown
 };
 
 enum class FuelType
 {
-    Gas,            // Gasoline
+    Gas,
     Diesel,
     Electric,
     Hybrid,
-    None            // For bikes...
+    Unknown
 };

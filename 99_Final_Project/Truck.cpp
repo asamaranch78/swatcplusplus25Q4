@@ -3,9 +3,9 @@
 
 #include "Truck.h"
 
-std::string get_truck_type_string(const TruckType &tType)
+std::string Truck::get_truck_type_string() const
 {
-    switch (tType)
+    switch (this->tType)
     {
         case TruckType::Two_axle: return "Two axle"; break;
         case TruckType::Three_axle: return "Three axle"; break;
@@ -18,12 +18,36 @@ std::string get_truck_type_string(const TruckType &tType)
 void Truck::get_info(std::ostream &os) const
 {
     Vehicle::get_info(os);
-    std::cout << std::setw(20) << std::left << "Type:" << std::setw(8) << get_truck_type_string(this->tType) << std::endl;
+    std::cout << std::setw(25) << std::left << "Type:" << std::setw(8) << get_truck_type_string() << std::endl;
+    std::cout << std::setw(25) << std::left << "Fuel efficiency:" << std::setw(8) << fuel_efficiency() << std::endl;
     std::cout << "=====================================" << std::endl;
 }
 
-double Truck::fuelEfficiency()
+std::string Truck::save_object() const
 {
-    std::cout << "Truck fuel efficiency" << std::endl;
-    return 0.0;
+    std::string vStr{Vehicle::save_object()};
+    std::ostringstream oss;
+
+    oss << vStr;
+    oss << std::fixed << std::setprecision(4);
+    oss << get_truck_type_string() << ",";
+
+    return oss.str();
+}
+
+double Truck::get_fuel_factor() const
+{
+    switch (this->fType)
+    {
+        case (FuelType::Gas): return 0.2f; break;
+        case (FuelType::Diesel): return .7f; break;
+        case (FuelType::Hybrid): return .15f; break;
+        case (FuelType::Electric): return .04f; break;
+        default: return 0.0; break;
+    }
+}
+
+double Truck::fuel_efficiency() const
+{
+    return (this->tankCapacity * get_fuel_factor() * 1000) / (this->weight * this->baseConsumption);
 }

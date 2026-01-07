@@ -4,16 +4,29 @@
 
 class Truck : public Vehicle
 {
+    static constexpr inline double weight_factor = 1900;
+    
     private:
         TruckType tType;
 
     public:
-        Truck(std::string brand, std::string model, int year, double weight, double tankCapacity, TruckType t_tType = TruckType::Two_axle, FuelType f_fType = FuelType::Diesel)
-            : Vehicle{VehicleType::Truck, brand, model, year, weight, tankCapacity, f_fType}, tType{t_tType}
+        Truck(std::string brand, std::string model, int year, double weight, double tankCapacity, FuelType f_fType, double b_consumption, TruckType t_tType)
+            : Vehicle{VehicleType::Truck, brand, model, year, weight, tankCapacity, f_fType, b_consumption}, tType{t_tType}
             {
             }
         ~Truck() = default;
                
-        virtual void get_info(std::ostream &os) const override;
-        virtual double fuelEfficiency() override;
+        // Getters for this derived class.
+        inline TruckType get_truck_type() const { return this->tType; };
+        
+        // Helper for truck type enum.
+        std::string get_truck_type_string() const;
+
+        // Vehicle super class overrides.
+        void get_info(std::ostream &os) const override;
+        std::string save_object() const override;
+
+        // Fuel efficiency overrides (Vehicle super class pure virtual methods).
+        double get_fuel_factor() const override;
+        double fuel_efficiency() const override;
 };

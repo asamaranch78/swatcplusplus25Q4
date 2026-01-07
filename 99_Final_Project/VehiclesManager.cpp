@@ -1,5 +1,11 @@
+#include <iomanip>
+#include <fstream>
+#include <limits>
 #include <cmath>
-#include <iterator>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <functional>
 
 #include "VehiclesManager.h"
 
@@ -7,10 +13,17 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using std::string;
 
-std::string toLower(const std::string &s)
+void pause_app(const char *message)
 {
-    std::string b {s};
+    cout << endl << message << endl;
+    cin.get();
+}
+
+string toLower(const string &s)
+{
+    string b {s};
     std::transform(b.begin(), b.end(), b.begin(), [] (unsigned char c) {
         return std::tolower(c);
     });
@@ -18,7 +31,7 @@ std::string toLower(const std::string &s)
     return b;
 }
 
-std::string get_fuel_string(const FuelType &fType)
+string get_fuel_string(const FuelType &fType)
 {
     switch (fType)
     {
@@ -26,26 +39,27 @@ std::string get_fuel_string(const FuelType &fType)
         case (FuelType::Gas): return "Gas"; break;
         case (FuelType::Electric): return "Electric"; break;
         case (FuelType::Hybrid): return "Hybrid"; break;
-        case (FuelType::None): return "-"; break;
-        default: return "Unknown"; break;
+        case (FuelType::Unknown): return "Unknown"; break;
+        default: return "-";
     }
 }
 
-std::string get_vehicle_string(const VehicleType &vType)
+string get_vehicle_string(const VehicleType &vType)
 {
     switch (vType)
     {
         case (VehicleType::Car): return "CAR"; break;
         case (VehicleType::Truck): return "TRUCK"; break;
         case (VehicleType::Motorbike): return "MOTORBIKE"; break;
-        default: return "UNKNOWN"; break;
+        case (VehicleType::Unknown): return "UNKNOWN"; break;
+        default: return "-"; break;
     }    
 }
 
 void print_graphic(const VehicleType &vehicle) 
 {
-    std::string fGraphic {"graphics/"};
-    std::string vFile {};
+    string fGraphic {"graphics/"};
+    string vFile {};
 
     system("clear");
 
@@ -70,7 +84,7 @@ void print_graphic(const VehicleType &vehicle)
     fGraphic += vFile;
 
     std::ifstream graphic_file {fGraphic};
-    std::string gLine {};
+    string gLine {};
 
     while (std::getline(graphic_file, gLine))
     {
@@ -80,10 +94,10 @@ void print_graphic(const VehicleType &vehicle)
     graphic_file.close();
 }
 
-void print_collection(const std::vector<std::unique_ptr<Vehicle>> &vVehicles)
+void print_collection(const vector<std::unique_ptr<Vehicle>> &vVehicles)
 {
-    int i {1};
     int cPage {1};
+    size_t i {1};
 
     system("clear");
 
@@ -94,21 +108,42 @@ void print_collection(const std::vector<std::unique_ptr<Vehicle>> &vVehicles)
         if (i % 2 == 0)
         {
             cout << " PAGE " << cPage << "/" << static_cast<int>(std::ceil(vVehicles.size() / 2.0)) << endl;
-            cout << endl << "Press enter to continue." << endl;
-            cin.get();
-            
-            i = 0;
-            ++cPage;
-            system("clear");
+            if (&v != &vVehicles.back())
+            {
+                pause_app("Press enter for next page.");
+                
+                i = 0;
+                ++cPage;
+                system("clear");
+            }
         }
 
         ++i;
     }
+
+    pause_app("No more elements.\nPress enter to continue.");
 }
 
-void sort_collection(std::vector<std::unique_ptr<Vehicle>> &vVehicles, const int &sort_option)
+void search_by_id(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const std::uint64_t &id)
 {
-    std::string sortedBy {};
+    int found {};
+    system("clear");
+
+    std::for_each(vVehicles.begin(), vVehicles.end(), [&found, &id](const auto &v) {
+        if (v->getId() == id)
+        {
+            std::cout << *v;
+            found++;
+        } 
+    });
+
+    std::cout << "Found " << found << " vehicles with id: " << id << std::endl;
+    pause_app("Press enter to continue...");
+}
+
+void sort_collection(vector<std::unique_ptr<Vehicle>> &vVehicles, const int &sort_option)
+{
+    string sortedBy {};
 
     switch (sort_option)
     {
@@ -130,9 +165,10 @@ void sort_collection(std::vector<std::unique_ptr<Vehicle>> &vVehicles, const int
             std::stable_sort(vVehicles.begin(), vVehicles.end(), [] (const auto &a, const auto &b) { return a->get_model() < b->get_model(); });
             break;
 
-        // By fuel efficency (ascending).
+        // By fuel efficency (best to worst).
         case 4:
-            std::stable_sort(vVehicles.begin(), vVehicles.end(), [] (const auto &a, const auto &b) { return a->fuelEfficiency() < b->fuelEfficiency(); });
+            sortedBy = " Sorted by fuel efficiency (best to worst)";
+            std::stable_sort(vVehicles.begin(), vVehicles.end(), [] (const auto &a, const auto &b) { return a->fuel_efficiency() > b->fuel_efficiency(); });
             break;
 
         // By fuel type (ascending).
@@ -148,38 +184,57 @@ void sort_collection(std::vector<std::unique_ptr<Vehicle>> &vVehicles, const int
     cout << sortedBy << endl;
 }
 
-void filter_by_vehicle(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const VehicleType &vType)
+void print_filter_result(std::ostringstream &oss, const int &found)
+{
+    if (found > 0)
+    {
+        oss << endl << found << " vehicles match criteria." << endl;
+    }
+    else
+    {
+        oss << endl << "No vehicles match criteria." << endl;
+    }
+
+    cout << oss.str() << endl;
+    pause_app("Press enter to continue...");
+}
+
+void filter_by_vehicle(const vector<std::unique_ptr<Vehicle>> &vVehicles, const VehicleType &vType)
 {
     std::ostringstream oss;
     oss << "FILTERED BY VEHICLE TYPE: " << get_vehicle_string(vType);
+    int found {};
 
     if (vType == VehicleType::Car)
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-            [](const auto &v) { 
+            [&found](const auto &v) { 
                 if (dynamic_cast<Car *>(v.get()) != nullptr)
                 {
                     std::cout << *v;
+                    ++found;
                 } 
             });
     }
     else if (vType == VehicleType::Truck)
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-            [](const auto &v) { 
+            [&found](const auto &v) { 
                 if (dynamic_cast<Truck *>(v.get()) != nullptr)
                 {
                     std::cout << *v;
+                    ++found;
                 } 
             });
     }
     else if (vType == VehicleType::Motorbike)
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-            [](const auto &v) { 
+            [&found](const auto &v) { 
                 if (dynamic_cast<Motorbike *>(v.get()) != nullptr)
                 {
                     std::cout << *v;
+                    ++found;
                 } 
             });
     }
@@ -188,13 +243,10 @@ void filter_by_vehicle(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, c
         return;
     }
 
-    cout << oss.str() << endl;
-
-    cout << endl << "Press enter to continue." << endl;
-    cin.get();
+    print_filter_result(oss, found);
 }
 
-void filter_by_string(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const std::string &strCriteria, const bool &isModel)
+void filter_by_string(const vector<std::unique_ptr<Vehicle>> &vVehicles, const string &strCriteria, const bool &isModel)
 {
     std::ostringstream oss;
     oss << "FILTERED BY ";
@@ -202,84 +254,311 @@ void filter_by_string(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, co
         ? ("MODEL: " + strCriteria)
         : ("BRAND: " + strCriteria));
 
+    int found {};
+
     if (!isModel)
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-        [strCriteria](const auto &v) {
-            std::string b{v->get_brand()};
+        [strCriteria, &found](const auto &v) {
+            string b{v->get_brand()};
             if (toLower(b) == toLower(strCriteria))
             {
                 std::cout << *v;
+                ++found;
             }
         });
     }
     else
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-        [strCriteria](const auto &v) {
-            std::string b {v->get_model()};
+        [strCriteria, &found](const auto &v) {
+            string b {v->get_model()};
             if (toLower(b) == toLower(strCriteria))
             {
                 std::cout << *v;
+                ++found;
             }
         });
     }
 
-    cout << oss.str() << endl;
-
-    cout << endl << "Press enter to continue." << endl;
-    cin.get();    
+    print_filter_result(oss, found);
 }
 
-void filter_by_year(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const int &yearFrom, const int &yearTo)
+void filter_by_year(const vector<std::unique_ptr<Vehicle>> &vVehicles, const int &yearFrom, const int &yearTo)
 {
     std::ostringstream oss;
     oss << (yearTo == -1
         ? ("FILTERED BY YEAR: " + std::to_string(yearFrom)) 
         : ("FILTERED BY YEARS: " + std::to_string(yearFrom) + " TO " + std::to_string(yearTo)));
+    int found {};
 
     if (yearTo == -1)
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-        [yearFrom](const auto &v) { 
+        [&yearFrom, &found](const auto &v) { 
             if (v->get_year() == yearFrom)
             {
                 std::cout << *v;
+                ++found;
             }
         });
     }
     else
     {
         std::for_each(vVehicles.begin(), vVehicles.end(),
-        [yearFrom, yearTo](const auto &v) { 
+        [&yearFrom, &yearTo, &found](const auto &v) { 
             if (v->get_year() >= yearFrom && v->get_year() <= yearTo)
             {
                 std::cout << *v;
+                ++found;
             }
         });
     }
 
-    cout << oss.str() << endl;
-
-    cout << endl << "Press enter to continue." << endl;
-    cin.get();    
+    print_filter_result(oss, found);
 }
 
-void filter_by_fuel(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const FuelType &fType)
+void filter_by_fuel(const vector<std::unique_ptr<Vehicle>> &vVehicles, const FuelType &fType)
 {
     std::ostringstream oss {};
     oss << "FILTERED BY FUEL TYPE " << get_fuel_string(fType);
+    int found {};
 
     std::for_each(vVehicles.begin(), vVehicles.end(),
-    [fType](const auto &v) { 
+    [&fType, &found](const auto &v) { 
         if (v->get_fuel_type() == fType)
         {
             std::cout << *v;
+            ++found;
         }
     });
 
-    cout << oss.str() << endl;
+    print_filter_result(oss, found);
+}
 
-    cout << endl << "Press enter to continue." << endl;
-    cin.get();    
+bool save_data(const vector<std::unique_ptr<Vehicle>> &vVehicles)
+{
+    std::ofstream saveFile {};
+    saveFile.open("saved/saved_data.bck");
+
+    if (!saveFile.is_open())
+    {
+        return false;
+    }
+
+    std::ostringstream oss;
+
+    for (const auto &v: vVehicles)
+    {
+        saveFile << v->save_object() << std::endl;
+    }
+
+    saveFile.close();
+    return true;
+}
+
+FuelType get_fuel_from_string(const string &fuelStr)
+{
+    if (fuelStr == "gas")
+    {
+        return FuelType::Gas;
+    }
+    else if (fuelStr == "diesel")
+    {
+        return FuelType::Diesel;
+    }
+    else if (fuelStr == "electric")
+    {
+        return FuelType::Electric;
+    }
+    else if (fuelStr == "hybrid")
+    {
+        return FuelType::Hybrid;
+    }
+
+    return FuelType::Unknown;
+}
+
+CarType get_car_type_from_string(const string &cType)
+{
+    string carType = toLower(cType);
+    
+    if (carType == "sedan")
+    {
+        return CarType::Sedan;
+    }
+    else if (carType == "station wagon")
+    {
+        return CarType::Station_wagon;
+    }
+    else if (carType == "van")
+    {
+        return CarType::Van;
+    }    
+    else if (carType == "sports car")
+    {
+        return CarType::Sports_car;
+    }
+    else if (carType == "suv")
+    {
+        return CarType::SUV;
+    }
+    else if (carType == "mpv")
+    {
+        return CarType::MPV;
+    }
+    else if (carType == "off-road")
+    {
+        return CarType::Off_road;
+    }
+
+    return CarType::Unknown;
+}
+
+TruckType get_truck_type_from_string(const string &tType)
+{
+    if (tType == "two axle")
+    {
+        return TruckType::Two_axle;
+    }
+    else if (tType == "three axle")
+    {
+        return TruckType::Three_axle;
+    }
+    else if (tType == "four axle")
+    {
+        return TruckType::Four_axle;
+    }
+    else if (tType == "five axle")
+    {
+        return TruckType::Five_axle;
+    }
+
+    return TruckType::Unknown;
+}
+
+MotorbikeType get_motorbike_type_from_string(const string &mType)
+{
+    if (mType == "sport_bike")
+    {
+        return MotorbikeType::Sport_bike;
+    }
+    else if (mType == "custom")
+    {
+        return MotorbikeType::Custom;
+    }
+    else if (mType == "chopper")
+    {
+        return MotorbikeType::Chopper;
+    }
+    else if (mType == "naked")
+    {
+        return MotorbikeType::Naked;
+    }
+    else if (mType == "scooter")
+    {
+        return MotorbikeType::Scooter;
+    }
+    else if (mType == "touring")
+    {
+        return MotorbikeType::Touring;
+    }
+    else if (mType == "motocross")
+    {
+        return MotorbikeType::Motocross;
+    }
+
+    return MotorbikeType::Unknown;
+}
+
+vector<std::unique_ptr<Vehicle>> load_data()
+{
+    std::ifstream loadFile {};
+    loadFile.open("load/loadable_data.bck");
+    vector<std::unique_ptr<Vehicle>> loaded_vehicles;
+
+    if (loadFile)
+    {
+        string fLine {};
+        size_t start {};
+        size_t pos {};
+        vector<string> words;
+        int lineNumber {};
+
+        while (std::getline(loadFile, fLine))
+        {
+            ++lineNumber;
+
+            while ((pos = fLine.find(',', start)) != string::npos)
+            {
+                words.emplace_back(fLine.substr(start, pos - start));
+                start = pos + 1;
+            }
+
+            // Vehicle attributes.
+            string brand {};
+            string model {};
+            int year {};
+            double weight {};
+            double tankCapacity {};
+            FuelType fType {FuelType::Unknown};
+            double baseConsumption {};
+
+            try 
+            {
+                string vehicle_type = words.at(0);
+                brand = words.at(1);
+                model = words.at(2);
+                year = std::stoi(words.at(3));
+                weight = std::stod(words.at(4));
+                fType = get_fuel_from_string(toLower(words.at(5)));
+                tankCapacity = std::stod(words.at(6));
+                baseConsumption = std::stod(words.at(7));
+
+                if (vehicle_type == "CAR")
+                {
+                    // Car attributes.
+                    double trunkCapacity {std::stod(words.at(8))};
+                    CarType cType {get_car_type_from_string(toLower(words.at(9)))};
+                    int numDoors {std::stoi(words.at(10))};
+
+                    Car aCar {brand, model, year, weight, tankCapacity, fType, baseConsumption, trunkCapacity, numDoors, cType};
+                    auto sCar = std::make_unique<Car>(aCar);
+                    loaded_vehicles.emplace_back(std::move(sCar));
+                }
+                else if (vehicle_type == "TRUCK")
+                {
+                    // Truck attributes.
+                    TruckType tType = get_truck_type_from_string(toLower(words.at(8)));
+
+                    Truck aTruck {brand, model, year, weight, tankCapacity, fType, baseConsumption, tType};
+                    auto sTruck = std::make_unique<Truck>(aTruck);
+                    loaded_vehicles.emplace_back(std::move(sTruck));
+                }
+                else if (vehicle_type == "MOTORBIKE")
+                {
+                    // Motorbike attributes.
+                    MotorbikeType mType = get_motorbike_type_from_string(toLower(words.at(8)));
+
+                    Motorbike aMoto {brand, model, year, weight, tankCapacity, fType, baseConsumption, mType};
+                    auto sMoto = std::make_unique<Motorbike>(aMoto);
+                    loaded_vehicles.emplace_back(std::move(sMoto));
+                }                
+            }
+            catch (const std::invalid_argument &e)
+            {
+                std::cerr << "Loading data: Invalid argument (line " << lineNumber << ")" << std::endl;
+            }
+            catch (const std::out_of_range &o)
+            {
+                std::cerr << "Loading data: Out of range (line " << lineNumber << ")" << std::endl;
+            }
+
+            words.clear();
+            start = 0;
+            pos = 0;
+        }
+    }
+
+    return loaded_vehicles;
 }

@@ -4,12 +4,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-void pause_menu(const char *message)
-{
-    cout << endl << message << endl;
-    cin.get();
-}
-
 void print_filter_menu()
 {
     system("clear");
@@ -56,7 +50,7 @@ void print_menu()
         5 Compute Fuel Efficiency: - Each derived class implements its own formula. 
         6 Save/Load Data: - Save vehicle list to a file (e.g., CSV). - Load data back into memory. 
         7 Search by ID or Brand (optional): - Implement quick lookup using std::map. 
-        8 Each methods must to have Exception Handling: - Handle invalid input.
+        8 Each method must to have Exception Handling: - Handle invalid input.
     */
 
     system("clear");
@@ -76,35 +70,92 @@ void print_menu()
     cout << endl;
 }
 
-int get_menu_option(int maxValue)
+std::string ask_string(const std::string &question)
 {
-    std::string user_line {};
-
     while (true)
     {
-        cin.clear();
-        cout << " Choose an option: ";
-
-        // Avoid EOF errors, cin buffer errors and Ctrl+Z input in console.
-        if (!getline(cin, user_line))
+        cout << question << ": ";
+        std::string answer;
+        std::getline(cin, answer);
+        
+        try
         {
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-            cout << "Invalid input. Please, try again." << endl << endl;
-            continue;
-        }
-
-        if (user_line.size() == 1 && std::isdigit(static_cast<unsigned char>(user_line[0])))
-        {
-            int result = user_line[0] - '0';
-
-            if (result <= maxValue)
+            if (answer.empty())
             {
-                return result;
+                throw EmptyArgumentException();
             }
+
+            return answer;
         }
-                
-        cout << "Please, enter a number between 0 and " << maxValue << endl << endl;
+        catch (const EmptyArgumentException &e)
+        {
+            std::cerr << e.what() << endl;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+}
+
+int ask_int(const std::string &question, int maxValue, bool isLimited)
+{
+    while (true)
+    {
+        cout << question << ": ";
+        std::string answer;
+        std::getline(cin, answer);
+
+        try
+        {
+            int num = std::stoi(answer);
+
+            if (num < 0 || 
+                (isLimited && num > maxValue))
+            {
+                throw InvalidOptionException();
+            }
+
+            return num;
+        }
+        catch (const InvalidOptionException &e)
+        {
+            std::cerr << e.what() << endl;
+        }
+        catch (...)
+        {
+            std::cerr << "Invalid input, try again." << endl;
+        }
+    }
+}
+
+double ask_double(const std::string &question, double maxValue, bool isLimited)
+{
+    while (true)
+    {
+        cout << question << ": ";
+        std::string answer;
+        std::getline(cin, answer);
+
+        try
+        {
+            double num = std::stod(answer);
+
+            if (num < 0 ||
+                (isLimited && num > maxValue))
+            {
+                throw InvalidOptionException();
+            }
+
+            return std::stod(answer);
+        }
+        catch (const InvalidOptionException &e)
+        {
+            std::cerr << e.what() << endl;
+        }
+        catch(...)
+        {
+            std::cerr << "Invalid input, try again." << endl;
+        }
     }
 }
