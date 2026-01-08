@@ -68,36 +68,41 @@ classDiagram
 		+float fuelEfficiency
 		+enum fueltype
 		+enum type
-		+ info() void
-		+ fuelEfficiency() float
+		+info() void
+		+fuelEfficiency() float
+        +saveToFile(file) void
 	}
 
 	class Car {
 		+uint doors
 		+uint trunkCapacity
-		info() void
-		fuelEfficiency() float
+		+info() void
+		+fuelEfficiency() float
+        +saveToFile(file) void
 	}
 
 	class ElectricCar {
 		+uint doors
 		+uint trunkCapacity
 		+uint range
-		info() void
-		fuelEfficiency() float
+		+info() void
+		+fuelEfficiency() float
+        +saveToFile(file) void
 	}
 
 	class Truck {
 		+uint axles
 		+uint payloadCapacity
-		info() void
-		fuelEfficiency(): float
+		+info() void
+		+fuelEfficiency(): float
+        +saveToFile(file) void
 	}
 
 	class Motorbike {
 		+uint seats
-		info() void
-		fuelEfficiency(): float
+		+info() void
+		+fuelEfficiency(): float
+        +saveToFile(file) void
 	}
 ```
 
