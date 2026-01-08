@@ -18,4 +18,5 @@ void filter_by_string(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, co
 void filter_by_year(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const int &yearFrom, const int &yearTo = -1);
 void filter_by_fuel(const std::vector<std::unique_ptr<Vehicle>> &vVehicles, const FuelType &fType);
 bool save_data(const std::vector<std::unique_ptr<Vehicle>> &vVehicles);
-std::vector<std::unique_ptr<Vehicle>> load_data();
+void load_data(std::vector<std::unique_ptr<Vehicle>> &v, const bool replaceData);
+//std::vector<std::unique_ptr<Vehicle>> load_data();

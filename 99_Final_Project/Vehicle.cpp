@@ -52,10 +52,10 @@ std::string Vehicle::get_vehicle_string() const
 void Vehicle::get_info(std::ostream &os) const
 {
     std::cout << std::fixed << std::setprecision(2); 
-    std::cout << "=====================================" << std::endl;
-    std::cout << "··  ···  ···  ···  ···  ···  ···  ···" << std::endl;
+    std::cout << "=============================================" << std::endl;
+    std::cout << "··· ···  ···  ···  ···  ···  ···  ··· ··· ···" << std::endl;
     std::cout << get_vehicle_string() << std::endl;
-    std::cout << "···  ···  ···  ···  ···  ···  ···  ··" << std::endl;
+    std::cout << "··· ···  ···  ···  ···  ···  ···  ··· ··· ···" << std::endl;
     std::cout << std::setw(25) << std::left << "ID:" << std::setw(8) << std::to_string(this->getId()) << std::endl;
     std::cout << std::setw(25) << std::left << "Brand:" << std::setw(8) << this->brand << std::endl;
     std::cout << std::setw(25) << std::left << "Model:" << std::setw(8) << this->model << std::endl;

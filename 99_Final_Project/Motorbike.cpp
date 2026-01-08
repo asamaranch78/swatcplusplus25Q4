@@ -23,7 +23,7 @@ void Motorbike::get_info(std::ostream &os) const
     Vehicle::get_info(os);
     std::cout << std::setw(25) << std::left << "Type:" << std::setw(8) << get_bike_type_string() << std::endl;
     std::cout << std::setw(25) << std::left << "Fuel efficiency:" << std::setw(8) << fuel_efficiency() << std::endl;
-    std::cout << "=====================================" << std::endl;
+    std::cout << "=============================================" << std::endl;
 }
 
 std::string Motorbike::save_object() const

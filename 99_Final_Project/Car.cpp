@@ -25,7 +25,7 @@ void Car::get_info(std::ostream &os) const
     std::cout << std::setw(25) << std::left << "Car type:" << std::setw(8) << get_car_type_string() << std::endl;
     std::cout << std::setw(25) << std::left << "Doors:" << std::setw(8) << std::to_string(this->numDoors) << std::endl;
     std::cout << std::setw(25) << std::left << "Fuel efficiency:" << std::setw(8) << fuel_efficiency() << std::endl;
-    std::cout << "=====================================" << std::endl;
+    std::cout << "=============================================" << std::endl;
 }
 
 std::string Car::save_object() const
