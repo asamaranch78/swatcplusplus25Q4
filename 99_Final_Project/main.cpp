@@ -238,18 +238,56 @@ int main()
             // Load data.
             case 7:
             {
-                vVehicles = std::move(load_data());
+                string replaceData {};
+
+                while (true)
+                {
+                    try
+                    {
+                        replaceData = ask_string("Replace current data (y/n)");
+
+                        if (replaceData.length() != 1 
+                            || (tolower(replaceData[0]) != 'y' && tolower(replaceData[0] != 'n')))
+                        {
+                            throw InvalidOptionException();
+                        }
+
+                        break;
+                    }
+                    catch (const InvalidOptionException &e)
+                    {
+                        std::cerr << e.what() << endl;
+                    }
+                    catch(const std::exception& e)
+                    {
+                        std::cerr << e.what() << '\n';
+                    }
+                }
+
+                bool replaceFlag = (tolower(replaceData[0]) == 'y');
+                
+                // Number of items before.
+                size_t existingItems {vVehicles.size()};
+                load_data(vVehicles, replaceFlag);
+                // Number of items after.
+                size_t currentItems {vVehicles.size()};
+
                 string message {};
 
                 if (vVehicles.empty())
                 {
-                    pause_app("No data was loaded.\nPress enter to continue.");
+                    message = "Collection is now empty.\nPress enter to continue.";
+                }
+                else if (replaceFlag)
+                {
+                    message = "Data loaded (" + std::to_string(currentItems) + " vehicles).\nPress enter to continue.";
                 }
                 else
                 {
-                    message = "Data loaded (" + std::to_string(vVehicles.size()) + " vehicles).\nPress enter to continue.";
-                    pause_app(message.c_str());
+                    message = "Data loaded (added: " + std::to_string((currentItems - existingItems)) + " vehicles).\nPress enter to continue.";
                 }
+                    
+                pause_app(message.c_str());
             }
                 break;
 

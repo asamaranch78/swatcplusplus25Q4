@@ -14,7 +14,7 @@ class Truck : public Vehicle
             }
         ~Truck() = default;
                
-        // Getters for this derived class.
+        // Getters for this class.
         inline TruckType get_truck_type() const { return this->tType; };
 
         // Helper for truck type enum.

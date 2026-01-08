@@ -471,7 +471,7 @@ MotorbikeType get_motorbike_type_from_string(const string &mType)
     return MotorbikeType::Unknown;
 }
 
-vector<std::unique_ptr<Vehicle>> load_data()
+void load_data(vector<std::unique_ptr<Vehicle>> &v, const bool replaceData)
 {
     std::ifstream loadFile {};
     loadFile.open("load/loadable_data.bck");
@@ -560,5 +560,17 @@ vector<std::unique_ptr<Vehicle>> load_data()
         }
     }
 
-    return loaded_vehicles;
+    if (!loaded_vehicles.empty())
+    {
+        if (replaceData)
+        {
+            // Clears original collection and moves loaded elements.
+            v = std::move(loaded_vehicles);
+        }
+        else
+        {
+            // Appends loaded elements at the end of the original collection.
+            v.insert(v.end(), std::make_move_iterator(loaded_vehicles.begin()), std::make_move_iterator(loaded_vehicles.end()));
+        }
+    }
 }

@@ -19,6 +19,7 @@ class Car : public Vehicle
         // Getters for this class.
         inline double get_trunk_capacity() const { return this->trunkCapacity; };
         inline int get_num_doors() const { return this->numDoors; };
+        inline CarType get_car_type() const { return this->cType; };
 
         // Helper for car type.
         std::string get_car_type_string() const;

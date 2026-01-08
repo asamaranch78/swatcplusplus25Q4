@@ -14,7 +14,7 @@ class Motorbike : public Vehicle
             }
         ~Motorbike() = default;
 
-        // Getters for this derived class.
+        // Getters for this class.
         inline MotorbikeType get_motorbike_type() const { return this->bType; };
 
         // Helper for motorbike type enum.
