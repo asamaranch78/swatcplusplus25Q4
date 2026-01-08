@@ -118,10 +118,6 @@ classDiagram
 class DataSet {
     + vector *Vehivle dataSet
     + addVehicle(*Vehicle) void
-    + numOfVehicle() uint
-    + saveToFile(path) void
-    + loadFromFile(path) void
-    + readVehicle(id) *Vehicle
     + deleteAllData() void
 }
 ```
@@ -133,9 +129,7 @@ All the code to handle the menu will be encapsulated in a menu class to organise
 ```mermaid
 classDiagram
 class Menu {
-	- string [] menuMessage
 	- char selectedOption
-    + vector *Vehicle activeSet
 	+ askForSelection ()
 	+ handleSelected ()
 	- addVehicle()
@@ -152,7 +146,7 @@ class Menu {
 }
 ```
 
-The method on this class will be responsible of asking for the input from the user and call the necessary methods.
+The method on this class will be responsible of asking for the input from the user and call the necessary methods. There is also two files with all the messages as constants call messages.cpp and messages.h.
 
 ### TUI - Ncurses (Later)
 
