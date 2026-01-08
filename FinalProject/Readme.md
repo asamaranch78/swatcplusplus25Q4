@@ -57,7 +57,7 @@ Preload a few vehicles for testing.
 classDiagram
 	Vehicle <|-- Car
 	Vehicle <|-- Truck
-	Vehicle <|-- ElectricCar
+	Car <|-- ElectricCar
 	Vehicle <|-- Motorbike
 	
 	class Vehicle {
@@ -69,40 +69,48 @@ classDiagram
 		+enum fueltype
 		+enum type
 		+info() void
-		+fuelEfficiencyCalc() float
+		+fuelEfficiencyCalc() void
         +saveToFile(file) void
+        +askUserForData() void
+        +laodFromFile() void
 	}
 
 	class Car {
 		+uint doors
 		+uint trunkCapacity
 		+info() void
-		+fuelEfficiencyCalc() float
+		+fuelEfficiencyCalc() void
         +saveToFile(file) void
+        +askUserForData() void
+        +laodFromFile() void
 	}
 
 	class ElectricCar {
-		+uint doors
-		+uint trunkCapacity
 		+uint range
 		+info() void
-		+fuelEfficiencyCalc() float
+		+fuelEfficiencyCalc() void
         +saveToFile(file) void
+        +askUserForData() void
+        +laodFromFile() void
 	}
 
 	class Truck {
 		+uint axles
 		+uint payloadCapacity
 		+info() void
-		+fuelEfficiencyCalc(): float
+		+fuelEfficiencyCalc(): void
         +saveToFile(file) void
+        +askUserForData() void
+        +laodFromFile() void
 	}
 
 	class Motorbike {
 		+uint seats
 		+info() void
-		+fuelEfficiencyCalc(): float
+		+fuelEfficiencyCalc(): void
         +saveToFile(file) void
+        +askUserForData() void
+        +laodFromFile() void
 	}
 ```
 

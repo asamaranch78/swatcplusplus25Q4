@@ -3,6 +3,7 @@
 
 
 #include <array>
+#include <ncurses.h>
 #include <string>
 
 struct Msg {
@@ -18,5 +19,7 @@ struct Msg {
         "\tI - Import data",
         "\tQ - Quit program"};
 };
+
+extern void printListHeader(void);
 
 #endif
