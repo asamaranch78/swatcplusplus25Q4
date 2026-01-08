@@ -1,23 +1,32 @@
 ## Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra
+CXXFLAGS = -std=c++17 -Wall -Wextra -lncurses -lpanel
+NOLINK = -c
 
-# Target executable
-TARGET = sec16
+# Traget file
+TARGET = project.app
 
 # Source files
-SRC = *.cpp
+SRC = src/
+
+# Binary files
+BIN = bin/
+
+# Objects to build
+OBJECTS = screen# Objects to builOBJECTS = screen.o# Objects to builOBJECTS = screen.o# Objects to builOBJECTS = screen.o
 
 # Build rule
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+$(TARGET): $(SRC)/main.cpp $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)/main.cpp $(BIN)/*
+
+screen: $(SRC)/screen.cpp $(SRC)/screen.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) -o $(BIN)/screen.o $(SRC)/screen.cpp
 
 # Run rule
 run: $(TARGET)
 	./$(TARGET)
-	rm $(TARGET)
 
 # Clean rule
 clean:
-	rm $(TARGET) $(OBJ)
+	rm $(BIN)/*
 
