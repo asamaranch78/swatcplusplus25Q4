@@ -1,7 +1,12 @@
 #include <cctype>
+#include <cstdint>
 #include <iostream>
+#include <iomanip>
+#include <memory>
 
 #include "menucli.h"
+#include "constants.h"
+#include "dataSet.h"
 #include "messages.h"
 
 
@@ -13,77 +18,85 @@ bool MenuCLI::askForSelection(void) {
     return true;
 }
 
-void MenuCLI::handleSelection(void) {
+void MenuCLI::handleSelection(std::shared_ptr<DataSet> data) {
     switch (selectedOption) {
         case 'A':
-            addVehicle();
+            addVehicle(data);
             break;
         case 'F':
-            filterVehicle();
+            filterVehicle(data);
             break;
         case 'L':
-            listVehicles();
+            listVehicles(data);
             break;
         case 'C':
-            computeFuelEfficiency();
+            computeFuelEfficiency(data);
             break;
         case 'X':
-            exportData();
+            exportData(data);
             break;
         case 'D':
-            eraseData();
+            eraseData(data);
             break;
         case 'I':
-            importData();
+            importData(data);
             break;
         case 'E':
-            removeVehicle();
+            removeVehicle(data);
             break;
         default:
             std::cout << "Bad selection that option is not available" << std::endl;
     }
 }
 
-void MenuCLI::addVehicle(void) {
+void MenuCLI::addVehicle(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::removeVehicle(void) {
+void MenuCLI::removeVehicle(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::listVehicles(void) {
+void MenuCLI::listVehicles(std::shared_ptr<DataSet> data) {
+    uint16_t index;
+    printListHeader();
+    for (const auto& point : data->dataSet) {
+        std::cout << std::setw(SHORT_GAP) << index;
+        index++;
+        point->info();
+    }
+
     return;
 }
 
-void MenuCLI::filterVehicle(void) {
+void MenuCLI::filterVehicle(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::filterByType(void) {
+void MenuCLI::filterByType(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::filterByBrand(void) {
+void MenuCLI::filterByBrand(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::filterByYear(void) {
+void MenuCLI::filterByYear(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::computeFuelEfficiency(void) {
+void MenuCLI::computeFuelEfficiency(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::exportData(void) {
+void MenuCLI::exportData(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::eraseData(void) {
+void MenuCLI::eraseData(std::shared_ptr<DataSet> data) {
     return;
 }
 
-void MenuCLI::importData(void) {
+void MenuCLI::importData(std::shared_ptr<DataSet> data) {
     return;
 }

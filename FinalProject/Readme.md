@@ -124,8 +124,9 @@ The data class will have the methods to import data from files and export it to 
 ```mermaid
 classDiagram
 class DataSet {
-    + vector *Vehivle dataSet
-    + addVehicle(*Vehicle) void
+    + vector Vehicle* dataSet
+    + addVehicle(Vehicle*) void
+    + deleteVehicle(Vehicle*) void
     + deleteAllData() void
 }
 ```

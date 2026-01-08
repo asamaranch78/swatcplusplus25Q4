@@ -23,7 +23,6 @@ void Truck::saveToFile(void) {
 }
 
 void Truck::askUserData(void) {
-    uint8_t userInput;
     type = Types::TRUCK;
     Vehicle::askUserData();
     fuelType = FuelTypes::DIESEL;

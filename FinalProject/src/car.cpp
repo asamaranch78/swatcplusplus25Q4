@@ -23,7 +23,7 @@ void Car::saveToFile(void) {
 }
 
 void Car::askUserData(void) {
-    uint8_t userInput;
+    uint16_t userInput;
     type = Types::CAR;
     Vehicle::askUserData();
     

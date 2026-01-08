@@ -4,6 +4,7 @@
 
 void printListHeader(void) {
     std::cout << std::left;
+    std::cout << std::setw(SHORT_GAP) << "i";
     std::cout << std::setw(WIDE_GAP) << "Manufacturer";
     std::cout << std::setw(GAP) << "Model";
     std::cout << std::setw(GAP) << "Year";
