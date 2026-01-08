@@ -13,14 +13,17 @@ SRC = src/
 BIN = bin/
 
 # Objects to build
-OBJECTS = screen# Objects to builOBJECTS = screen.o# Objects to builOBJECTS = screen.o# Objects to builOBJECTS = screen.o
+OBJECTS = menucli.o# Objects to builOBJECTS = screen.o# Objects to builOBJECTS = screen.o# Objects to builOBJECTS = screen.o
 
 # Build rule
 $(TARGET): $(SRC)/main.cpp $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)/main.cpp $(BIN)/*
 
-screen: $(SRC)/screen.cpp $(SRC)/screen.h
+screen.o: $(SRC)/screen.cpp $(SRC)/screen.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) -o $(BIN)/screen.o $(SRC)/screen.cpp
+
+menucli.o: $(SRC)/menucli.cpp $(SRC)/menucli.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) -o $(BIN)/menucli.o $(SRC)/menucli.cpp
 
 # Run rule
 run: $(TARGET)

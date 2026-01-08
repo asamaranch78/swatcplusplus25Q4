@@ -69,7 +69,7 @@ classDiagram
 		+enum fueltype
 		+enum type
 		+info() void
-		+fuelEfficiency() float
+		+fuelEfficiencyCalc() float
         +saveToFile(file) void
 	}
 
@@ -77,7 +77,7 @@ classDiagram
 		+uint doors
 		+uint trunkCapacity
 		+info() void
-		+fuelEfficiency() float
+		+fuelEfficiencyCalc() float
         +saveToFile(file) void
 	}
 
@@ -86,7 +86,7 @@ classDiagram
 		+uint trunkCapacity
 		+uint range
 		+info() void
-		+fuelEfficiency() float
+		+fuelEfficiencyCalc() float
         +saveToFile(file) void
 	}
 
@@ -94,14 +94,14 @@ classDiagram
 		+uint axles
 		+uint payloadCapacity
 		+info() void
-		+fuelEfficiency(): float
+		+fuelEfficiencyCalc(): float
         +saveToFile(file) void
 	}
 
 	class Motorbike {
 		+uint seats
 		+info() void
-		+fuelEfficiency(): float
+		+fuelEfficiencyCalc(): float
         +saveToFile(file) void
 	}
 ```
@@ -130,9 +130,10 @@ All the code to handle the menu will be encapsulated in a menu class to organise
 classDiagram
 class Menu {
 	- char selectedOption
-	+ askForSelection ()
+	+ askForSelection () bool
 	+ handleSelected ()
 	- addVehicle()
+    - removeVehicle()
 	- listVehicles()
 	- filterVehicle()
 	- filterByType() 
@@ -140,7 +141,7 @@ class Menu {
 	- filterByYearRange()
 	- computeFuelEfficiency()
 	- exportData()
-	- eraseData() 
+	- deleteData() 
 	- importData()
 	
 }
