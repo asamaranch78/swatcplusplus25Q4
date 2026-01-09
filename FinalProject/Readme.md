@@ -124,6 +124,8 @@ In order to handle the data a data class will be create, this will store shared 
 classDiagram
 class DataSet {
     + vector Vehicle* dataSet
+    + vector Vehicle* fileteredData
+    + vector Vehicle* displayedData
     + addVehicle(Vehicle*) void
     + deleteVehicle(Vehicle*) void
     + deleteAllData() void
@@ -156,6 +158,39 @@ class Menu {
 ```
 
 The method on this class will be responsible of asking for the input from the user and call the necessary methods. There is also two files with all the messages as constants call messages.cpp and messages.h.
+
+### TUI - Ncurses (Later)
+
+```mermaid
+classDiagram
+    Window <-- PopUpWindow
+    Window <-- MainWindow
+    PopUpWindow <-- AddWindow
+    class Window {
+        + WINDOW* window
+        + int width
+        + int height
+        + int minWidth
+        + int centerY
+        + int centerX 
+        + print(x, y, str, color)
+    }
+    class PopUpWindow {
+        + close()
+    }
+    class AddWindow {
+        + enum SelectedField
+        + drawWindow()
+        + addCar()
+        + addTruck()
+        + addElectricCar()
+        + addMotorbike()
+    }
+    class MainWindow {
+        + drawConstantPart()
+        + drawDisplayData(begin, end)
+    }
+```
 
 ## Class details
 
