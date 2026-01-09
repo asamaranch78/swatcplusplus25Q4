@@ -69,9 +69,9 @@ classDiagram
 		+enum fueltype
 		+enum type
 		+info() void
-		+fuelEfficiencyCalc() void
+		+fuelEfficiencyCalc(msg) void
         +saveToFile(file) void
-        +askUserForData() void
+        +askUserForData(msg) void
         +laodFromFile() void
 	}
 
@@ -79,18 +79,18 @@ classDiagram
 		+uint doors
 		+uint trunkCapacity
 		+info() void
-		+fuelEfficiencyCalc() void
+		+fuelEfficiencyCalc(msg) void
         +saveToFile(file) void
-        +askUserForData() void
+        +askUserForData(msg) void
         +laodFromFile() void
 	}
 
 	class ElectricCar {
 		+uint range
 		+info() void
-		+fuelEfficiencyCalc() void
+		+fuelEfficiencyCalc(msg) void
         +saveToFile(file) void
-        +askUserForData() void
+        +askUserForData(msg) void
         +laodFromFile() void
 	}
 
@@ -98,18 +98,18 @@ classDiagram
 		+uint axles
 		+uint payloadCapacity
 		+info() void
-		+fuelEfficiencyCalc(): void
+		+fuelEfficiencyCalc(msg): void
         +saveToFile(file) void
-        +askUserForData() void
+        +askUserForData(msg) void
         +laodFromFile() void
 	}
 
 	class Motorbike {
 		+uint seats
 		+info() void
-		+fuelEfficiencyCalc(): void
+		+fuelEfficiencyCalc(msg): void
         +saveToFile(file) void
-        +askUserForData() void
+        +askUserForData(msg) void
         +laodFromFile() void
 	}
 ```
@@ -119,7 +119,6 @@ This will be the four different type of classes, they will all have and info and
 ### Data
 
 In order to handle the data a data class will be create, this will store shared pointers to all the vehicle class instances using a vector.
-The data class will have the methods to import data from files and export it to files.
 
 ```mermaid
 classDiagram
@@ -157,25 +156,6 @@ class Menu {
 ```
 
 The method on this class will be responsible of asking for the input from the user and call the necessary methods. There is also two files with all the messages as constants call messages.cpp and messages.h.
-
-### TUI - Ncurses (Later)
-
-```mermaid
-classDiagram
-    Window <-- PopUpWindow
-    class Window {
-        + WINDOW* window
-        + int width
-        + int height
-        + int centerY
-        + int centerX 
-        + print(x, y, str, color)
-        }
-    class PopUpWindow {
-        + close()
-        }
-```
-
 
 ## Class details
 
