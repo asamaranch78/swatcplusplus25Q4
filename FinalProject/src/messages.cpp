@@ -15,3 +15,9 @@ void printListHeader(void) {
     std::cout << std::setw(GAP) << "Special";
     std::cout << std::endl;
 }
+
+void printMessage(std::vector<std::string> *message) {
+    for (size_t i = 0; i < message->size(); i++) {
+        std::cout << message->at(i) << std::endl;
+    }
+}

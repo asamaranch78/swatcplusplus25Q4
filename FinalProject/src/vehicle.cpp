@@ -1,8 +1,10 @@
+#include <cstdint>
 #include <iostream>
 #include <iomanip>
 
 #include "vehicle.h"
 #include "constants.h"
+#include "messages.h"
 
 void Vehicle::info(void) {
     std::cout << std::left;
@@ -25,16 +27,31 @@ void Vehicle::info(void) {
     }
 }
 
-void Vehicle::askUserData(void) {
+void Vehicle::askUserData(Msg *msg) {
     fuelEfficiency = 0.0;
-    std::cout << "What is the manufacturer? ";
+    std::cout << msg->askManufacturer;
     std::cin >> manufacturer;
-    std::cout << "What is the model? ";
+    std::cout << msg->askModel;
     std::cin >> model;
-    std::cout << "What year? ";
+    std::cout << msg->askYear;
     std::cin >> year;
-    std::cout << "What is the weight? ";
+    std::cout << msg->askWeight2;
     std::cin >> weight; 
 }
 
+FuelTypes Vehicle::askFuelType(Msg *msg) {
+    uint16_t userInput;
 
+    printMessage(&(msg->menuFuelTypeSelection));
+    std::cin >> userInput;
+
+    switch (userInput) {
+        case 1:
+            return FuelTypes::DIESEL;
+        case 2:
+            return FuelTypes::GASOLINE;
+        default:
+            std::cout << "Bad selection";
+            return FuelTypes::DIESEL;
+    }
+}

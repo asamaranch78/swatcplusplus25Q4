@@ -201,25 +201,25 @@ This are the options to be selected by the user, all of them are coded by letter
 
 ```mermaid
 flowchart TD
-A(["Ask for common data"])
+A(["Ask for type"])
 B{"Switch Type"}
 C["Ask for car data"]
 D["Ask for electricCar data"]
 E["Ask for truck data"]
 F["Ask for motorbike data"]
-G["Create vehicle object with the data"]
+G["Create vehicle object"]
 H["Add new object to dataSet"]
 I(["Return 0"])
-A --> B
+A --> G
+G --> B
 B -- "car" --> C
 B -- "electricCar" --> D
 B -- "truck" --> E
 B -- "motorbike" --> F
-C --> G
-D --> G
-E --> G
-F --> G
-G --> H
+C --> H
+D --> H
+E --> H
+F --> H
 H --> I
 ```
 

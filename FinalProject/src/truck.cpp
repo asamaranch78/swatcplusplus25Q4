@@ -7,7 +7,7 @@
 
 void Truck::info(void) {
     Vehicle::info();
-    std::cout << std::setw(GAP) << "Car";
+    std::cout << std::setw(GAP) << "Truck";
     std::cout << "Axles: " << axles;
     std::cout << "\t";
     std::cout << "Paylod Capacity: " << payloadCapacity;
@@ -22,9 +22,9 @@ void Truck::saveToFile(void) {
     return;
 }
 
-void Truck::askUserData(void) {
+void Truck::askUserData(Msg *msg) {
     type = Types::TRUCK;
-    Vehicle::askUserData();
+    Vehicle::askUserData(msg);
     fuelType = FuelTypes::DIESEL;
 
     std::cout << "How many axles? ";

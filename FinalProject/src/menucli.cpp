@@ -8,10 +8,12 @@
 #include "constants.h"
 #include "dataSet.h"
 #include "messages.h"
+#include "car.h"
+#include "truck.h"
 
 
 bool MenuCLI::askForSelection(void) {
-    for (auto line: msg.menuMessages) { std::cout << line << std::endl; }
+    printMessage(&msg.menuMessages);
     std::cin >> selectedOption;
     selectedOption = std::toupper(selectedOption);
     if (selectedOption == 'Q') { return false; }
@@ -50,11 +52,36 @@ void MenuCLI::handleSelection(std::shared_ptr<DataSet> data) {
 }
 
 void MenuCLI::addVehicle(std::shared_ptr<DataSet> data) {
-    return;
+    uint16_t selectedType;
+    std::shared_ptr<Car> car = std::make_shared<Car>();
+    std::shared_ptr<Truck> truck = std::make_shared<Truck>();
+    printMessage(&msg.menuTypeSelection);
+    std::cin >> selectedType;
+    switch (selectedType) {
+        case 1:
+            car->askUserData(&msg);
+            data->addVehicle(car);
+            break;
+        case 2:
+            //Make Electric car
+            std::cout << "Not implemented";
+            break;
+        case 3:
+            truck->askUserData(&msg);
+            data->addVehicle(truck);
+            break;
+        case 4:
+            //Make motorbike
+            std::cout << "Not implemented";
+            break;
+        default:
+            std::cout << "Invalid value";
+    }
+
 }
 
 void MenuCLI::removeVehicle(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::listVehicles(std::shared_ptr<DataSet> data) {
@@ -70,33 +97,33 @@ void MenuCLI::listVehicles(std::shared_ptr<DataSet> data) {
 }
 
 void MenuCLI::filterVehicle(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::filterByType(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::filterByBrand(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::filterByYear(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::computeFuelEfficiency(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::exportData(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::eraseData(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }
 
 void MenuCLI::importData(std::shared_ptr<DataSet> data) {
-    return;
+    if (data) { return; }
 }

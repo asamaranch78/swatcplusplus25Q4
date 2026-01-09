@@ -41,10 +41,6 @@ $(BIN)/car.o: $(SRC)/car.cpp $(SRC)/car.h $(BIN)/vehicle.o
 $(BIN)/truck.o: $(SRC)/truck.cpp $(SRC)/truck.h $(BIN)/vehicle.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) -o $(BIN)/truck.o $(SRC)/truck.cpp
 
-all: $(SRC)/*
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)/*.cpp
-
-
 # Run rule
 run: $(TARGET)
 	./$(TARGET)
@@ -52,4 +48,5 @@ run: $(TARGET)
 # Clean rule
 clean:
 	rm $(BIN)/*
+	rm project.app
 

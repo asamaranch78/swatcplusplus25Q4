@@ -22,27 +22,11 @@ void Car::saveToFile(void) {
     return;
 }
 
-void Car::askUserData(void) {
-    uint16_t userInput;
+void Car::askUserData(Msg *msg) {
     type = Types::CAR;
-    Vehicle::askUserData();
-    
-    std::cout << "Choose fuel type, DIESEL (1) or GASOLINE (2)? ";
-    std::cin >> userInput;
+    Vehicle::askUserData(msg);
 
-    switch (userInput) {
-        case 1:
-            fuelType = FuelTypes::DIESEL;
-            break;
-        case 2:
-            fuelType = FuelTypes::GASOLINE;
-            break;
-        default:
-            std::cout << "Bad selection";
-            fuelType = FuelTypes::DIESEL;
-            break;
-    }
-
+    fuelType = Vehicle::askFuelType(msg);
     std::cout << "How many doors? ";
     std::cin >> doors;
     std::cout << "Trunk capacity? ";
