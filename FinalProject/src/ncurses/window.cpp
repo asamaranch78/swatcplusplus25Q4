@@ -20,8 +20,12 @@ Window::Window(uint16_t par_height,
     if (drawBorder) { box(window, 0, 0); }
 }
 
-void Window::print(uint16_t x,uint16_t y, std::string str, uint16_t color) {
-    mvwprintw(window, x, y, str.data(), COLOR_PAIR(color));
+void Window::print(uint16_t y,uint16_t x, std::string str, uint16_t color) {
+    mvwprintw(window, y, x, str.data(), COLOR_PAIR(color));
+}
+
+void Window::append(std::string str) {
+    printw(str.data());
 }
 
 void Window::refresh() {

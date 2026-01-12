@@ -20,7 +20,8 @@ public:
            uint16_t startY,
            uint16_t backgroundColor,
            bool drawBorder); 
-    void print(uint16_t x,uint16_t y, std::string str, uint16_t color);
+    void print(uint16_t y,uint16_t x, std::string str, uint16_t color);
+    void append(std::string str);
     void refresh();
 };
 
