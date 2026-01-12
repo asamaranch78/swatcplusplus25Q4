@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 
 using namespace std;
@@ -18,6 +19,7 @@ void typeMenu();
 void addVehicle(map<int,Vehicle*> &vehicles);
 void saveToFile(const map<int,Vehicle*> &vehicles);
 void loadFromFile(map<int,Vehicle*> &vehicles);
+void orderVehicles(map<int,Vehicle*> &vehicles);
 
 /* Funciones de entrada de tipos de clases */
 Car * inputCar();
@@ -45,11 +47,18 @@ int main(){
 
             case 2: // Listar Vehículos
                 clearScreen();
+                cout<< vehicles.size() << " vehicles available:\n"<<endl;
+
                 for(const auto& v : vehicles){
                     cout << v.first ;
-                    cout << "-" + v.second->info() << endl;
-                }
-                cout<< vehicles.size() << " vehicles available:\n"<<endl;
+                    cout << " - " + v.second->info() << endl;
+                    }
+
+                break;
+
+            case 3: // Ordenar Vehículos
+                clearScreen();
+                orderVehicles(vehicles);
                 break;
 
             case 4: // Guardar Datos
@@ -348,3 +357,46 @@ void loadFromFile(map<int,Vehicle*> &vehicles) {
     
         file.close();
     }
+
+
+void orderVehicles(map<int,Vehicle*> &vehicles){
+    vector<pair<int, Vehicle*>> vec(vehicles.begin(), vehicles.end());
+    int option;
+    cout << "*****************"<<endl;
+    cout << "*     SORT BY   *"<<endl;
+    cout << "*****************\n"<<endl;
+    cout << "\t 1 - Fuel efficiency"<<endl;
+    cout << "\t 2 - Year"<<endl;
+
+    cout << "Select option:";
+    cin >> option;
+    
+    switch (option)
+    {
+    case 1:
+        std::sort(vec.begin(), vec.end(), [](const pair<int, Vehicle*>& a, const pair<int, Vehicle*>& b) {
+            return a.second->fuelEfficiency() > b.second->fuelEfficiency();
+        });
+        cout << "Vehicles sorted by fuel efficiency.\n"<<endl;
+        break;
+
+    case 2:
+        std::sort(vec.begin(), vec.end(), [](const pair<int, Vehicle*>& a, const pair<int, Vehicle*>& b) {
+            return a.second->year < b.second->year;
+        });
+        cout << "Vehicles sorted by year.\n"<<endl;
+        break;
+        
+    default:
+        break;
+    }
+
+    
+    for(auto& v : vec){
+        cout << v.first ;
+        cout << " - " + v.second->info() << endl;
+    }
+
+}
+
+
