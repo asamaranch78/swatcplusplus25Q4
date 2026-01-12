@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 #include "car.h"
 #include "vehicle.h"
@@ -12,6 +13,14 @@ void Car::info(void) {
     std::cout << "\t";
     std::cout << "Trunk Capacity: " << trunkCapacity;
     std::cout << std::endl;
+}
+
+std::string Car::getSpecial(void) {
+    std::string special {};
+    special = "Doors: " + std::to_string(doors);
+    special += "\t";
+    special += "Trunk capacity: " + std::to_string(trunkCapacity);
+    return special;
 }
 
 void Car::fuelEfficiencyCalc(void) {

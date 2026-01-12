@@ -12,6 +12,7 @@
 
 #define MAIN_COLOR 1
 #define MENU_COLOR 2
+#define SELECTED_COLOR 3
 
 #define HEARDER_LINE 1
 #define MENU_OFFSET 2
@@ -24,8 +25,8 @@
 #define WEIGHT_COL YEAR_COL + GAP
 #define FUEL_EFFI_COL WEIGHT_COL + WIDE_GAP
 #define FUEL_TYPE_COL FUEL_EFFI_COL + WIDE_GAP
-#define TYPE_COL FUEL_TYPE_COL + GAP
-#define ESPECIAL_COL TYPE_COL + GAP
+#define TYPE_COL FUEL_TYPE_COL + WIDE_GAP
+#define SPECIAL_COL TYPE_COL + WIDE_GAP
 
 extern void initData(std::shared_ptr<DataSet> data);
 

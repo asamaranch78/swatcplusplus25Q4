@@ -14,6 +14,14 @@ void Truck::info(void) {
     std::cout << std::endl;
 }
 
+std::string Truck::getSpecial(void) {
+    std::string special {};
+    special = "Axles: " + std::to_string(axles);
+    special += "\t";
+    special += "Payload capacity: " + std::to_string(payloadCapacity);
+    return special;
+}
+
 void Truck::fuelEfficiencyCalc(void) {
     return;
 }

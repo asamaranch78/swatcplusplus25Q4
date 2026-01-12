@@ -18,6 +18,7 @@ public:
     virtual void saveToFile() override;
     virtual void askUserData(Msg *msg) override;
     virtual void loadFromFile() override;
+    virtual std::string getSpecial(void) override;
 };
 
 #endif

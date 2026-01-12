@@ -23,13 +23,14 @@ int main (void) {
     }*/
     initscr();
     start_color();
+    curs_set(0); // Hide cursor
     centerX = getmaxx(stdscr) / 2;
     windowHeight = getmaxy(stdscr);
 
     init_pair(MAIN_COLOR, COLOR_WHITE, COLOR_BLACK);
+    init_pair(SELECTED_COLOR, COLOR_BLACK, COLOR_WHITE);
     init_pair(MENU_COLOR, COLOR_GREEN, COLOR_BLACK);
 
-    //Window mainWin (windowHeight, 160, 0, centerX - 80, MAIN_COLOR, true);
     MainWindow mainWin (windowHeight, centerX, MAIN_COLOR);
     mainWin.drawConstantPart();
     mainWin.drawDisplayData(data);

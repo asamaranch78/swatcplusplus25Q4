@@ -37,7 +37,7 @@ void MainWindow::drawConstantPart(void) {
     Window::print(HEARDER_LINE, FUEL_EFFI_COL, "Fuel Effi", MAIN_COLOR);
     Window::print(HEARDER_LINE, FUEL_TYPE_COL, "Fuel Type", MAIN_COLOR);
     Window::print(HEARDER_LINE, TYPE_COL, "Type", MAIN_COLOR);
-    Window::print(HEARDER_LINE, ESPECIAL_COL, "Special", MAIN_COLOR);
+    Window::print(HEARDER_LINE, SPECIAL_COL, "Special", MAIN_COLOR);
         
 }
 
@@ -47,7 +47,9 @@ void MainWindow::printVehicle(std::shared_ptr<Vehicle> ptr, int8_t line) {
     Window::print(line, YEAR_COL, std::to_string(ptr->year), MAIN_COLOR);
     Window::print(line, WEIGHT_COL, std::to_string(ptr->weight), MAIN_COLOR);
     Window::print(line, FUEL_EFFI_COL, std::to_string(ptr->fuelEfficiency), MAIN_COLOR);
-    //Window::print(line, FUEL_TYPE_COL, ptr->manufacturer, MAIN_COLOR);
+    Window::print(line, FUEL_TYPE_COL, ptr->getFuelType(), MAIN_COLOR);
+    Window::print(line, TYPE_COL, ptr->getType(), MAIN_COLOR);
+    Window::print(line, SPECIAL_COL, ptr->getSpecial(), MAIN_COLOR);
 
 }
 

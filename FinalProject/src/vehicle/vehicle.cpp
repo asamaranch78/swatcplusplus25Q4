@@ -14,17 +14,32 @@ void Vehicle::info(void) {
     std::cout << std::setw(GAP) << weight;
     std::cout << std::setw(WIDE_GAP) << fuelEfficiency;
     
+}
+
+std::string Vehicle::getFuelType(void) {
     switch (fuelType) {
         case FuelTypes::DIESEL:
-            std::cout << std::setw(WIDE_GAP) << "Diesel";
-            break;
+            return "Diesel";
         case FuelTypes::ELECTRIC:
-            std::cout << std::setw(WIDE_GAP) << "Electric";
-            break;
+            return "Electric";
         case FuelTypes::GASOLINE:
-            std::cout << std::setw(WIDE_GAP) << "Gasoline";
-            break;
+            return "Gasoline";
     }
+    return "Unknown";
+}
+
+std::string Vehicle::getType(void) {
+    switch (type) {
+        case Types::CAR:
+            return "Car";
+        case Types::ELECTRIC_CAR:
+            return "Electric Car";
+        case Types::MOTORBIKE:
+            return "Motorbike";
+        case Types::TRUCK:
+            return "Truck";
+    }
+    return "Unknown";
 }
 
 void Vehicle::askUserData(Msg *msg) {
