@@ -8,6 +8,8 @@
 #define GAP 10
 #define SHORT_GAP 3
 
+#define MAIN_COLOR 1
+
 extern void initData(std::shared_ptr<DataSet> data);
 
 #endif
