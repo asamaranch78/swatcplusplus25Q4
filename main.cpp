@@ -19,7 +19,8 @@ void typeMenu();
 void addVehicle(map<int,Vehicle*> &vehicles);
 void saveToFile(const map<int,Vehicle*> &vehicles);
 void loadFromFile(map<int,Vehicle*> &vehicles);
-void orderVehicles(map<int,Vehicle*> &vehicles);
+void sortVehicles(map<int,Vehicle*> &vehicles);
+void filterVehicles(const map<int,Vehicle*> &vehicles);
 
 /* Funciones de entrada de tipos de clases */
 Car * inputCar();
@@ -58,7 +59,7 @@ int main(){
 
             case 3: // Ordenar Vehículos
                 clearScreen();
-                orderVehicles(vehicles);
+                sortVehicles(vehicles);
                 break;
 
             case 4: // Guardar Datos
@@ -72,6 +73,12 @@ int main(){
                 loadFromFile(vehicles);
                 cout << "Data loaded.\n"<<endl;
                 break;
+
+            case 6:
+                clearScreen();
+                filterVehicles(vehicles);
+                break;
+    
 
             case 0: // Salir
                 clearScreen();
@@ -140,6 +147,7 @@ void addVehicle(map<int,Vehicle*> &vehicles){
 
 // Muestra el menú principal
 void mainMenu(){ 
+
     cout << "**********************"<<endl;
     cout << "* VEHICLE MANAGEMENT *"<<endl;
     cout << "**********************\n"<<endl;
@@ -148,8 +156,10 @@ void mainMenu(){
     cout << "\t 3 - Sort Vehicles"<<endl;
     cout << "\t 4 - Save Data"<<endl;
     cout << "\t 5 - Load Data"<<endl;
-    cout << "\t 0 - Salir\n"<<endl;
-    cout << "Selecciona opcion:";
+    cout << "\t 6 - Filters"<<endl;
+    cout << "\t 0 - Exit\n"<<endl;
+    cout << "Select option:";
+    
 }
 
 
@@ -162,7 +172,7 @@ void typeMenu(){
     cout << "\t 2 - Bike"<<endl;
     cout << "\t 3 - Truck"<<endl;
     cout << "\t 0 - Back\n"<<endl;
-    cout << "Selecciona opcion:";
+    cout << "Select option:";
 }
 
 // Funciones de entrada de datos para cada tipo de vehículo
@@ -359,7 +369,7 @@ void loadFromFile(map<int,Vehicle*> &vehicles) {
     }
 
 
-void orderVehicles(map<int,Vehicle*> &vehicles){
+void sortVehicles(map<int,Vehicle*> &vehicles){
     vector<pair<int, Vehicle*>> vec(vehicles.begin(), vehicles.end());
     int option;
     cout << "*****************"<<endl;
@@ -397,6 +407,92 @@ void orderVehicles(map<int,Vehicle*> &vehicles){
         cout << " - " + v.second->info() << endl;
     }
 
+}
+
+
+void filterVehicles(const map<int,Vehicle*> &vehicles){
+    int option;
+    cout << "*****************"<<endl;
+    cout << "*   FILTER BY   *"<<endl;
+    cout << "*****************\n"<<endl;
+    cout << "\t 1 - Brand"<<endl;
+    cout << "\t 2 - Fuel type"<<endl;
+    cout << "\t 3 - Year\n"<< endl;
+
+    cout << "Select option:";
+    cin >> option;
+    string filter {};
+    vector < pair<int, Vehicle*> > vec;
+    switch (option)
+    {
+    case 1:
+        cout << "Enter brand to filter: ";
+        cin >> filter;
+        copy_if(vehicles.begin(), vehicles.end(), back_inserter(vec), [&filter](const pair<int, Vehicle*>& v) {
+            return v.second->brand == filter;
+        });
+        cout<< " Vehicles found: " << vec.size() <<endl;
+        for(const auto& v : vec){
+            cout << v.first ;
+            cout << " - " + v.second->info() << endl;
+        }
+        break;
+
+    case 2:
+        cout << "Select fuel type (0 - Petrol, 1 - Diesel, 2 - Electric): ";
+        int fuelOption;
+        cin >> fuelOption;
+        Vehicle::fuelType fuelEnum;
+        switch(fuelOption){
+            case 0:
+                fuelEnum = Vehicle::Petrol;
+                break;
+            case 1:
+                fuelEnum = Vehicle::Diesel;
+                break;
+            case 2:
+                fuelEnum = Vehicle::Electric;
+                break;
+            default:
+                fuelEnum = Vehicle::Petrol;
+                break;
+        }
+
+        copy_if(vehicles.begin(), vehicles.end(), back_inserter(vec), [&fuelEnum](const pair<int, Vehicle*>& v) {
+            return v.second->fuel == fuelEnum;
+        });
+        cout<< " Vehicles found: " << vec.size() <<endl;
+        for(const auto& v : vec){
+            cout << v.first ;
+            cout << " - " + v.second->info() << endl;
+        }
+        break;
+    
+    case 3:
+        cout << "Enter year to filter: ";
+        cin >> filter;
+        try{
+            
+            copy_if(vehicles.begin(), vehicles.end(), back_inserter(vec), [&filter](const pair<int, Vehicle*>& v) {
+                return v.second->year == stoi(filter);
+            });
+
+            cout<< " Vehicles found: " << vec.size() <<endl;
+
+            for(const auto& v : vec){
+                cout << v.first ;
+                cout << " - " + v.second->info() << endl;
+            }
+        
+        } catch (const std::invalid_argument& ia) {
+            cout << "Invalid year input.\n"<<endl;
+        }
+        break;
+        
+    default:
+        break;
+
+    }
 }
 
 
