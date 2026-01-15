@@ -6,11 +6,9 @@
 
 PopUpWindow::PopUpWindow(uint16_t height,
                          uint16_t width,
-                         uint16_t startX,
-                         uint16_t startY,
                          uint16_t backgroundColor,
                          std::shared_ptr<MainWindow> mainWin) :
-Window(height, width, startX, startY, backgroundColor, true) {
+Window(height, width, mainWin->centerX - (width/2), mainWin->centerY - (height/2), backgroundColor, true) {
     panel = new_panel(window);
     mainWindow = mainWin;
 }

@@ -9,13 +9,15 @@
 #include "dataSet.h"
 #include "constants.h"
 #include "mainWindow.h"
-#include "ncurses/popUpWindow.h"
+#include "keyHandler.h"
+#include "popUpWindow.h"
 
 int main (void);
 
 int main (void) {
     std::shared_ptr<DataSet> data = std::make_shared<DataSet>();
     uint16_t windowHeight, centerX;
+    
 
     initData(data);
 
@@ -26,13 +28,15 @@ int main (void) {
     }*/
     initscr();
     start_color();
+    noecho();
+    keypad(stdscr, TRUE);
     curs_set(0); // Hide cursor
     centerX = getmaxx(stdscr) / 2;
     windowHeight = getmaxy(stdscr);
 
     init_pair(MAIN_COLOR, COLOR_WHITE, COLOR_BLACK);
     init_pair(SELECTED_COLOR, COLOR_BLACK, COLOR_WHITE);
-    init_pair(MENU_COLOR, COLOR_GREEN, COLOR_BLACK);
+    init_pair(MENU_COLOR, COLOR_CYAN, COLOR_BLACK);
     init_pair(ERROR_COLOR, COLOR_WHITE, COLOR_RED);
 
     std::shared_ptr<MainWindow> mainWin;
@@ -40,23 +44,20 @@ int main (void) {
     mainWin->drawConstantPart();
     mainWin->drawDisplayData(data);
     mainWin->refresh();
+    KeyHandler keyboard(mainWin);
 
-    sleep(1);
+    while (true) {
+        if (keyboard.listenKeyboard()) {
+            keyboard.handleKey();
 
-    std::unique_ptr<PopUpWindow> errorWin;
-    errorWin = std::make_unique<PopUpWindow>(5, 40, centerX - 20, windowHeight / 2, ERROR_COLOR, mainWin);
-    errorWin->putOnTop();
+            mainWin->drawDisplayData(data);
+            mainWin->refresh();
 
-    for (std::size_t i = 0; i < 20; i++) {
-        errorWin->print(1, 5, std::to_string(20 - i), ERROR_COLOR);
-        errorWin->refresh();
-        sleep(1);
+            napms(100);
+        }
+        else {
+            endwin();
+            return 0;
+        }
     }
-
-    errorWin.reset();
-
-    sleep(5);
-    endwin();
-
-    return 0;
 }

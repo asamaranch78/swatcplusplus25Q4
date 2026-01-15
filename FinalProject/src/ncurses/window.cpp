@@ -20,12 +20,20 @@ Window::Window(uint16_t par_height,
     if (drawBorder) { box(window, 0, 0); }
 }
 
-void Window::print(uint16_t y,uint16_t x, std::string str, uint16_t color) {
-    mvwprintw(window, y, x, str.data(), COLOR_PAIR(color));
+void Window::print(uint16_t y,uint16_t x, std::string str) {
+    mvwprintw(window, y, x, "%s",str.data());
+}
+
+void Window::removeColor(uint8_t color) {
+    wattroff(window, COLOR_PAIR(color));
+}
+
+void Window::changeColor(uint8_t color) {
+    wattron(window, COLOR_PAIR(color));
 }
 
 void Window::append(std::string str) {
-    printw(str.data());
+    wprintw(window, "%s", str.data());
 }
 
 void Window::refresh() {

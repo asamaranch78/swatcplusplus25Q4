@@ -14,8 +14,6 @@ public:
 
     PopUpWindow(uint16_t height,
                 uint16_t width,
-                uint16_t startX,
-                uint16_t startY,
                 uint16_t backgroundColor,
                 std::shared_ptr<MainWindow> mainWin);
 

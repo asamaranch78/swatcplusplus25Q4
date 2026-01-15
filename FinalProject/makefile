@@ -34,7 +34,7 @@ INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC)
 BIN = bin
 
 # Objects to build
-NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o
+NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(BIN)/keyHandler.o
 VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
 OTHER_OBJ = $(BIN)/menucli.o $(BIN)/messages.o $(BIN)/dataSet.o $(BIN)/constants.o
 OBJECTS = $(NCURSES_OBJ) $(VEHICLE_OBJ) $(OTHER_OBJ)
@@ -72,6 +72,9 @@ $(BIN)/mainWindow.o: $(NCURSES)/mainWindow.cpp $(NCURSES)/mainWindow.h $(BIN)/wi
 
 $(BIN)/popUpWindow.o: $(NCURSES)/popUpWindow.cpp $(NCURSES)/popUpWindow.h $(BIN)/window.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/popUpWindow.o $(NCURSES)/popUpWindow.cpp
+
+$(BIN)/keyHandler.o: $(NCURSES)/keyHandler.cpp $(NCURSES)/keyHandler.h $(BIN)/popUpWindow.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/keyHandle.o $(NCURSES)/keyHandler.cpp
 
 # Run rule
 run: $(TARGET)
