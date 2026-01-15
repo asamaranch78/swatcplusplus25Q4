@@ -22,7 +22,7 @@ public:
            bool drawBorder); 
     void print(uint16_t y,uint16_t x, std::string str, uint16_t color);
     void append(std::string str);
-    void refresh();
+    virtual void refresh();
 };
 
 #endif

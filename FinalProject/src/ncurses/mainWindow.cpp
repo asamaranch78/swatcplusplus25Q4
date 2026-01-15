@@ -1,17 +1,24 @@
 #include "mainWindow.h"
 #include "constants.h"
 #include "vehicle.h"
+#include "window.h"
 #include <cstddef>
 #include <memory>
+#include <panel.h>
 #include <string>
 
 MainWindow::MainWindow(uint16_t windowHeight, uint16_t windowCenterX, uint16_t mainColor) :
-    Window(windowHeight, SCREEN_WIDTH, 0, windowCenterX - (SCREEN_WIDTH/2), mainColor, true) {
+    Window(windowHeight, SCREEN_WIDTH, windowCenterX - (SCREEN_WIDTH/2), 0, mainColor, true) {
     menuLine = windowHeight - MENU_OFFSET;
     separatorLine = windowHeight - (SEP_OFFSET);
     dataLines = windowHeight - 2 - (SEP_OFFSET);
+    panel = new_panel(window);
 }
 
+void MainWindow::refresh() {
+    update_panels();
+    Window::refresh();
+}
 
 void MainWindow::drawDisplayData(std::shared_ptr<DataSet> data) {
     uint8_t line {DATA_OFFSET};
@@ -19,8 +26,6 @@ void MainWindow::drawDisplayData(std::shared_ptr<DataSet> data) {
         printVehicle(point, line);
         line++;
     }
-
-
 }
 
 void MainWindow::drawConstantPart(void) {

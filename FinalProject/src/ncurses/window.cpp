@@ -14,7 +14,7 @@ Window::Window(uint16_t par_height,
     centerX = width / 2;
     backgroundColor = parBackgroundColor;
 
-    window = newwin(height, width, startX, startY);
+    window = newwin(height, width, startY, startX);
     wbkgd(window, COLOR_PAIR(parBackgroundColor));
 
     if (drawBorder) { box(window, 0, 0); }

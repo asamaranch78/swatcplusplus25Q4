@@ -13,6 +13,7 @@
 #define MAIN_COLOR 1
 #define MENU_COLOR 2
 #define SELECTED_COLOR 3
+#define ERROR_COLOR 4
 
 #define HEARDER_LINE 1
 #define MENU_OFFSET 2
