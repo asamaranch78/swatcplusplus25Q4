@@ -21,6 +21,8 @@ void saveToFile(const map<int,Vehicle*> &vehicles);
 void loadFromFile(map<int,Vehicle*> &vehicles);
 void sortVehicles(map<int,Vehicle*> &vehicles);
 void filterVehicles(const map<int,Vehicle*> &vehicles);
+int intInput();
+double doubleInput();
 
 /* Funciones de entrada de tipos de clases */
 Car * inputCar();
@@ -178,7 +180,7 @@ void typeMenu(){
 // Funciones de entrada de datos para cada tipo de vehículo
 Car * inputCar(){
     string brand, model;
-    int year, numDoors;
+    int year{-1}, numDoors{-1};
     double weight;
     double trunkCapacity;
     int fuelOption;
@@ -188,14 +190,27 @@ Car * inputCar(){
     cin >> brand;
     cout << "Enter model: ";
     cin >> model;
-    cout << "Enter year: ";
-    cin >> year;
-    cout << "Enter weight (kg): ";
-    cin >> weight;
+
+    do{
+        cout << "Enter year: ";
+        year = intInput();
+    }while(year<0);
+
+    do{
+        cout << "Enter weight (kg): ";
+        weight=doubleInput();
+    } while(weight<0.0);
+
+    do{
     cout << "Enter trunk capacity (L): ";
-    cin >> trunkCapacity;
+    trunkCapacity=doubleInput();
+    }while(trunkCapacity<0.0);
+
+    do{
     cout << "Enter number of doors: ";
-    cin >> numDoors;
+        numDoors= intInput();
+    }while(numDoors<0);
+
     cout << "Select fuel type (0 - Petrol, 1 - Diesel, 2 - Electric): ";
     cin >> fuelOption;
 
@@ -217,6 +232,7 @@ Car * inputCar(){
 
 }
 
+
 Bike* inputBike(){
     string brand, model;
     int year;
@@ -231,10 +247,15 @@ Bike* inputBike(){
     cin >> brand;
     cout << "Enter model: ";
     cin >> model;
-    cout << "Enter year: ";
-    cin >> year;
-    cout << "Enter weight (kg): ";
-    cin >> weight;
+   do{
+        cout << "Enter year: ";
+        year = intInput();
+    }while(year<0);
+
+    do{
+        cout << "Enter weight (kg): ";
+        weight=doubleInput();
+    } while(weight<0.0);
     cout << "Does it have a carrier? (1 - Yes, 0 - No): ";
     cin >> hasCarrier;
     cout << "Select bike type (0 - Mountain, 1 - Road, 2 - Hybrid): ";
@@ -276,6 +297,7 @@ Bike* inputBike(){
     return new Bike(brand, model, year, fuel, weight, hasCarrier, type);
 }
 
+
 Truck * inputTruck(){
     string brand, model;
     int year, numAxles;
@@ -287,10 +309,16 @@ Truck * inputTruck(){
     cin >> brand;
     cout << "Enter model: ";
     cin >> model;
-    cout << "Enter year: ";
-    cin >> year;
-    cout << "Enter weight (kg): ";
-    cin >> weight;
+    
+    do{
+        cout << "Enter year: ";
+        year = intInput();
+    }while(year<0);
+
+    do{
+        cout << "Enter weight (kg): ";
+        weight=doubleInput();
+    } while(weight<0.0);
     cout << "Enter max load (kg): ";
     cin >> maxLoad;
     cout << "Enter number of axles: ";
@@ -316,6 +344,7 @@ Truck * inputTruck(){
     return new Truck(brand, model, year, fuel, weight, maxLoad, numAxles);
 }
 
+
 void saveToFile(const map<int,Vehicle*> &vehicles) {
     
     std::ofstream file("data.csv"); // crea o sobrescribe el fichero
@@ -330,7 +359,6 @@ void saveToFile(const map<int,Vehicle*> &vehicles) {
     
     file.close();
     }
-
 
 
 void loadFromFile(map<int,Vehicle*> &vehicles) {
@@ -496,3 +524,25 @@ void filterVehicles(const map<int,Vehicle*> &vehicles){
 }
 
 
+int intInput(){
+    string input;
+    cin >> input;
+    try {
+        return stoi(input);
+    } catch (const std::invalid_argument& ia) {
+        cout << "Invalid input. Please enter a valid integer value.\n";
+        return -1;
+    }
+}
+
+
+double doubleInput(){
+    string input;
+    cin >> input;
+    try {
+        return stod(input);
+    } catch (const std::invalid_argument& ia) {
+        cout << "Invalid input. Please enter a valid decimal value.\n";
+        return -1.0;
+    }
+}
