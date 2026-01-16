@@ -74,6 +74,35 @@ void MainWindow::printBlankLine(int8_t line) {
         Window::print(line, i, " ");
     }
 }
+bool MainWindow::listenKeyboard(void) {
+    pressedKey = getch();
+
+    if (pressedKey == 'q' || pressedKey == 'Q') {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+void MainWindow::handleKey(void) {
+    switch (pressedKey) {
+        case 'a':
+        case 'A':
+            //addVehicle();
+            break;
+        case 'j':
+        case 'J':
+        case KEY_DOWN:
+            cursorDown();
+            break;
+        case 'k':
+        case 'K':
+        case KEY_UP:
+            cursorUp();
+            break;
+    }
+}
 
 void MainWindow::cursorDown() {
     cursor++;

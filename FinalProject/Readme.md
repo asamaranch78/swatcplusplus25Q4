@@ -165,7 +165,6 @@ The method on this class will be responsible of asking for the input from the us
 classDiagram
     Window <-- PopUpWindow
     Window <-- MainWindow
-    PopUpWindow <-- AddWindow
     class Window {
         + WINDOW* window
         + int width
@@ -174,19 +173,35 @@ classDiagram
         + int centerY
         + int centerX 
         + print(x, y, str, color)
+        + removeColor(int color)
+        + changeColor(int color)
+        + refresh()
     }
     class PopUpWindow {
+        + PANEL *panel
+        + mainWindow
         + close()
-    }
-    class AddWindow {
-        + enum SelectedField
-        + drawWindow()
-        + addCar()
-        + addTruck()
-        + addElectricCar()
-        + addMotorbike()
+        + refresh()
+        + putOnTop()
+        + hide()
+        + show()
     }
     class MainWindow {
+        + PANEL *panel
+        + char selectedKey
+        + int dataLines
+        + int menuLine
+        + int centerX
+        + int centerY
+        + int separatorLine
+        + int cursor
+        + int cursorMax
+        + int cursorMin
+        + bool listenKeyboard()
+        + handleKey()
+        + cursorDown()
+        + cursorUp()
+        + refresh()
         + drawConstantPart()
         + drawDisplayData(begin, end)
     }

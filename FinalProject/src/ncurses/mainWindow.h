@@ -17,6 +17,7 @@ private:
 public:
     PANEL *panel;
     char selectedAction;
+    uint16_t pressedKey;
     uint8_t dataLines;
     uint8_t menuLine;
     uint8_t centerX;
@@ -27,6 +28,8 @@ public:
     uint8_t cursorMin;
 
     MainWindow(uint16_t windowHeight, uint16_t windowCenterX, uint16_t mainColor);
+    bool listenKeyboard(void);
+    void handleKey(void);
     void cursorDown();
     void cursorUp();
     void refresh(void) override;

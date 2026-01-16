@@ -23,7 +23,6 @@ public:
     void putOnTop(void);
     void hide(void);
     void show(void);
-
 };
 
 #endif
