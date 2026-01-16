@@ -73,7 +73,7 @@ $(BIN)/mainWindow.o: $(NCURSES)/mainWindow.cpp $(NCURSES)/mainWindow.h $(BIN)/wi
 $(BIN)/popUpWindow.o: $(NCURSES)/popUpWindow.cpp $(NCURSES)/popUpWindow.h $(BIN)/window.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/popUpWindow.o $(NCURSES)/popUpWindow.cpp
 
-$(BIN)/keyHandler.o: $(NCURSES)/keyHandler.cpp $(NCURSES)/keyHandler.h $(BIN)/popUpWindow.o
+$(BIN)/keyHandler.o: $(NCURSES)/keyHandler.cpp $(NCURSES)/keyHandler.h $(BIN)/popUpWindow.o $(BIN)/mainWindow.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/keyHandle.o $(NCURSES)/keyHandler.cpp
 
 # Run rule
