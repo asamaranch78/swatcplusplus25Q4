@@ -213,7 +213,7 @@ classDiagram
         + Data dataSet
         + saveToDataSet
     }
-    class formDirver {
+    class formDriver {
         + int key
         + createForm(FIELD* [], sting)
         + handleForm()
