@@ -30,17 +30,6 @@ void Truck::saveToFile(void) {
     return;
 }
 
-void Truck::askUserData(Msg *msg) {
-    type = Types::TRUCK;
-    Vehicle::askUserData(msg);
-    fuelType = FuelTypes::DIESEL;
-
-    std::cout << "How many axles? ";
-    std::cin >> axles;
-    std::cout << "Payload capacity? ";
-    std::cin >> payloadCapacity;
-}
-
 void Truck::loadFromFile(void) {
     return;
 }

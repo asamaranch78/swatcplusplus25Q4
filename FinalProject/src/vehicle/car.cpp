@@ -31,17 +31,6 @@ void Car::saveToFile(void) {
     return;
 }
 
-void Car::askUserData(Msg *msg) {
-    type = Types::CAR;
-    Vehicle::askUserData(msg);
-
-    fuelType = Vehicle::askFuelType(msg);
-    std::cout << "How many doors? ";
-    std::cin >> doors;
-    std::cout << "Trunk capacity? ";
-    std::cin >> trunkCapacity;
-}
-
 void Car::loadFromFile(void) {
     return;
 }

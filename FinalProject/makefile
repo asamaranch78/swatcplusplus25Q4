@@ -26,35 +26,27 @@ TARGET = project.app
 SRC = src
 VEHICLE = $(SRC)/vehicle
 NCURSES = $(SRC)/ncurses
+MISC = $(SRC)/misc
 
 # Header files
-INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC)
+INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC) -I$(MISC)
 
 # Binary files
 BIN = bin
 
 # Objects to build
-NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o
+POP_WIN_OBJ = $(BIN)/formDriver.o $(BIN)/addCarWindow.o
+NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(POP_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
-OTHER_OBJ = $(BIN)/menucli.o $(BIN)/messages.o $(BIN)/dataSet.o $(BIN)/constants.o
+OTHER_OBJ = $(BIN)/dataSet.o $(BIN)/constants.o
 OBJECTS = $(NCURSES_OBJ) $(VEHICLE_OBJ) $(OTHER_OBJ)
 
 # Build rule
+# Main
 $(TARGET): $(SRC)/main.cpp $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $(TARGET) $(SRC)/main.cpp $(BIN)/*
 
-$(BIN)/menucli.o: $(SRC)/menucli.cpp $(SRC)/menucli.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/menucli.o $(SRC)/menucli.cpp
-
-$(BIN)/dataSet.o: $(SRC)/dataSet.cpp $(SRC)/dataSet.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/dataSet.o $(SRC)/dataSet.cpp
-
-$(BIN)/constants.o: $(SRC)/constants.cpp $(SRC)/constants.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/constants.o $(SRC)/constants.cpp
-
-$(BIN)/messages.o: $(SRC)/messages.cpp $(SRC)/messages.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/messages.o $(SRC)/messages.cpp
-
+# Vehicle module
 $(BIN)/vehicle.o: $(VEHICLE)/vehicle.cpp $(VEHICLE)/vehicle.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/vehicle.o $(VEHICLE)/vehicle.cpp
 
@@ -64,6 +56,14 @@ $(BIN)/car.o: $(VEHICLE)/car.cpp $(VEHICLE)/car.h $(BIN)/vehicle.o
 $(BIN)/truck.o: $(VEHICLE)/truck.cpp $(VEHICLE)/truck.h $(BIN)/vehicle.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/truck.o $(VEHICLE)/truck.cpp
 
+# Miscelaneous module
+$(BIN)/dataSet.o: $(MISC)/dataSet.cpp $(MISC)/dataSet.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/dataSet.o $(MISC)/dataSet.cpp
+
+$(BIN)/constants.o: $(MISC)/constants.cpp $(MISC)/constants.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/constants.o $(MISC)/constants.cpp
+
+# Window module
 $(BIN)/window.o: $(NCURSES)/window.cpp $(NCURSES)/window.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/window.o $(NCURSES)/window.cpp
 
@@ -71,6 +71,13 @@ $(BIN)/mainWindow.o: $(NCURSES)/mainWindow.cpp $(NCURSES)/mainWindow.h $(BIN)/wi
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/mainWindow.o $(NCURSES)/mainWindow.cpp
 
 $(BIN)/popUpWindow.o: $(NCURSES)/popUpWindow.cpp $(NCURSES)/popUpWindow.h $(BIN)/window.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/popUpWindow.o $(NCURSES)/popUpWindow.cpp
+
+# Pop up menus
+$(BIN)/addCarWindow.o: $(NCURSES)/addCarWindow.cpp $(NCURSES)/addCarWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addCarWindow.o $(NCURSES)/addCarWindow.cpp
+
+$(BIN)/formDriver.o: $(NCURSES)/formDriver.cpp $(NCURSES)/formDriver.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/popUpWindow.o $(NCURSES)/popUpWindow.cpp
 
 # Run rule

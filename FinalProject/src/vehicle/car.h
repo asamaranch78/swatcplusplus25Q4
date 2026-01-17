@@ -4,7 +4,6 @@
 #include <cstdint>
 
 #include "vehicle.h"
-#include "messages.h"
 
 class Car: public Vehicle {
 public:
@@ -16,7 +15,6 @@ public:
     virtual void info() override;
     virtual void fuelEfficiencyCalc() override;
     virtual void saveToFile() override;
-    virtual void askUserData(Msg *msg) override;
     virtual void loadFromFile() override;
     virtual std::string getSpecial(void) override;
 };

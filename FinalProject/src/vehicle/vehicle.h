@@ -4,8 +4,6 @@
 #include <string>
 #include <cstdint>
 
-#include "messages.h"
-
 enum FuelTypes{DIESEL, GASOLINE, ELECTRIC};
 enum Types {CAR, TRUCK, ELECTRIC_CAR, MOTORBIKE};
 
@@ -22,12 +20,10 @@ public:
     virtual void info();
     virtual void fuelEfficiencyCalc() = 0;
     virtual void saveToFile() = 0;
-    virtual void askUserData(Msg *msg);
     virtual void loadFromFile() = 0;
     std::string getFuelType(void);
     std::string getType(void);
     virtual std::string getSpecial(void) = 0;
-    virtual FuelTypes askFuelType(Msg *msg);
 };
 
 #endif

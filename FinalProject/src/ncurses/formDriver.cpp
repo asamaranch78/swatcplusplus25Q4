@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <form.h>
 
-FormDriver::FormDriver(Window *win) {
+FormDriver::FormDriver(std::shared_ptr<Window> win) {
     window = win;
     keypad(stdscr, TRUE);
 }
@@ -25,23 +25,21 @@ void FormDriver::createForm(FIELD *field[], std::string *msg[], size_t fieldSize
 }
 
 void FormDriver::handleFrom() {
-    while ((key = getch()) != KEY_F(1)) {
+    while ((key = getch()) != KEY_ENTER) {
         switch (key) {
             case KEY_DOWN:
+            case '\t':
                 form_driver(form, REQ_NEXT_FIELD);
                 form_driver(form, REQ_END_LINE);
                 break;
-
             case KEY_UP:
                 form_driver(form, REQ_PREV_FIELD);
                 form_driver(form, REQ_END_LINE);
                 break;
-
             case KEY_BACKSPACE:
             case 127:
                 form_driver(form, REQ_DEL_PREV);
                 break;
-
             default:
                 form_driver(form, key);
                 break;
