@@ -2,6 +2,7 @@ CompileFlags:
   Add: [
     "-Isrc",
     "-Isrc/vehicle",
-    "-Isrc/ncurses"
+    "-Isrc/ncurses",
+    "-Isrc/misc"
   ]
 

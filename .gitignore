@@ -1,2 +1,4 @@
 */bin/*
 *.app
+.cache/*
+compile_command.json
