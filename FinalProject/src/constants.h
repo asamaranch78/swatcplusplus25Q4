@@ -29,6 +29,16 @@
 #define TYPE_COL FUEL_TYPE_COL + WIDE_GAP
 #define SPECIAL_COL TYPE_COL + WIDE_GAP
 
+#define FORM_START 4
+#define FORM_SPACE 2
+#define FORM_WIDTH WIDE_GAP
+#define FORM_HEIGHT 1
+#define FORM_TEST_COL 10
+#define FORM_COL FORM_TEST_COL + WIDE_GAP
+#define FROM_WIN_WIDTH FORM_COL + WIDE_GAP + GAP
+#define NO_OFF_SCREEN 0
+#define NO_BUFFERS 0
+
 extern void initData(std::shared_ptr<DataSet> data);
 
 #endif

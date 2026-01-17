@@ -1,15 +1,10 @@
-#include <cstddef>
 #include <cstdint>
 #include <memory>
-#include <string>
 #include <unistd.h>
-#include <iostream>
 #include <ncurses.h>
-#include "menucli.h"
 #include "dataSet.h"
 #include "constants.h"
 #include "mainWindow.h"
-#include "keyHandler.h"
 
 int main (void);
 void initCurses(void);
@@ -22,11 +17,6 @@ int main (void) {
     initData(data);
     initCurses();
 
-    /*MenuCLI menu;
-    while (true) {
-        if (!menu.askForSelection()) {return 0;} 
-        menu.handleSelection(data);
-    }*/
     centerX = getmaxx(stdscr) / 2;
     windowHeight = getmaxy(stdscr);
 
@@ -34,7 +24,6 @@ int main (void) {
     std::shared_ptr<MainWindow> mainWin;
     mainWin = std::make_shared<MainWindow>(windowHeight, centerX, MAIN_COLOR);
     mainWin->drawConstantPart();
-    KeyHandler keyboard(mainWin);
 
     while (true) {
         mainWin->drawDisplayData(data);
@@ -42,8 +31,8 @@ int main (void) {
 
         napms(100);
 
-        if (keyboard.listenKeyboard()) {
-            keyboard.handleKey();
+        if (mainWin->listenKeyboard()) {
+            mainWin->handleKey();
         }
         else {
             endwin();

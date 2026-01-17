@@ -34,7 +34,7 @@ INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC)
 BIN = bin
 
 # Objects to build
-NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(BIN)/keyHandler.o
+NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o
 VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
 OTHER_OBJ = $(BIN)/menucli.o $(BIN)/messages.o $(BIN)/dataSet.o $(BIN)/constants.o
 OBJECTS = $(NCURSES_OBJ) $(VEHICLE_OBJ) $(OTHER_OBJ)
