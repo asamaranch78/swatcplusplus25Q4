@@ -165,6 +165,8 @@ The method on this class will be responsible of asking for the input from the us
 classDiagram
     Window <-- PopUpWindow
     Window <-- MainWindow
+    PopUpWindow <-- AddCarWindow
+    formDriver <-- AddCarWindow
     class Window {
         + WINDOW* window
         + int width
@@ -205,6 +207,19 @@ classDiagram
         + drawConstantPart()
         + drawDisplayData(begin, end)
     }
+    class AddCarWindow {
+        + FIELD input[8]
+        + string inputName[8]
+        + Data dataSet
+        + saveToDataSet
+    }
+    class formDirver {
+        + int key
+        + createForm(FIELD* [], sting)
+        + handleForm()
+        + destroyForm()
+    }
+
 ```
 
 ## Class details
