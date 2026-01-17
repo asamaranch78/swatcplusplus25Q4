@@ -3,18 +3,17 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 #include <form.h>
-#include <memory>
-#include "window.h"
 
 class FormDriver {
 public:
     int16_t key;
     FORM *form;
-    std::shared_ptr<Window> window;
+    WINDOW *window;
 
-    FormDriver(std::shared_ptr<Window> win);
-    void createForm(FIELD *field[], std::string *msg[], size_t fieldSize);
+    FormDriver(WINDOW* win);
+    void createForm(FIELD *field[], std::vector<std::string> msg);
     void handleFrom();
     void destroyForm();
 };

@@ -39,6 +39,17 @@
 #define NO_OFF_SCREEN 0
 #define NO_BUFFERS 0
 
+//Indexes on fields array for common data
+#define MANUFACTURER_INDEX 0
+#define MODEL_INDEX 1
+#define YEAR_INDEX 2
+#define WEIGHT_INDEX 3
+#define EFFICIENCY_INDEX 4
+
+//Indexes on fields array fo car data
+#define DOORS_INDEX 5
+#define TRUNK_INDEX 6
+
 extern void initData(std::shared_ptr<DataSet> data);
 
 #endif

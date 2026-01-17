@@ -2,22 +2,27 @@
 #define __ADD_CAR_WINDOW_H__
 
 #include "popUpWindow.h"
+#include "formDriver.h"
 #include "constants.h"
+#include "car.h"
 #include <form.h>
 #include <memory>
 
-#define NUMBER_OF_FIELDS 8
-#define COLOR MAIN_COLOR
-#define INPUT_COLOR SELECTED_COLOR
-
-class AddCarWindow: public PopUpWindow, FormDriver {
+class AddCarWindow: public PopUpWindow, public FormDriver {
 private:
-    FIELD inputs[NUMBER_OF_FIELDS];
-    std::string inputNames[NUMBER_OF_FIELDS];
-    std::shared_ptr<DataSet> data;
+    static constexpr int16_t NUMBER_OF_FIELDS = 7;
+    static constexpr int16_t FIELD_ARRAY_SIZE = NUMBER_OF_FIELDS + 1;
+    static constexpr int16_t WINDOW_HEIGHT = NUMBER_OF_FIELDS * FORM_SPACE + 2 + FORM_START;
+    static constexpr int16_t WINDOW_WIDTH = FORM_WIDTH;
+    static constexpr int8_t WINDOW_COLOR = MAIN_COLOR;
+    static constexpr int8_t INPUT_COLOR = SELECTED_COLOR;
+    FIELD *inputFields[FIELD_ARRAY_SIZE];
+    std::vector<std::string> inputNames;
 
-    void saveToDataSet(void);
-
+public:
+    AddCarWindow(std::shared_ptr<MainWindow> mainWin);
+    void askForData(void);
+    void saveToObject(std::shared_ptr<Car> car);
 };
 
 

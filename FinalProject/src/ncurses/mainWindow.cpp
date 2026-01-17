@@ -2,7 +2,9 @@
 #include "constants.h"
 #include "vehicle.h"
 #include "window.h"
+#include "actions.h"
 #include <cstddef>
+#include <iterator>
 #include <memory>
 #include <panel.h>
 #include <string>
@@ -82,25 +84,6 @@ bool MainWindow::listenKeyboard(void) {
     }
     else {
         return true;
-    }
-}
-
-void MainWindow::handleKey(void) {
-    switch (pressedKey) {
-        case 'a':
-        case 'A':
-            //addVehicle();
-            break;
-        case 'j':
-        case 'J':
-        case KEY_DOWN:
-            cursorDown();
-            break;
-        case 'k':
-        case 'K':
-        case KEY_UP:
-            cursorUp();
-            break;
     }
 }
 

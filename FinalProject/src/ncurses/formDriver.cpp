@@ -3,25 +3,24 @@
 #include <ncurses.h>
 #include <form.h>
 
-FormDriver::FormDriver(std::shared_ptr<Window> win) {
+FormDriver::FormDriver(WINDOW* win) {
     window = win;
     keypad(stdscr, TRUE);
 }
 
-void FormDriver::createForm(FIELD *field[], std::string *msg[], size_t fieldSize) {
+void FormDriver::createForm(FIELD *field[], std::vector<std::string> msg) {
+    size_t vectorSize = msg.size();
     int32_t yPos;
     // Create form
     form = new_form(field);
-    set_form_win(form, window->window);
+    set_form_win(form, window);
     post_form(form);
-    window->refresh();
 
     // Print Label
-    for (size_t i = 0; i < fieldSize; i++) {
+    for (size_t i = 0; i < vectorSize; i++) {
         yPos =  FORM_START + (FORM_SPACE * i);
-        window->print(yPos, FORM_TEST_COL, *msg[i]);
+        mvwprintw(window, yPos, FORM_TEST_COL, "%s",msg[i].data());
     }
-    window->refresh();
 }
 
 void FormDriver::handleFrom() {
