@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "formDriver.h"
 #include "popUpWindow.h"
+#include <cstdlib>
 #include <form.h>
 #include <ncurses.h>
 #include <string>
@@ -10,7 +11,6 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
     PopUpWindow(WINDOW_HEIGHT, WINDOW_WIDTH, WINDOW_COLOR, mainWin),
     FormDriver(PopUpWindow::window) {
     int16_t fieldRow;
-
     for (size_t i=0; i < NUMBER_OF_FIELDS; i++) {
         fieldRow = FORM_START + FORM_SPACE * 2;
         inputFields[i] = new_field(FORM_HEIGHT, FORM_WIDTH, fieldRow, FORM_COL, NO_OFF_SCREEN, NO_BUFFERS);
@@ -19,17 +19,20 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
     }
     inputFields[NUMBER_OF_FIELDS] = NULL;
 
-    inputNames[MANUFACTURER_INDEX] = "Manufacturer:";
-    inputNames[MODEL_INDEX] = "Model:";
-    inputNames[YEAR_INDEX] = "Year:";
-    inputNames[WEIGHT_INDEX] = "Weight:";
-    inputNames[EFFICIENCY_INDEX] = "Fuel Effi:";
-    inputNames[DOORS_INDEX] = "Doors:";
-    inputNames[TRUNK_INDEX] = "Trunk cap.:";
+    inputNames.push_back("Manufacturer:");
+    inputNames.push_back("Model:");
+    inputNames.push_back("Year:");
+    inputNames.push_back("Weight:");
+    inputNames.push_back("Fuel Effi:");
+    inputNames.push_back("Doors:");
+    inputNames.push_back("Trunk cap.:");
 }
 
 void AddCarWindow::askForData(void) {
+    putOnTop();
+    system("touch file9");
     FormDriver::createForm(inputFields, inputNames);
+    system("touch file8");
     FormDriver::handleFrom();
     FormDriver::destroyForm();
 }

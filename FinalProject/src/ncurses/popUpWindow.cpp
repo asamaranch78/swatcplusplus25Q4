@@ -23,7 +23,6 @@ PopUpWindow::~PopUpWindow() {
 void PopUpWindow::refresh() {
     Window::refresh();
     update_panels();
-
 }
 
 void PopUpWindow::putOnTop() {

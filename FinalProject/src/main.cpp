@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <iostream>
 #include <memory>
 #include <unistd.h>
 #include <ncurses.h>
@@ -6,6 +7,7 @@
 #include "constants.h"
 #include "mainWindow.h"
 #include "actions.h"
+#include "popUpWindow.h"
 
 int main (void);
 void initCurses(void);
@@ -13,18 +15,25 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
 
 int main (void) {
     std::shared_ptr<DataSet> data = std::make_shared<DataSet>();
-    uint16_t windowHeight, centerX;
+    uint16_t windowHeight, windowWidth;
     
 
     initData(data);
     initCurses();
 
-    centerX = getmaxx(stdscr) / 2;
+    windowWidth = getmaxx(stdscr);
     windowHeight = getmaxy(stdscr);
+
+    if (windowWidth < SCREEN_WIDTH)
+    {
+        endwin();
+        std::cout << "Terminal width is " << windowWidth << " is too small" << std::endl;
+        return 1;
+    }
 
 
     std::shared_ptr<MainWindow> mainWin;
-    mainWin = std::make_shared<MainWindow>(windowHeight, centerX, MAIN_COLOR);
+    mainWin = std::make_shared<MainWindow>(windowHeight, windowWidth/2, MAIN_COLOR);
     mainWin->drawConstantPart();
 
     while (true) {
