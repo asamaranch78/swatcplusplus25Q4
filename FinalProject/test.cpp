@@ -42,17 +42,14 @@ int main() {
                 form_driver(form, REQ_NEXT_FIELD);
                 form_driver(form, REQ_END_LINE);
                 break;
-
             case KEY_UP:
                 form_driver(form, REQ_PREV_FIELD);
                 form_driver(form, REQ_END_LINE);
                 break;
-
             case KEY_BACKSPACE:
             case 127:
                 form_driver(form, REQ_DEL_PREV);
                 break;
-
             default:
                 form_driver(form, ch);
                 break;

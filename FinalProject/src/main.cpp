@@ -66,10 +66,18 @@ void initCurses(void) {
 }
 
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
+    PopUpWindow window2(10,50,ERROR_COLOR,mainWin);
     switch (mainWin->pressedKey) {
         case 'a':
         case 'A':
             addCar(data, mainWin);
+            break;
+        case 'b':
+        case 'B':
+            window2.putOnTop();
+            window2.print(2, 10, "A message");
+            window2.refresh();
+            sleep(10);
             break;
         case 'j':
         case 'J':

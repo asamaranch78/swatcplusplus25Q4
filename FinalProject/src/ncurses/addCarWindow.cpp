@@ -30,9 +30,8 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
 
 void AddCarWindow::askForData(void) {
     putOnTop();
-    system("touch file9");
     FormDriver::createForm(inputFields, inputNames);
-    system("touch file8");
+    refresh();
     FormDriver::handleFrom();
     FormDriver::destroyForm();
 }
