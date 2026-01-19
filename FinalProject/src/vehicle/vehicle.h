@@ -4,8 +4,8 @@
 #include <string>
 #include <cstdint>
 
-enum FuelTypes{DIESEL, GASOLINE, ELECTRIC};
-enum Types {CAR, TRUCK, ELECTRIC_CAR, MOTORBIKE};
+#include "enums.h"
+
 
 class Vehicle {
 public:

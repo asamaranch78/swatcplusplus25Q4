@@ -10,7 +10,7 @@ class FormDriver {
 public:
     int16_t key;
     FORM *form;
-    WINDOW *window;
+    WINDOW *windowPtr;
 
     FormDriver(WINDOW* win);
     void createForm(FIELD *field[], std::vector<std::string> msg);

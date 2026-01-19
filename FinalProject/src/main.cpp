@@ -54,6 +54,7 @@ int main (void) {
 
 void initCurses(void) {
     initscr();
+    cbreak();
     start_color();
     noecho();
     keypad(stdscr, TRUE);
