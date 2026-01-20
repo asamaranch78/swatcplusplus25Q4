@@ -25,11 +25,8 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
 
 bool AddCarWindow::askForData(void) {
     putOnTop();
-    curs_set(1); // Hide cursor
     FormDriver::createForm(inputFields, inputNames);
     refresh();
-    form_driver(form, REQ_NEXT_FIELD);
-    form_driver(form, REQ_PREV_FIELD);
     key = wgetch(window);
     while (key != KEY_F(1)) {
         FormDriver::handleFrom();
@@ -39,7 +36,6 @@ bool AddCarWindow::askForData(void) {
     }
     form_driver(form, REQ_NEXT_FIELD);
     hide();
-    curs_set(0);
     FormDriver::destroyForm();
     return true;
 }

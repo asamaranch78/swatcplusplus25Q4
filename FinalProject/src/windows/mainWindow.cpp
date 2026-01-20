@@ -29,7 +29,7 @@ void MainWindow::refresh() {
 
 void MainWindow::drawDisplayData(std::shared_ptr<DataSet> data) {
     uint8_t line {DATA_OFFSET};
-    for (const auto & point: data->dataSet) {
+    for (const auto & point: data->getDisplayData()) {
         if (line == cursor) {
             Window::changeColor(SELECTED_COLOR);
         }

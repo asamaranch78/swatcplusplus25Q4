@@ -8,9 +8,17 @@
 class DataSet {
 public:
     std::vector<std::shared_ptr<Vehicle>> dataSet;
+    std::vector<std::shared_ptr<Vehicle>> filteredData;
+    bool filtering;
+    DataSet();
     void addVehicle(std::shared_ptr<Vehicle> ptr);
     void deleteVehicle(size_t index);
     void deletaAllData();
+    std::vector<std::shared_ptr<Vehicle>> getDisplayData();
+    void clearFilter();
+    void filterByYear(uint16_t beginYear, uint16_t endYear);
+    void filterByManufacturer(std::string manufacturer);
+    void filterByType(enum Types type);
 };
 
 #endif

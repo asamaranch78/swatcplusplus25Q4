@@ -12,6 +12,7 @@ FormDriver::FormDriver(WINDOW* win) {
 void FormDriver::createForm(FIELD *field[], std::vector<std::string> msg) {
     size_t vectorSize = msg.size();
     int32_t yPos;
+    curs_set(1); // Show cursor
     // Create form
     form = new_form(field);
     set_form_win(form, windowPtr);
@@ -28,6 +29,8 @@ void FormDriver::createForm(FIELD *field[], std::vector<std::string> msg) {
     mvwprintw(windowPtr, yPos, FORM_TEST_COL, "Press F1 to Save");
     yPos = FORM_SPACE + (FORM_SPACE * (vectorSize + 1));
     mvwprintw(windowPtr, yPos, FORM_TEST_COL, "Press F2 to Cancel");
+    form_driver(form, REQ_NEXT_FIELD);
+    form_driver(form, REQ_PREV_FIELD);
 }
 
 void FormDriver::handleFrom() {
@@ -53,6 +56,7 @@ void FormDriver::handleFrom() {
 }
 
 void FormDriver::destroyForm() {
+    curs_set(0); // Hide cursor
     unpost_form(form);
     free_form(form);
 }

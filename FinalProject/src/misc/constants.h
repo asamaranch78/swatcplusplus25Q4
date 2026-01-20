@@ -39,6 +39,8 @@
 #define NO_OFF_SCREEN 0
 #define NO_BUFFERS 0
 
+#define MAX_FIELDS 10
+
 //Indexes on fields array for common data
 #define MANUFACTURER_INDEX 0
 #define MODEL_INDEX 1
