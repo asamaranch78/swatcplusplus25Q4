@@ -12,15 +12,8 @@ Bike::Bike(const Bike &source)
     : Vehicle(source), bikeType{source.bikeType}, hasCarrier{source.hasCarrier} {}
 // Methods
 void Bike::info(std::ostream &os) const{
-    os << std::setw(vehicle_parameter_width) << std::left << VehicleType_to_string(type)
-       << std::setw(vehicle_parameter_width) << std::left << id
-       << std::setw(vehicle_parameter_width) << std::left << brand
-       << std::setw(vehicle_parameter_width) << std::left << model
-       << std::setw(vehicle_parameter_width) << std::left << year
-       << std::setw(vehicle_parameter_width) << std::left << FuelType_to_string(fuelType)
-       << std::setw(vehicle_parameter_width) << std::left << weight
-       << std::setw(vehicle_parameter_width) << std::left << efficiencyClass
-       << std::setw(vehicle_parameter_width) << std::left << BikeType_to_string(bikeType)
+    Vehicle::info(os);
+    os << std::setw(vehicle_parameter_width) << std::left << BikeType_to_string(bikeType)
        << std::setw(vehicle_parameter_width/2) << std::right << YesNo_to_string(hasCarrier);
 }
 bool Bike::compute_efficiency(){

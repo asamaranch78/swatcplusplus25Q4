@@ -14,15 +14,8 @@ Car::Car(const Car &source)
     : Vehicle(source), trunkCapacity{source.trunkCapacity}, numDoors{source.numDoors} {}
 // Methods
 void Car::info(std::ostream &os) const{
-    os << std::setw(vehicle_parameter_width) << std::left << VehicleType_to_string(type)
-       << std::setw(vehicle_parameter_width) << std::left << id
-       << std::setw(vehicle_parameter_width) << std::left << brand
-       << std::setw(vehicle_parameter_width) << std::left << model
-       << std::setw(vehicle_parameter_width) << std::left << year
-       << std::setw(vehicle_parameter_width) << std::left << FuelType_to_string(fuelType)
-       << std::setw(vehicle_parameter_width) << std::left << weight
-       << std::setw(vehicle_parameter_width) << std::left << efficiencyClass
-       << std::setw(vehicle_parameter_width) << std::left << trunkCapacity
+    Vehicle::info(os);
+    os << std::setw(vehicle_parameter_width) << std::left << trunkCapacity
        << std::setw(vehicle_parameter_width/2) << std::right << numDoors;
 }
 bool Car::compute_efficiency(){
