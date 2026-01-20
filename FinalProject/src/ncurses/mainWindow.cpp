@@ -4,6 +4,7 @@
 #include "window.h"
 #include "actions.h"
 #include <cstddef>
+#include <cstdint>
 #include <iterator>
 #include <memory>
 #include <panel.h>
@@ -38,6 +39,12 @@ void MainWindow::drawDisplayData(std::shared_ptr<DataSet> data) {
         line++;
     }
     cursorMax = line - 1;
+}
+
+void MainWindow::clearDisplayData(void) {
+    for (uint16_t i = DATA_OFFSET; i < separatorLine; i++) {
+        printBlankLine(i);
+    }
 }
 
 void MainWindow::drawConstantPart(void) {

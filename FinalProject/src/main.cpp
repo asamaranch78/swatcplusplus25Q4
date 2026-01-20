@@ -74,13 +74,10 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
         case 'A':
             addVehicle(data, mainWin);
             break;
-        case 'b':
-        case 'B':
-            selection.putOnTop();
-            selection.refresh();
-            selection.handleList();
-            selection.hide();
-
+        case 'd':
+        case 'D':
+            data->deleteVehicle(mainWin->cursor - DATA_OFFSET);
+            mainWin->clearDisplayData();
             break;
         case 'j':
         case 'J':

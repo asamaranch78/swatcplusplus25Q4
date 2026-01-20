@@ -1,6 +1,8 @@
 #include "actions.h"
 #include "car.h"
+#include "truck.h"
 #include "addCarWindow.h"
+#include "addTruckWindow.h"
 #include "enums.h"
 #include "selectionList.h"
 
@@ -12,6 +14,9 @@ void addVehicle(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainW
     switch (calculateType(type)) {
         case Types::CAR:
             addCar(data, mainWin);
+            break;
+        case Types::TRUCK:
+            addTruck(data, mainWin);
             break;
         default:
             throw;
@@ -35,3 +40,20 @@ void addCar(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) 
         }
     }
 }
+
+void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
+    AddTruckWindow popUp(mainWin);
+    std::shared_ptr<Truck> newTruck = std::make_shared<Truck>();
+
+    newTruck->fuelType = FuelTypes::DIESEL;
+
+    if (popUp.askForData()) {
+        try { 
+            popUp.saveToObject(newTruck);
+            data->addVehicle(newTruck);
+        }
+        catch (...) {
+        }
+    }
+}
+

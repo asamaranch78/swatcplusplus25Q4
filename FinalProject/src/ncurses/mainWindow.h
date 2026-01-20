@@ -32,6 +32,7 @@ public:
     void cursorUp();
     void refresh(void) override;
     void drawDisplayData(std::shared_ptr<DataSet> data);
+    void clearDisplayData();
     void drawConstantPart();
 };
 

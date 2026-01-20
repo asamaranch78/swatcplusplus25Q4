@@ -1,7 +1,7 @@
-#include "addCarWindow.h"
+#include "addTruckWindow.h"
 #include "constants.h"
 
-AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
+AddTruckWindow::AddTruckWindow(std::shared_ptr<MainWindow> mainWin) :
     PopUpWindow(WINDOW_HEIGHT, WINDOW_WIDTH, WINDOW_COLOR, mainWin),
     FormDriver(window) {
     int16_t fieldRow;
@@ -19,11 +19,11 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
     inputNames.push_back("Year:");
     inputNames.push_back("Weight:");
     inputNames.push_back("Fuel Effi:");
-    inputNames.push_back("Doors:");
-    inputNames.push_back("Trunk cap.:");
+    inputNames.push_back("Axles:");
+    inputNames.push_back("Payload cap.:");
 }
 
-bool AddCarWindow::askForData(void) {
+bool AddTruckWindow::askForData(void) {
     putOnTop();
     curs_set(1); // Hide cursor
     FormDriver::createForm(inputFields, inputNames);
@@ -44,14 +44,14 @@ bool AddCarWindow::askForData(void) {
     return true;
 }
 
-void AddCarWindow::saveToObject(std::shared_ptr<Car> car) {
-    car->manufacturer = field_buffer(inputFields[MANUFACTURER_INDEX], 0);
-    car->model = field_buffer(inputFields[MODEL_INDEX], 0);
-    car->year = std::stoi(field_buffer(inputFields[YEAR_INDEX], 0));
-    car->weight = std::stoi(field_buffer(inputFields[WEIGHT_INDEX], 0));
-    car->fuelEfficiency = std::stof(field_buffer(inputFields[EFFICIENCY_INDEX], 0));
+void AddTruckWindow::saveToObject(std::shared_ptr<Truck> truck) {
+    truck->manufacturer = field_buffer(inputFields[MANUFACTURER_INDEX], 0);
+    truck->model = field_buffer(inputFields[MODEL_INDEX], 0);
+    truck->year = std::stoi(field_buffer(inputFields[YEAR_INDEX], 0));
+    truck->weight = std::stoi(field_buffer(inputFields[WEIGHT_INDEX], 0));
+    truck->fuelEfficiency = std::stof(field_buffer(inputFields[EFFICIENCY_INDEX], 0));
 
-    car->doors = std::stoi(field_buffer(inputFields[DOORS_INDEX], 0));
-    car->trunkCapacity = std::stoi(field_buffer(inputFields[TRUNK_INDEX], 0));
+    truck->axles = std::stoi(field_buffer(inputFields[AXLE_INDEX], 0));
+    truck->payloadCapacity = std::stoi(field_buffer(inputFields[LOAD_INDEX], 0));
 
 }

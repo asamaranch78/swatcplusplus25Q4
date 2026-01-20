@@ -25,7 +25,7 @@ void Window::print(uint16_t y,uint16_t x, std::string str) {
 }
 
 void Window::printBlankLine(uint8_t line) {
-    for (size_t i = 1; i < width - 1; i++) {
+    for (uint16_t i = 1; i < width - 1; i++) {
         Window::print(line, i, " ");
     }
 }

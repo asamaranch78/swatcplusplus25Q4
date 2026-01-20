@@ -46,9 +46,12 @@
 #define WEIGHT_INDEX 3
 #define EFFICIENCY_INDEX 4
 
-//Indexes on fields array fo car data
+//Indexes on fields array for car data
 #define DOORS_INDEX 5
 #define TRUNK_INDEX 6
+//Indexes on fields array for truck  data
+#define AXLE_INDEX 5
+#define LOAD_INDEX 6
 
 
 extern void initData(std::shared_ptr<DataSet> data);

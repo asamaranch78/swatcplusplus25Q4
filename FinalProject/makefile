@@ -35,7 +35,7 @@ INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC) -I$(MISC)
 BIN = bin
 
 # Objects to build
-POP_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/selectionList.o
+POP_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/selectionList.o $(BIN)/addTruckWindow.o
 NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(POP_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
 MISC_OBJ = $(BIN)/dataSet.o $(BIN)/constants.o $(BIN)/actions.o $(BIN)/enums.o
@@ -82,6 +82,9 @@ $(BIN)/popUpWindow.o: $(NCURSES)/popUpWindow.cpp $(NCURSES)/popUpWindow.h $(BIN)
 # Pop up menus
 $(BIN)/addCarWindow.o: $(NCURSES)/addCarWindow.cpp $(NCURSES)/addCarWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addCarWindow.o $(NCURSES)/addCarWindow.cpp
+
+$(BIN)/addTruckWindow.o: $(NCURSES)/addTruckWindow.cpp $(NCURSES)/addTruckWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addTruckWindow.o $(NCURSES)/addTruckWindow.cpp
 
 $(BIN)/formDriver.o: $(NCURSES)/formDriver.cpp $(NCURSES)/formDriver.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/formDriver.o $(NCURSES)/formDriver.cpp
