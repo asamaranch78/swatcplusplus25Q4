@@ -25,21 +25,23 @@ TARGET = project.app
 # Source files
 SRC = src
 VEHICLE = $(SRC)/vehicle
-NCURSES = $(SRC)/ncurses
+WINDOW = $(SRC)/windows
+ADD_WIN = $(WINDOW)/addWindows
 MISC = $(SRC)/misc
 
 # Header files
-INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC) -I$(MISC)
+INCLUDE = -I$(VEHICLE) -I$(WINDOW) -I$(SRC) -I$(MISC) -I$(ADD_WIN)
 
 # Binary files
 BIN = bin
 
 # Objects to build
-POP_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/selectionList.o $(BIN)/addTruckWindow.o
-NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(POP_WIN_OBJ)
+ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o
+POP_WIN_OBJ = $(BIN)/selectionList.o
+WINDOW_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(POP_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
 MISC_OBJ = $(BIN)/dataSet.o $(BIN)/constants.o $(BIN)/actions.o $(BIN)/enums.o
-OBJECTS = $(NCURSES_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ)
+OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ) $(ADD_WIN_OBJ)
 
 # Build rule
 # Main
@@ -70,27 +72,28 @@ $(BIN)/enums.o: $(MISC)/enums.cpp $(MISC)/enums.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/enums.o $(MISC)/enums.cpp
 
 # Window module
-$(BIN)/window.o: $(NCURSES)/window.cpp $(NCURSES)/window.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/window.o $(NCURSES)/window.cpp
+$(BIN)/window.o: $(WINDOW)/window.cpp $(WINDOW)/window.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/window.o $(WINDOW)/window.cpp
 
-$(BIN)/mainWindow.o: $(NCURSES)/mainWindow.cpp $(NCURSES)/mainWindow.h $(BIN)/window.o
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/mainWindow.o $(NCURSES)/mainWindow.cpp
+$(BIN)/mainWindow.o: $(WINDOW)/mainWindow.cpp $(WINDOW)/mainWindow.h $(BIN)/window.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/mainWindow.o $(WINDOW)/mainWindow.cpp
 
-$(BIN)/popUpWindow.o: $(NCURSES)/popUpWindow.cpp $(NCURSES)/popUpWindow.h $(BIN)/window.o
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/popUpWindow.o $(NCURSES)/popUpWindow.cpp
+$(BIN)/popUpWindow.o: $(WINDOW)/popUpWindow.cpp $(WINDOW)/popUpWindow.h $(BIN)/window.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/popUpWindow.o $(WINDOW)/popUpWindow.cpp
+
+# Add menus
+$(BIN)/addCarWindow.o: $(ADD_WIN)/addCarWindow.cpp $(ADD_WIN)/addCarWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addCarWindow.o $(ADD_WIN)/addCarWindow.cpp
+
+$(BIN)/addTruckWindow.o: $(ADD_WIN)/addTruckWindow.cpp $(ADD_WIN)/addTruckWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addTruckWindow.o $(ADD_WIN)/addTruckWindow.cpp
 
 # Pop up menus
-$(BIN)/addCarWindow.o: $(NCURSES)/addCarWindow.cpp $(NCURSES)/addCarWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addCarWindow.o $(NCURSES)/addCarWindow.cpp
+$(BIN)/formDriver.o: $(WINDOW)/formDriver.cpp $(WINDOW)/formDriver.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/formDriver.o $(WINDOW)/formDriver.cpp
 
-$(BIN)/addTruckWindow.o: $(NCURSES)/addTruckWindow.cpp $(NCURSES)/addTruckWindow.h $(BIN)/popUpWindow.o $(BIN)/formDriver.o
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addTruckWindow.o $(NCURSES)/addTruckWindow.cpp
-
-$(BIN)/formDriver.o: $(NCURSES)/formDriver.cpp $(NCURSES)/formDriver.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/formDriver.o $(NCURSES)/formDriver.cpp
-
-$(BIN)/selectionList.o: $(NCURSES)/selectionList.cpp $(NCURSES)/selectionList.h
-	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/selectionList.o $(NCURSES)/selectionList.cpp
+$(BIN)/selectionList.o: $(WINDOW)/selectionList.cpp $(WINDOW)/selectionList.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/selectionList.o $(WINDOW)/selectionList.cpp
 
 # Run rule
 run: $(TARGET)

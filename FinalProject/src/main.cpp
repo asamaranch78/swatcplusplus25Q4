@@ -78,6 +78,7 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
         case 'D':
             data->deleteVehicle(mainWin->cursor - DATA_OFFSET);
             mainWin->clearDisplayData();
+            mainWin->cursorUp();
             break;
         case 'j':
         case 'J':
