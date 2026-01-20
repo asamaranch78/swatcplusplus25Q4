@@ -71,11 +71,6 @@ void MainWindow::printVehicle(std::shared_ptr<Vehicle> ptr, int8_t line) {
 
 }
 
-void MainWindow::printBlankLine(int8_t line) {
-    for (size_t i = 1; i < SCREEN_WIDTH - 1; i++) {
-        Window::print(line, i, " ");
-    }
-}
 bool MainWindow::listenKeyboard(void) {
     pressedKey = getch();
 

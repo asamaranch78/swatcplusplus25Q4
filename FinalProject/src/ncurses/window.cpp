@@ -24,6 +24,12 @@ void Window::print(uint16_t y,uint16_t x, std::string str) {
     mvwprintw(window, y, x, "%s",str.data());
 }
 
+void Window::printBlankLine(uint8_t line) {
+    for (size_t i = 1; i < width - 1; i++) {
+        Window::print(line, i, " ");
+    }
+}
+
 void Window::removeColor(uint8_t color) {
     wattroff(window, COLOR_PAIR(color));
 }

@@ -34,18 +34,16 @@ void FormDriver::handleFrom() {
         switch (key) {
             case KEY_DOWN:
             case '\t':
-                system("touch file 100");
+            case '\n':
                 form_driver(form, REQ_NEXT_FIELD);
                 form_driver(form, REQ_END_LINE);
                 break;
             case KEY_UP:
-                system("touch file 101");
                 form_driver(form, REQ_PREV_FIELD);
                 form_driver(form, REQ_END_LINE);
                 break;
             case KEY_BACKSPACE:
             case 127:
-                system("touch file 102");
                 form_driver(form, REQ_DEL_PREV);
                 break;
             default:

@@ -5,13 +5,16 @@
 #include <ncurses.h>
 #include "dataSet.h"
 #include "constants.h"
+#include "enums.h"
 #include "mainWindow.h"
 #include "actions.h"
 #include "popUpWindow.h"
+#include "selectionList.h"
 
 int main (void);
 void initCurses(void);
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
+
 
 int main (void) {
     std::shared_ptr<DataSet> data = std::make_shared<DataSet>();
@@ -40,8 +43,6 @@ int main (void) {
         mainWin->drawDisplayData(data);
         mainWin->refresh();
 
-        napms(100);
-
         if (mainWin->listenKeyboard()) {
             handleKey(data, mainWin);
         }
@@ -67,18 +68,19 @@ void initCurses(void) {
 }
 
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
-    PopUpWindow window2(10,50,ERROR_COLOR,mainWin);
+    SelectionList selection(mainWin, FUEL_TYPE_TEXTS);
     switch (mainWin->pressedKey) {
         case 'a':
         case 'A':
-            addCar(data, mainWin);
+            addVehicle(data, mainWin);
             break;
         case 'b':
         case 'B':
-            window2.putOnTop();
-            window2.print(2, 10, "A message");
-            window2.refresh();
-            sleep(10);
+            selection.putOnTop();
+            selection.refresh();
+            selection.handleList();
+            selection.hide();
+
             break;
         case 'j':
         case 'J':

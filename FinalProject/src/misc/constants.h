@@ -50,6 +50,7 @@
 #define DOORS_INDEX 5
 #define TRUNK_INDEX 6
 
+
 extern void initData(std::shared_ptr<DataSet> data);
 
 #endif

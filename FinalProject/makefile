@@ -35,10 +35,10 @@ INCLUDE = -I$(VEHICLE) -I$(NCURSES) -I$(SRC) -I$(MISC)
 BIN = bin
 
 # Objects to build
-POP_WIN_OBJ = $(BIN)/formDriver.o $(BIN)/addCarWindow.o
+POP_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/selectionList.o
 NCURSES_OBJ = $(BIN)/window.o $(BIN)/mainWindow.o $(BIN)/popUpWindow.o $(POP_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
-MISC_OBJ = $(BIN)/dataSet.o $(BIN)/constants.o $(BIN)/actions.o
+MISC_OBJ = $(BIN)/dataSet.o $(BIN)/constants.o $(BIN)/actions.o $(BIN)/enums.o
 OBJECTS = $(NCURSES_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ)
 
 # Build rule
@@ -66,6 +66,9 @@ $(BIN)/constants.o: $(MISC)/constants.cpp $(MISC)/constants.h
 $(BIN)/actions.o: $(MISC)/actions.cpp $(MISC)/actions.h $(BIN)/car.o $(BIN)/addCarWindow.o
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/actions.o $(MISC)/actions.cpp
 
+$(BIN)/enums.o: $(MISC)/enums.cpp $(MISC)/enums.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/enums.o $(MISC)/enums.cpp
+
 # Window module
 $(BIN)/window.o: $(NCURSES)/window.cpp $(NCURSES)/window.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/window.o $(NCURSES)/window.cpp
@@ -82,6 +85,9 @@ $(BIN)/addCarWindow.o: $(NCURSES)/addCarWindow.cpp $(NCURSES)/addCarWindow.h $(B
 
 $(BIN)/formDriver.o: $(NCURSES)/formDriver.cpp $(NCURSES)/formDriver.h
 	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/formDriver.o $(NCURSES)/formDriver.cpp
+
+$(BIN)/selectionList.o: $(NCURSES)/selectionList.cpp $(NCURSES)/selectionList.h
+	$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/selectionList.o $(NCURSES)/selectionList.cpp
 
 # Run rule
 run: $(TARGET)

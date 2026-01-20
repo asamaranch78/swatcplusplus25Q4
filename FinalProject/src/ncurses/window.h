@@ -21,6 +21,7 @@ public:
            uint16_t backgroundColor,
            bool drawBorder); 
     void print(uint16_t y,uint16_t x, std::string str);
+    void printBlankLine(uint8_t line);
     void removeColor(uint8_t color);
     void changeColor(uint8_t color);
     void append(std::string str);

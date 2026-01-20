@@ -4,6 +4,7 @@
 #include "dataSet.h"
 #include "mainWindow.h"
 
+void addVehicle(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 void addCar(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 
 #endif

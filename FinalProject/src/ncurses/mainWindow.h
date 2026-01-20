@@ -12,7 +12,6 @@
 class MainWindow: public Window {
 private:
     void printVehicle(std::shared_ptr<Vehicle> ptr, int8_t line);
-    void printBlankLine(int8_t line);
 
 public:
     PANEL *panel;
