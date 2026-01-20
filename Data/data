@@ -1,0 +1,15 @@
+Bike          BB52017       BH            Bolero        1995          Human         22            C             Standard          Yes
+Bike          BN52035       BH            New           2015          Human         20            C             Standard          Yes
+Bike          BB52040       BH            B1            2020          Human         20            B             Mountain           No
+Bike          BB12044       BH            Bolero        2020          Electric      24            C             Stand-Elec           Yes
+Truck         SS47195       Scania        S1            1995          Diesel        5200          F             10000               4
+Truck         SS25010       Scania        S3            2010          Hybrid        3000          C             1000                3
+Truck         MM47005       MAN           M1            2005          Diesel        5000          F             20000               4
+Car           TC44115       Toyota        Corolla       2015          Diesel        2100          C             500                 3
+Car           P233305       Peugeot       208           2005          Gasoline      1300          D             300                 3
+Car           TP24410       Toyota        Prius         2010          Hybrid        2400          D             500                 5
+Car           NM33199       Nissan        Micra         1999          Gasoline      1200          D             250                 3
+Truck         MM27025       MAN           M1            2025          Hybrid        5000          F             20000               4
+Car           AT14025       Audi          TT            2025          Electric      2000          B             100                 3
+Bike          CC52035       Conor         C1            2020          Human         15            NC            Road               No
+Bike          CC12058       Conor         CE            2023          Electric      35            NC            Mount-Elec         No
