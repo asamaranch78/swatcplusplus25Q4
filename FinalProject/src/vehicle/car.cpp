@@ -22,8 +22,8 @@ YAML::Node Car::getYaml() {
 }
 
 void Car::loadYaml(YAML::Node node) {
-    type = Types::CAR;
     Vehicle::loadYaml(node);
+    type = Types::CAR;
 
     doors = node["Doors"].as<uint16_t>();
     trunkCapacity = node["TrunkCapacity"].as<uint16_t>();

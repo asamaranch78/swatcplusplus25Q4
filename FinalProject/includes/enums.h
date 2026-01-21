@@ -31,16 +31,16 @@ enum FilterTypes{
 
 const auto FUEL_TYPE_TEXTS = std::make_shared<std::vector<std::string>>(
         std::initializer_list<std::string>{
-            "DIESEL",
-            "GASOLINE"}
+            dieselString,
+            gasolineString}
     );
 
 const auto TYPES_TEXTS = std::make_shared<std::vector<std::string>>(
         std::initializer_list<std::string>{
-            "CAR",
-            "TURCK",
-            "ELECTRIC_CAR",
-            "MOTOR_BIKE"}
+            carString,
+            truckString,
+            electricString,
+            motorString}
     );
 
 const auto FILTER_TYPE_TEXTS = std::make_shared<std::vector<std::string>>(

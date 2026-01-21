@@ -7,6 +7,8 @@
 void addVehicle(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 void addCar(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
+void addElectric(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
+void addMotorbike(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 
 
 #endif

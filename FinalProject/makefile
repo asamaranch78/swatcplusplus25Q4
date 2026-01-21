@@ -40,12 +40,11 @@ INCLUDE = -I$(INCLUDE_DIR)
 BIN = bin
 
 # Objects to build
-ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o
+ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o $(BIN)/addMotorbikeWindow.o
 FILTER_WIN_OBJ = $(BIN)/yearWindow.o $(BIN)/manufacturerWindow.o
 POP_WIN_OBJ = $(BIN)/selectionList.o
-DRIVER_WIN_OBJ = $(BIN)/window.o $(BIN)/popUpWindow.o
 WINDOW_OBJ = $(BIN)/mainWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ)
-VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o $(BIN)/motorbike.o
+VEHICLE_OBJ = $(BIN)/truck.o $(BIN)/car.o $(BIN)/motorbike.o $(BIN)/electric.o
 MISC_OBJ = $(BIN)/constants.o $(BIN)/enums.o
 AUX_OBJ = $(BIN)/addActions.o $(BIN)/filterActions.o $(BIN)/dataSet.o
 OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ) $(ADD_WIN_OBJ)
@@ -94,6 +93,10 @@ $(BIN)/motorbike.o: $(VEHICLE)/motorbike.cpp $(INCLUDE_DIR)/motorbike.h $(BIN)/v
 	@echo "Building motorbike"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/motorbike.o $(VEHICLE)/motorbike.cpp
 
+$(BIN)/electric.o: $(VEHICLE)/electric.cpp $(INCLUDE_DIR)/electric.h $(BIN)/car.o $(MISC_OBJ)
+	@echo "Building electric car"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/electric.o $(VEHICLE)/electric.cpp
+
 # Window module
 $(BIN)/window.o: $(WIN_DRIVER)/window.cpp $(INCLUDE_DIR)/window.h $(MISC_OBJ)
 	@echo "Building window"
@@ -115,6 +118,10 @@ $(BIN)/addCarWindow.o: $(ADD_WIN)/addCarWindow.cpp $(INCLUDE_DIR)/addCarWindow.h
 $(BIN)/addTruckWindow.o: $(ADD_WIN)/addTruckWindow.cpp $(INCLUDE_DIR)/addTruckWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
 	@echo "Building add truck window"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addTruckWindow.o $(ADD_WIN)/addTruckWindow.cpp
+
+$(BIN)/addMotorbikeWindow.o: $(ADD_WIN)/addMotorbikeWindow.cpp $(INCLUDE_DIR)/addMotorbikeWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
+	@echo "Building add car window"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addMotorbikeWindow.o $(ADD_WIN)/addMotorbikeWindow.cpp
 
 # Filter menus
 $(BIN)/yearWindow.o: $(FILTER_WIN)/yearWindow.cpp $(INCLUDE_DIR)/yearWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
