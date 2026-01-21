@@ -1,7 +1,11 @@
 #include "dataSet.h"
+#include "truck.h"
+#include "car.h"
 #include <cstdlib>
+#include <fstream>
 #include <memory>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
 DataSet::DataSet() {
     filtering = false;
@@ -78,4 +82,49 @@ void DataSet::filterByType(enum Types type) {
             filteredData.push_back(vehicle);
         }
     }
+}
+
+
+void DataSet::exportToYaml(std::string path) {
+    YAML::Node list = YAML::Node(YAML::NodeType::Sequence);
+    std::ofstream output (path);
+    std::vector<std::shared_ptr<Vehicle>> exportData;
+
+    if (!filtering) { exportData = dataSet; }
+    else { exportData = filteredData; }
+
+    for (auto vehicle: exportData) {
+        list.push_back(vehicle->getYaml());
+    }
+
+    output << list;
+}
+
+void DataSet::importFromYaml(std::string path) {
+    YAML::Node list = YAML::LoadFile(path);
+    
+    if (!list.IsSequence()) {
+        throw;
+    }
+
+    for (const auto vehicle: list) {
+        if (vehicle["Doors"]) {
+            importCar(vehicle);
+        }
+        else {
+            importTruck(vehicle);
+        }
+    }
+}
+
+void DataSet::importCar(YAML::Node node) {
+    std::shared_ptr<Car> car = std::make_shared<Car>();
+    car->loadYaml(node);
+    addVehicle(car);
+}
+
+void DataSet::importTruck(YAML::Node node) {
+    std::shared_ptr<Truck> truck = std::make_shared<Truck>();
+    truck->loadYaml(node);
+    addVehicle(truck);
 }

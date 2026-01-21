@@ -17,6 +17,8 @@ public:
     virtual void saveToFile() override;
     virtual void loadFromFile() override;
     virtual std::string getSpecial(void) override;
+    virtual YAML::Node getYaml() override;
+    virtual void loadYaml(YAML::Node node) override;
 };
 
 #endif

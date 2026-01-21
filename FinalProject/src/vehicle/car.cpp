@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -21,6 +22,23 @@ std::string Car::getSpecial(void) {
     special += "\t";
     special += "Trunk capacity: " + std::to_string(trunkCapacity);
     return special;
+}
+
+YAML::Node Car::getYaml() {
+    YAML::Node node = Vehicle::getYaml();
+
+    node["Doors"] = doors;
+    node["TrunkCapacity"] = trunkCapacity;
+
+    return node;
+}
+
+void Car::loadYaml(YAML::Node node) {
+    type = Types::CAR;
+    Vehicle::loadYaml(node);
+
+    doors = node["Doors"].as<uint16_t>();
+    trunkCapacity = node["TrunkCapacity"].as<uint16_t>();
 }
 
 void Car::fuelEfficiencyCalc(void) {

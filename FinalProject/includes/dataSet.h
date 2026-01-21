@@ -6,6 +6,9 @@
 #include "vehicle.h"
 
 class DataSet {
+private:
+    void importCar(YAML::Node node);
+    void importTruck(YAML::Node node);
 public:
     std::vector<std::shared_ptr<Vehicle>> dataSet;
     std::vector<std::shared_ptr<Vehicle>> filteredData;
@@ -21,6 +24,8 @@ public:
     void filterByYear(uint16_t beginYear, uint16_t endYear);
     void filterByManufacturer(std::string manufacturer);
     void filterByType(enum Types type);
+    void exportToYaml(std::string path);
+    void importFromYaml(std::string path);
 };
 
 #endif

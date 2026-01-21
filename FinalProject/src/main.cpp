@@ -90,6 +90,14 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             data->clearFilter();
             mainWin->clearDisplayData();
             break;
+        case 'x':
+        case 'X':
+            data->exportToYaml("test.yaml");
+            break;
+        case 'i':
+        case 'I':
+            data->importFromYaml("test.yaml");
+            break;
         case 'j':
         case 'J':
         case KEY_DOWN:
