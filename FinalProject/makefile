@@ -43,9 +43,9 @@ BIN = bin
 ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o $(BIN)/addMotorbikeWindow.o $(BIN)/addElectricWindow.o
 FILTER_WIN_OBJ = $(BIN)/yearWindow.o $(BIN)/manufacturerWindow.o
 POP_WIN_OBJ = $(BIN)/selectionList.o
-WINDOW_OBJ = $(BIN)/mainWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ)
+WINDOW_OBJ = $(BIN)/mainWindow.o $(BIN)/pathWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/truck.o $(BIN)/car.o $(BIN)/motorbike.o $(BIN)/electric.o
-MISC_OBJ = $(INCLUDE_DIR)/constants.h $(BIN)/enums.o
+MISC_OBJ = $(INCLUDE_DIR)/constants.h $(BIN)/enums.o $(BIN)/stringManip.o
 AUX_OBJ = $(BIN)/addActions.o $(BIN)/filterActions.o $(BIN)/dataSet.o
 OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ) $(ADD_WIN_OBJ)
 
@@ -71,6 +71,10 @@ $(BIN)/dataSet.o: $(AUX)/dataSet.cpp $(INCLUDE_DIR)/dataSet.h
 $(BIN)/enums.o: $(MISC)/enums.cpp $(INCLUDE_DIR)/enums.h
 	@echo "Building enums"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/enums.o $(MISC)/enums.cpp
+
+$(BIN)/stringManip.o: $(MISC)/stringManip.cpp $(INCLUDE_DIR)/stringManip.h
+	@echo "Building manip"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/stringManip.o $(MISC)/stringManip.cpp
 
 # Vehicle module
 $(BIN)/vehicle.o: $(VEHICLE)/vehicle.cpp $(INCLUDE_DIR)/vehicle.h $(MISC_OBJ)
@@ -99,8 +103,12 @@ $(BIN)/window.o: $(WIN_DRIVER)/window.cpp $(INCLUDE_DIR)/window.h $(MISC_OBJ)
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/window.o $(WIN_DRIVER)/window.cpp
 
 $(BIN)/mainWindow.o: $(WINDOW)/mainWindow.cpp $(INCLUDE_DIR)/mainWindow.h $(BIN)/window.o $(MISC_OBJ)
-	@echo "Building Main Window"
+	@echo "Building main window"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/mainWindow.o $(WINDOW)/mainWindow.cpp
+
+$(BIN)/pathWindow.o: $(WINDOW)/pathWindow.cpp $(INCLUDE_DIR)/pathWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
+	@echo "Building path window"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/pathWindow.o $(WINDOW)/pathWindow.cpp
 
 $(BIN)/popUpWindow.o: $(WIN_DRIVER)/popUpWindow.cpp $(INCLUDE_DIR)/popUpWindow.h $(BIN)/window.o $(MISC_OBJ)
 	@echo "Building pop up window"

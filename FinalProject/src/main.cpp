@@ -5,15 +5,15 @@
 #include <ncurses.h>
 #include "dataSet.h"
 #include "constants.h"
-#include "enums.h"
 #include "filterActions.h"
 #include "mainWindow.h"
+#include "pathWindow.h"
 #include "addActions.h"
-#include "selectionList.h"
 
 int main (void);
 void initCurses(void);
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
+std::string askForPath(std::shared_ptr<MainWindow> mainWin);
 
 
 int main (void) {
@@ -69,7 +69,7 @@ void initCurses(void) {
 }
 
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
-    SelectionList selection(mainWin, FUEL_TYPE_TEXTS);
+    std::string path;
     switch (mainWin->pressedKey) {
         case 'a':
         case 'A':
@@ -93,11 +93,13 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             break;
         case 'x':
         case 'X':
-            data->exportToYaml("test.yaml");
+            path = askForPath(mainWin);
+            data->exportToYaml(path);
             break;
         case 'i':
         case 'I':
-            data->importFromYaml("test.yaml");
+            path = askForPath(mainWin);
+            data->importFromYaml(path);
             break;
         case 'j':
         case 'J':
@@ -110,4 +112,10 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             mainWin->cursorUp();
             break;
     }
+}
+
+std::string askForPath(std::shared_ptr<MainWindow> mainWin) {
+    PathWindow pop (mainWin);
+    if (pop.askForData()) { return pop.getPath(); }
+    return "";
 }

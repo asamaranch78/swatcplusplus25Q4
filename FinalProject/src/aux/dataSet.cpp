@@ -1,4 +1,5 @@
 #include "dataSet.h"
+#include "stringManip.h"
 #include "truck.h"
 #include "car.h"
 #include "motorbike.h"
@@ -37,11 +38,9 @@ void DataSet::clearFilter() {
 
 void DataSet::preFilter() {
     if (!filtering) { 
-        system("touch file1000");
         preFilteredSet = dataSet;
     }
     else {
-        system("touch file1001");
         preFilteredSet = filteredData;
     }
     filteredData.clear();
@@ -70,7 +69,7 @@ void DataSet::filterByManufacturer(std::string manufacturer) {
     preFilter();
     filtering = true;
     for (auto vehicle: preFilteredSet) {
-        if (vehicle->manufacturer.data() == manufacturer.data()) {
+        if (equal(vehicle->manufacturer, manufacturer)) {
             filteredData.push_back(vehicle);
         }
     }
