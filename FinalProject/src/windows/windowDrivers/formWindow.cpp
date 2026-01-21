@@ -15,7 +15,6 @@ FormWindow::FormWindow(std::shared_ptr<MainWindow> mainWin, uint16_t fields) :
         fieldRow = FORM_START + FORM_SPACE * i;
         inputFields[i] = new_field(FORM_HEIGHT, FORM_WIDTH, fieldRow, FORM_COL, NO_OFF_SCREEN, NO_BUFFERS);
         field_opts_off(inputFields[i], O_AUTOSKIP);
-        set_field_back(inputFields[i], A_UNDERLINE);
     }
     inputFields[fields] = NULL;
 

@@ -3,6 +3,8 @@
 #include <memory>
 #include <unistd.h>
 #include <ncurses.h>
+#include "showError.h"
+#include "stringManip.h"
 #include "dataSet.h"
 #include "constants.h"
 #include "filterActions.h"
@@ -65,7 +67,7 @@ void initCurses(void) {
     init_pair(MAIN_COLOR, COLOR_WHITE, COLOR_BLACK);
     init_pair(SELECTED_COLOR, COLOR_BLACK, COLOR_WHITE);
     init_pair(MENU_COLOR, COLOR_GREEN, COLOR_BLACK);
-    init_pair(ERROR_COLOR, COLOR_WHITE, COLOR_RED);
+    init_pair(ERROR_COLOR, COLOR_BLACK, COLOR_RED);
 }
 
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
@@ -94,12 +96,16 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
         case 'x':
         case 'X':
             path = askForPath(mainWin);
-            data->exportToYaml(path);
+            if (!equal(path, "")) {data->exportToYaml(path);}
             break;
         case 'i':
         case 'I':
             path = askForPath(mainWin);
-            data->importFromYaml(path);
+            if (!equal(path, "")) {data->importFromYaml(path);}
+            break;
+        case 'e':
+        case 'E':
+            showError(TEST_ERROR, mainWin);
             break;
         case 'j':
         case 'J':
