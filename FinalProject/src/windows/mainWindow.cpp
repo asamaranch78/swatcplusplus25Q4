@@ -2,10 +2,8 @@
 #include "constants.h"
 #include "vehicle.h"
 #include "window.h"
-#include "actions.h"
 #include <cstddef>
 #include <cstdint>
-#include <iterator>
 #include <memory>
 #include <panel.h>
 #include <string>
@@ -45,14 +43,23 @@ void MainWindow::clearDisplayData(void) {
     for (uint16_t i = DATA_OFFSET; i < separatorLine; i++) {
         printBlankLine(i);
     }
+    printBlankLine(menuLine);
 }
 
-void MainWindow::drawConstantPart(void) {
+void MainWindow::drawConstantPart(bool filtering) {
     for (std::size_t i = 1; i < SCREEN_WIDTH - 1; i++) {
          Window::print(separatorLine, i, "=");
     }
     Window::changeColor(MENU_COLOR);
-    Window::print(menuLine, WIDE_GAP, "A: Add\tD: Delete\tX: Export\tI: Import\t F:Filter\tQ: Quit");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP, "A: Add");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 2, "D: Delete");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 3, "X: Export");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 4, "I: Import");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 5, "F: Filter");
+    if (filtering) {
+        Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 6, "C: Clear filter");
+    }
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 8, "Q: Quit");
     Window::removeColor(MENU_COLOR);
 
     Window::print(HEARDER_LINE, MANUFACTURER_COL, "Manufacturer");
@@ -63,7 +70,6 @@ void MainWindow::drawConstantPart(void) {
     Window::print(HEARDER_LINE, FUEL_TYPE_COL, "Fuel Type");
     Window::print(HEARDER_LINE, TYPE_COL, "Type");
     Window::print(HEARDER_LINE, SPECIAL_COL, "Special");
-        
 }
 
 void MainWindow::printVehicle(std::shared_ptr<Vehicle> ptr, int8_t line) {

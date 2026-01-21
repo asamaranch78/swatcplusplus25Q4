@@ -21,6 +21,7 @@ PopUpWindow::~PopUpWindow() {
 }
 
 void PopUpWindow::refresh() {
+    mainWindow->refresh();
     Window::refresh();
     update_panels();
 }
@@ -31,6 +32,7 @@ void PopUpWindow::putOnTop() {
 
 void PopUpWindow::hide() {
     hide_panel(panel);
+    mainWindow->refresh();
 }
 
 void PopUpWindow::show() {

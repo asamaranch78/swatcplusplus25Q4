@@ -7,7 +7,7 @@ void initData(std::shared_ptr<DataSet> data) {
     std::shared_ptr<Car> car1 = std::make_shared<Car>();
     std::shared_ptr<Car> car2 = std::make_shared<Car>();
     std::shared_ptr<Truck> truck1 = std::make_shared<Truck>();
-
+    
     car1->manufacturer = "Ford";
     car1->model = "Focus";
     car1->year = 2025;

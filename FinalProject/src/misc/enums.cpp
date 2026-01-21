@@ -30,3 +30,16 @@ enum Types calculateType(int8_t index) {
             throw;
     }
 }
+
+enum FilterTypes calculateFilterType(int8_t index) {
+    switch(index) {
+        case 0:
+            return FilterTypes::YEAR;
+        case 1:
+            return FilterTypes::MANUFACTURER;
+        case 2:
+            return FilterTypes::TYPE;
+        default:
+            throw;
+    }
+}

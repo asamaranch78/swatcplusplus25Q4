@@ -16,6 +16,11 @@ enum Types {
     ELECTRIC_CAR,
     MOTORBIKE};
 
+enum FilterTypes{
+    YEAR,
+    MANUFACTURER,
+    TYPE};
+
 const auto FUEL_TYPE_TEXTS = std::make_shared<std::vector<std::string>>(
         std::initializer_list<std::string>{
             "DIESEL",
@@ -30,7 +35,15 @@ const auto TYPES_TEXTS = std::make_shared<std::vector<std::string>>(
             "MOTOR_BIKE"}
     );
 
+const auto FILTER_TYPE_TEXTS = std::make_shared<std::vector<std::string>>(
+        std::initializer_list<std::string>{
+            "YEAR",
+            "MANUFACTURER",
+            "TYPE"}
+    );
+
 enum FuelTypes calculateFuelType(int8_t index);
 enum Types calculateType(int8_t index);
+enum FilterTypes calculateFilterType(int8_t index);
 
 #endif

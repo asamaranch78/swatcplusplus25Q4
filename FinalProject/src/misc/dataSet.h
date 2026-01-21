@@ -9,6 +9,7 @@ class DataSet {
 public:
     std::vector<std::shared_ptr<Vehicle>> dataSet;
     std::vector<std::shared_ptr<Vehicle>> filteredData;
+    std::vector<std::shared_ptr<Vehicle>> preFilteredSet;
     bool filtering;
     DataSet();
     void addVehicle(std::shared_ptr<Vehicle> ptr);
@@ -16,6 +17,7 @@ public:
     void deletaAllData();
     std::vector<std::shared_ptr<Vehicle>> getDisplayData();
     void clearFilter();
+    void preFilter();
     void filterByYear(uint16_t beginYear, uint16_t endYear);
     void filterByManufacturer(std::string manufacturer);
     void filterByType(enum Types type);

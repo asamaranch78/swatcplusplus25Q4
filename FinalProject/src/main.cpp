@@ -6,9 +6,9 @@
 #include "dataSet.h"
 #include "constants.h"
 #include "enums.h"
+#include "filterActions.h"
 #include "mainWindow.h"
-#include "actions.h"
-#include "popUpWindow.h"
+#include "addActions.h"
 #include "selectionList.h"
 
 int main (void);
@@ -37,9 +37,9 @@ int main (void) {
 
     std::shared_ptr<MainWindow> mainWin;
     mainWin = std::make_shared<MainWindow>(windowHeight, windowWidth/2, MAIN_COLOR);
-    mainWin->drawConstantPart();
 
     while (true) {
+        mainWin->drawConstantPart(data->filtering);
         mainWin->drawDisplayData(data);
         mainWin->refresh();
 
@@ -79,6 +79,16 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             data->deleteVehicle(mainWin->cursor - DATA_OFFSET);
             mainWin->clearDisplayData();
             mainWin->cursorUp();
+            break;
+        case 'f':
+        case 'F':
+            filter(data, mainWin);
+            mainWin->clearDisplayData();
+            break;
+        case 'c':
+        case 'C':
+            data->clearFilter();
+            mainWin->clearDisplayData();
             break;
         case 'j':
         case 'J':
