@@ -2,18 +2,7 @@
 #include "constants.h"
 
 AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
-    PopUpWindow(WINDOW_HEIGHT, WINDOW_WIDTH, WINDOW_COLOR, mainWin),
-    FormDriver(window) {
-    int16_t fieldRow;
-    keypad(window, TRUE);
-    for (size_t i=0; i < NUMBER_OF_FIELDS; i++) {
-        fieldRow = FORM_START + FORM_SPACE * i;
-        inputFields[i] = new_field(FORM_HEIGHT, FORM_WIDTH, fieldRow, FORM_COL, NO_OFF_SCREEN, NO_BUFFERS);
-        field_opts_off(inputFields[i], O_AUTOSKIP);
-        set_field_back(inputFields[i], A_UNDERLINE);
-    }
-    inputFields[NUMBER_OF_FIELDS] = NULL;
-
+    FormWindow(mainWin,7) {
     inputNames.push_back("Manufacturer:");
     inputNames.push_back("Model:");
     inputNames.push_back("Year:");
@@ -21,23 +10,6 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
     inputNames.push_back("Fuel Effi:");
     inputNames.push_back("Doors:");
     inputNames.push_back("Trunk cap.:");
-}
-
-bool AddCarWindow::askForData(void) {
-    putOnTop();
-    FormDriver::createForm(inputFields, inputNames);
-    refresh();
-    key = wgetch(window);
-    while (key != KEY_F(1)) {
-        FormDriver::handleFrom();
-        if (key == KEY_F(2)) { return false; }
-        refresh();
-        key = wgetch(window);
-    }
-    form_driver(form, REQ_NEXT_FIELD);
-    hide();
-    FormDriver::destroyForm();
-    return true;
 }
 
 void AddCarWindow::saveToObject(std::shared_ptr<Car> car) {
