@@ -1,0 +1,27 @@
+#include "addElectricWindow.h"
+#include "constants.h"
+
+AddElectricWindow::AddElectricWindow(std::shared_ptr<MainWindow> mainWin) :
+    FormWindow(mainWin,8) {
+    inputNames.push_back("Manufacturer:");
+    inputNames.push_back("Model:");
+    inputNames.push_back("Year:");
+    inputNames.push_back("Weight:");
+    inputNames.push_back("Fuel Effi:");
+    inputNames.push_back("Doors:");
+    inputNames.push_back("Trunk cap.:");
+    inputNames.push_back("Range:");
+}
+
+void AddElectricWindow::saveToObject(std::shared_ptr<Electric> car) {
+    car->manufacturer = field_buffer(inputFields[MANUFACTURER_INDEX], 0);
+    car->model = field_buffer(inputFields[MODEL_INDEX], 0);
+    car->year = std::stoi(field_buffer(inputFields[YEAR_INDEX], 0));
+    car->weight = std::stoi(field_buffer(inputFields[WEIGHT_INDEX], 0));
+    car->fuelEfficiency = std::stof(field_buffer(inputFields[EFFICIENCY_INDEX], 0));
+
+    car->doors = std::stoi(field_buffer(inputFields[DOORS_INDEX], 0));
+    car->trunkCapacity = std::stoi(field_buffer(inputFields[TRUNK_INDEX], 0));
+    car->range = std::stoi(field_buffer(inputFields[RANGE_INDEX], 0));
+
+}

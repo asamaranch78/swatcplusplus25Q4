@@ -33,3 +33,13 @@
   FuelType: Gasoline
   Type: Motorbike
   Seats: 2
+- Manufacturer: "Tesla          "
+  Model: "Model3         "
+  Year: 2025
+  Weight: 3000
+  FuelEfficiency: 4
+  FuelType: Electric
+  Type: Car
+  Doors: 4
+  TrunkCapacity: 100
+  Range: 500

@@ -5,6 +5,7 @@
 #include "addCarWindow.h"
 #include "addTruckWindow.h"
 #include "addMotorbikeWindow.h"
+#include "addElectricWindow.h"
 #include "enums.h"
 #include "selectionList.h"
 
@@ -21,7 +22,7 @@ void addVehicle(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainW
             addTruck(data, mainWin);
             break;
         case Types::ELECTRIC_CAR:
-            //addElectric(data, mainWin);
+            addElectric(data, mainWin);
             break;
         case Types::MOTORBIKE:
             addMotorbike(data, mainWin);
@@ -63,7 +64,7 @@ void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin
     }
 }
 
-/*void addElectric(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
+void addElectric(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
     AddElectricWindow popUp(mainWin);
     std::shared_ptr<Electric> newElectric = std::make_shared<Electric>();
 
@@ -77,7 +78,7 @@ void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin
         catch (...) {
         }
     }
-}*/
+}
 
 void addMotorbike(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) {
     AddMotorbikeWindow popUp(mainWin);

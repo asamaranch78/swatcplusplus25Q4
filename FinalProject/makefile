@@ -40,12 +40,12 @@ INCLUDE = -I$(INCLUDE_DIR)
 BIN = bin
 
 # Objects to build
-ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o $(BIN)/addMotorbikeWindow.o
+ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o $(BIN)/addMotorbikeWindow.o $(BIN)/addElectricWindow.o
 FILTER_WIN_OBJ = $(BIN)/yearWindow.o $(BIN)/manufacturerWindow.o
 POP_WIN_OBJ = $(BIN)/selectionList.o
 WINDOW_OBJ = $(BIN)/mainWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/truck.o $(BIN)/car.o $(BIN)/motorbike.o $(BIN)/electric.o
-MISC_OBJ = $(BIN)/constants.o $(BIN)/enums.o
+MISC_OBJ = $(INCLUDE_DIR)/constants.h $(BIN)/enums.o
 AUX_OBJ = $(BIN)/addActions.o $(BIN)/filterActions.o $(BIN)/dataSet.o
 OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ) $(ADD_WIN_OBJ)
 
@@ -68,10 +68,6 @@ $(BIN)/dataSet.o: $(AUX)/dataSet.cpp $(INCLUDE_DIR)/dataSet.h
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/dataSet.o $(AUX)/dataSet.cpp
 
 # Miscelaneous module
-$(BIN)/constants.o: $(MISC)/constants.cpp $(INCLUDE_DIR)/constants.h
-	@echo "Building constants"
-	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/constants.o $(MISC)/constants.cpp
-
 $(BIN)/enums.o: $(MISC)/enums.cpp $(INCLUDE_DIR)/enums.h
 	@echo "Building enums"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/enums.o $(MISC)/enums.cpp
@@ -120,8 +116,12 @@ $(BIN)/addTruckWindow.o: $(ADD_WIN)/addTruckWindow.cpp $(INCLUDE_DIR)/addTruckWi
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addTruckWindow.o $(ADD_WIN)/addTruckWindow.cpp
 
 $(BIN)/addMotorbikeWindow.o: $(ADD_WIN)/addMotorbikeWindow.cpp $(INCLUDE_DIR)/addMotorbikeWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
-	@echo "Building add car window"
+	@echo "Building add motorbike window"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addMotorbikeWindow.o $(ADD_WIN)/addMotorbikeWindow.cpp
+
+$(BIN)/addElectricWindow.o: $(ADD_WIN)/addElectricWindow.cpp $(INCLUDE_DIR)/addElectricWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
+	@echo "Building add electric car window"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/addElectricWindow.o $(ADD_WIN)/addElectricWindow.cpp
 
 # Filter menus
 $(BIN)/yearWindow.o: $(FILTER_WIN)/yearWindow.cpp $(INCLUDE_DIR)/yearWindow.h $(BIN)/formWindow.o $(MISC_OBJ)

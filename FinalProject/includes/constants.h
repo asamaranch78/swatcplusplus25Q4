@@ -51,12 +51,12 @@
 //Indexes on fields array for car data
 #define DOORS_INDEX 5
 #define TRUNK_INDEX 6
+//Indexes on fields array for electric car data
+#define RANGE_INDEX 7
 //Indexes on fields array for truck  data
 #define AXLE_INDEX 5
 #define LOAD_INDEX 6
 //Indexes on fields array for motorbike data
 #define SEATS_INDEX 5
-
-extern void initData(std::shared_ptr<DataSet> data);
 
 #endif

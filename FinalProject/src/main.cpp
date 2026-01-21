@@ -21,7 +21,6 @@ int main (void) {
     uint16_t windowHeight, windowWidth;
     
 
-    initData(data);
     initCurses();
 
     windowWidth = getmaxx(stdscr);
@@ -37,6 +36,8 @@ int main (void) {
 
     std::shared_ptr<MainWindow> mainWin;
     mainWin = std::make_shared<MainWindow>(windowHeight, windowWidth/2, MAIN_COLOR);
+
+    data->importFromYaml("init.yaml");
 
     while (true) {
         mainWin->drawConstantPart(data->filtering);
