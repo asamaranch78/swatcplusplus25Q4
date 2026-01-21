@@ -45,7 +45,7 @@ FILTER_WIN_OBJ = $(BIN)/yearWindow.o $(BIN)/manufacturerWindow.o
 POP_WIN_OBJ = $(BIN)/selectionList.o
 DRIVER_WIN_OBJ = $(BIN)/window.o $(BIN)/popUpWindow.o
 WINDOW_OBJ = $(BIN)/mainWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ)
-VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o
+VEHICLE_OBJ = $(BIN)/vehicle.o $(BIN)/truck.o $(BIN)/car.o $(BIN)/motorbike.o
 MISC_OBJ = $(BIN)/constants.o $(BIN)/enums.o
 AUX_OBJ = $(BIN)/addActions.o $(BIN)/filterActions.o $(BIN)/dataSet.o
 OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ) $(ADD_WIN_OBJ)
@@ -89,6 +89,10 @@ $(BIN)/car.o: $(VEHICLE)/car.cpp $(INCLUDE_DIR)/car.h $(BIN)/vehicle.o $(MISC_OB
 $(BIN)/truck.o: $(VEHICLE)/truck.cpp $(INCLUDE_DIR)/truck.h $(BIN)/vehicle.o $(MISC_OBJ)
 	@echo "Building truck"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/truck.o $(VEHICLE)/truck.cpp
+
+$(BIN)/motorbike.o: $(VEHICLE)/motorbike.cpp $(INCLUDE_DIR)/motorbike.h $(BIN)/vehicle.o $(MISC_OBJ)
+	@echo "Building motorbike"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/motorbike.o $(VEHICLE)/motorbike.cpp
 
 # Window module
 $(BIN)/window.o: $(WIN_DRIVER)/window.cpp $(INCLUDE_DIR)/window.h $(MISC_OBJ)

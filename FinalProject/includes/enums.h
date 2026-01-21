@@ -6,6 +6,14 @@
 #include <vector>
 #include <string>
 
+const std::string dieselString {"Diesel"};
+const std::string electricString {"Electric"};
+const std::string gasolineString {"Gasoline"};
+const std::string carString {"Car"};
+const std::string elecCarString {"Electric car"};
+const std::string motorString {"Motorbike"};
+const std::string truckString {"Truck"};
+
 enum FuelTypes{
     DIESEL,
     GASOLINE,
@@ -45,5 +53,7 @@ const auto FILTER_TYPE_TEXTS = std::make_shared<std::vector<std::string>>(
 enum FuelTypes calculateFuelType(int8_t index);
 enum Types calculateType(int8_t index);
 enum FilterTypes calculateFilterType(int8_t index);
+enum FuelTypes decodeFuelType(std::string type);
+enum Types decodeType(std::string type);
 
 #endif

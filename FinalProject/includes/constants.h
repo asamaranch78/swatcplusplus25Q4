@@ -55,13 +55,6 @@
 #define AXLE_INDEX 5
 #define LOAD_INDEX 6
 
-const std::string dieselString {"Diesel"};
-const std::string electricString {"Electric"};
-const std::string gasolineString {"Gasoline"};
-const std::string carString {"Car"};
-const std::string elecCarString {"Electric car"};
-const std::string motorString {"Motorbike"};
-const std::string truckString {"Truck"};
 
 extern void initData(std::shared_ptr<DataSet> data);
 

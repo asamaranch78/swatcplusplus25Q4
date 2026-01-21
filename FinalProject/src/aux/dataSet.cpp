@@ -1,6 +1,8 @@
 #include "dataSet.h"
 #include "truck.h"
 #include "car.h"
+#include "motorbike.h"
+#include "enums.h"
 #include <cstdlib>
 #include <fstream>
 #include <memory>
@@ -102,17 +104,27 @@ void DataSet::exportToYaml(std::string path) {
 
 void DataSet::importFromYaml(std::string path) {
     YAML::Node list = YAML::LoadFile(path);
+    Types type;
     
     if (!list.IsSequence()) {
         throw;
     }
 
     for (const auto vehicle: list) {
-        if (vehicle["Doors"]) {
-            importCar(vehicle);
-        }
-        else {
-            importTruck(vehicle);
+        type = decodeType(vehicle["Type"].as<std::string>());
+
+        switch (type) {
+            case Types::CAR:
+                importCar(vehicle);
+                break;
+            case Types::TRUCK:
+                importTruck(vehicle);
+                break;
+            case Types::MOTORBIKE:
+                importMotorbike(vehicle);
+                break;
+            case Types::ELECTRIC_CAR:
+                break;
         }
     }
 }
@@ -127,4 +139,10 @@ void DataSet::importTruck(YAML::Node node) {
     std::shared_ptr<Truck> truck = std::make_shared<Truck>();
     truck->loadYaml(node);
     addVehicle(truck);
+}
+
+void DataSet::importMotorbike(YAML::Node node) {
+    std::shared_ptr<Motorbike> bike = std::make_shared<Motorbike>();
+    bike->loadYaml(node);
+    addVehicle(bike);
 }

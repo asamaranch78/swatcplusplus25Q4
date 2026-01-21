@@ -9,6 +9,7 @@ class DataSet {
 private:
     void importCar(YAML::Node node);
     void importTruck(YAML::Node node);
+    void importMotorbike(YAML::Node node);
 public:
     std::vector<std::shared_ptr<Vehicle>> dataSet;
     std::vector<std::shared_ptr<Vehicle>> filteredData;

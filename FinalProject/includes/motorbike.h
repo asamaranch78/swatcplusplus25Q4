@@ -1,17 +1,14 @@
-#ifndef __TRUCK_H__
-#define __TRUCK_H__
-
-#include <cstdint>
+#ifndef __MOTORBIKE_H__
+#define __MOTORBIKE_H__
 
 #include "vehicle.h"
 
-class Truck: public Vehicle {
+class Motorbike: public Vehicle {
 public:
-    uint16_t axles;
-    uint16_t payloadCapacity;
+    uint16_t seats;
 
-    Truck() = default;
-    ~Truck() = default;
+    Motorbike() = default;
+    ~Motorbike() = default;
     virtual void fuelEfficiencyCalc() override;
     virtual std::string getSpecial(void) override;
     virtual YAML::Node getYaml() override;

@@ -18,14 +18,9 @@ public:
     FuelTypes fuelType;
     Types type;
 
-    virtual void info();
-    virtual void fuelEfficiencyCalc() = 0;
-    virtual void saveToFile() = 0;
-    virtual void loadFromFile() = 0;
     std::string getFuelType(void);
     std::string getType(void);
-    FuelTypes decodeFuelType(std::string type);
-    Types decodeType(std::string type);
+    virtual void fuelEfficiencyCalc() = 0;
     virtual std::string getSpecial(void) = 0;
     virtual YAML::Node getYaml();
     virtual void loadYaml(YAML::Node node);

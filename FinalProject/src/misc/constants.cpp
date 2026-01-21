@@ -1,12 +1,15 @@
 #include "car.h"
+#include "motorbike.h"
 #include "truck.h"
 #include "dataSet.h"
+#include <memory>
 
 
 void initData(std::shared_ptr<DataSet> data) {
     std::shared_ptr<Car> car1 = std::make_shared<Car>();
     std::shared_ptr<Car> car2 = std::make_shared<Car>();
     std::shared_ptr<Truck> truck1 = std::make_shared<Truck>();
+    std::shared_ptr<Motorbike> bike1 = std::make_shared<Motorbike>();
     
     car1->manufacturer = "Ford";
     car1->model = "Focus";
@@ -40,4 +43,14 @@ void initData(std::shared_ptr<DataSet> data) {
     truck1->axles = 6;
     truck1->payloadCapacity = 18000;
     data->addVehicle(truck1);
+
+    bike1->manufacturer = "Kawasaki";
+    bike1->model = "Ninja";
+    bike1->year = 2023;
+    bike1->weight = 400;
+    bike1->fuelEfficiency = 15.8;
+    bike1->fuelType = FuelTypes::GASOLINE;
+    bike1->type = Types::MOTORBIKE;
+    bike1->seats = 2;
+    data->addVehicle(bike1);
 }

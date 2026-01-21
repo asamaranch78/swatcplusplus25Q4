@@ -43,3 +43,18 @@ enum FilterTypes calculateFilterType(int8_t index) {
             throw;
     }
 }
+
+enum FuelTypes decodeFuelType(std::string type) {
+    if (dieselString == type) { return FuelTypes::DIESEL;}
+    if (gasolineString == type) { return FuelTypes::GASOLINE;}
+    if (electricString == type) { return FuelTypes::ELECTRIC;}
+    throw;
+}
+
+enum Types decodeType(std::string type) {
+    if (carString == type) { return Types::CAR;}
+    if (elecCarString == type) { return Types::ELECTRIC_CAR;}
+    if (motorString == type) { return Types::MOTORBIKE;}
+    if (truckString == type) { return Types::TRUCK; }
+    throw;
+}

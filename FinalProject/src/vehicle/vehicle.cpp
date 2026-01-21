@@ -1,20 +1,8 @@
 #include <cstdint>
-#include <iostream>
-#include <iomanip>
 
 #include "vehicle.h"
 #include "constants.h"
 #include "enums.h"
-
-void Vehicle::info(void) {
-    std::cout << std::left;
-    std::cout << std::setw(WIDE_GAP) << manufacturer;
-    std::cout << std::setw(GAP) << model;
-    std::cout << std::setw(GAP) << year;
-    std::cout << std::setw(GAP) << weight;
-    std::cout << std::setw(WIDE_GAP) << fuelEfficiency;
-    
-}
 
 std::string Vehicle::getFuelType(void) {
     switch (fuelType) {
@@ -40,21 +28,6 @@ std::string Vehicle::getType(void) {
             return truckString;
     }
     return "Unknown";
-}
-
-FuelTypes Vehicle::decodeFuelType(std::string type) {
-    if (dieselString == type) { return FuelTypes::DIESEL;}
-    if (gasolineString == type) { return FuelTypes::GASOLINE;}
-    if (electricString == type) { return FuelTypes::ELECTRIC;}
-    throw;
-}
-
-Types Vehicle::decodeType(std::string type) {
-    if (carString == type) { return Types::CAR;}
-    if (elecCarString == type) { return Types::ELECTRIC_CAR;}
-    if (motorString == type) { return Types::MOTORBIKE;}
-    if (truckString == type) { return Types::TRUCK; }
-    throw;
 }
 
 YAML::Node Vehicle::getYaml() {

@@ -25,3 +25,11 @@
   Type: Truck
   Axles: 6
   PayloadCapacity: 18000
+- Manufacturer: Kawasaki
+  Model: Ninja
+  Year: 2023
+  Weight: 400
+  FuelEfficiency: 15.800000000000001
+  FuelType: Gasoline
+  Type: Motorbike
+  Seats: 2
