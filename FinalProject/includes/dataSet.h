@@ -18,6 +18,7 @@ public:
     DataSet();
     void addVehicle(std::shared_ptr<Vehicle> ptr);
     void deleteVehicle(size_t index);
+    std::shared_ptr<Vehicle> getVehicle (uint16_t index);
     void deletaAllData();
     std::vector<std::shared_ptr<Vehicle>> getDisplayData();
     void clearFilter();

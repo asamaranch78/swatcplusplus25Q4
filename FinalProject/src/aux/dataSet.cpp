@@ -145,3 +145,9 @@ void DataSet::importMotorbike(YAML::Node node) {
     bike->loadYaml(node);
     addVehicle(bike);
 }
+
+std::shared_ptr<Vehicle> DataSet::getVehicle (uint16_t index) {
+    std::vector<std::shared_ptr<Vehicle>> vehicles;
+    vehicles = getDisplayData();
+    return vehicles.at(index);
+}

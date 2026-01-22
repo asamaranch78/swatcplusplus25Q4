@@ -51,7 +51,7 @@ void Vehicle::loadYaml(YAML::Node node) {
     fuelType = decodeFuelType(node["FuelType"].as<std::string>());
 }
 
-void Vehicle::fuelEfficiencyCalc(uint16_t liters, double kilometers) {
+void Vehicle::fuelEfficiencyCalc(uint16_t kilometers, double liters) {
     if (kilometers == 0) {
         throw;
     }

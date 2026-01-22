@@ -3,6 +3,7 @@
 #include <memory>
 #include <unistd.h>
 #include <ncurses.h>
+#include "fuelActions.h"
 #include "showError.h"
 #include "stringManip.h"
 #include "dataSet.h"
@@ -93,6 +94,10 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             data->clearFilter();
             mainWin->clearDisplayData();
             break;
+        case 'e':
+        case 'E':
+            fuelEffiCalc(data->getVehicle(mainWin->cursor - DATA_OFFSET), mainWin);
+            break;
         case 'x':
         case 'X':
             path = askForPath(mainWin);
@@ -103,8 +108,8 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             path = askForPath(mainWin);
             if (!equal(path, "")) {data->importFromYaml(path);}
             break;
-        case 'e':
-        case 'E':
+        case 'o':
+        case 'O':
             showError(TEST_ERROR, mainWin);
             break;
         case 'j':

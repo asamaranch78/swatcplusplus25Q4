@@ -29,6 +29,7 @@ VEHICLE = $(SRC)/vehicle
 WINDOW = $(SRC)/windows
 ADD_WIN = $(WINDOW)/addWindows
 FILTER_WIN = $(WINDOW)/filterWindows
+FUEL_WIN = $(WINDOW)/fuelWindows
 WIN_DRIVER = $(WINDOW)/windowDrivers
 MISC = $(SRC)/misc
 AUX = $(SRC)/aux
@@ -41,13 +42,14 @@ BIN = bin
 
 # Objects to build
 ADD_WIN_OBJ = $(BIN)/addCarWindow.o $(BIN)/addTruckWindow.o $(BIN)/addMotorbikeWindow.o $(BIN)/addElectricWindow.o
+EFFI_WIN_OBJ = $(BIN)/elecFuelWindow.o $(BIN)/fuelWindow.o
 FILTER_WIN_OBJ = $(BIN)/yearWindow.o $(BIN)/manufacturerWindow.o
 POP_WIN_OBJ = $(BIN)/selectionList.o
-WINDOW_OBJ = $(BIN)/mainWindow.o $(BIN)/pathWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ)
+WINDOW_OBJ = $(BIN)/mainWindow.o $(BIN)/pathWindow.o $(POP_WIN_OBJ) $(FILTER_WIN_OBJ) $(ADD_WIN_OBJ) $(EFFI_WIN_OBJ)
 VEHICLE_OBJ = $(BIN)/truck.o $(BIN)/car.o $(BIN)/motorbike.o $(BIN)/electric.o
 MISC_OBJ = $(INCLUDE_DIR)/constants.h $(BIN)/enums.o $(BIN)/stringManip.o
-AUX_OBJ = $(BIN)/addActions.o $(BIN)/filterActions.o $(BIN)/dataSet.o $(BIN)/showError.o
-OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ) $(ADD_WIN_OBJ)
+AUX_OBJ = $(BIN)/addActions.o $(BIN)/filterActions.o $(BIN)/dataSet.o $(BIN)/showError.o $(BIN)/fuelActions.o
+OBJECTS = $(WINDOW_OBJ) $(VEHICLE_OBJ) $(MISC_OBJ)
 
 # Build rule
 # Main
@@ -62,6 +64,10 @@ $(BIN)/addActions.o: $(AUX)/addActions.cpp $(INCLUDE_DIR)/addActions.h $(OBJECTS
 $(BIN)/filterActions.o: $(AUX)/filterActions.cpp $(INCLUDE_DIR)/filterActions.h $(OBJECTS)
 	@echo "Building filter actions"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/filterActions.o $(AUX)/filterActions.cpp
+
+$(BIN)/fuelActions.o: $(AUX)/fuelActions.cpp $(INCLUDE_DIR)/fuelActions.h $(OBJECTS)
+	@echo "Building filter actions"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/fuelActions.o $(AUX)/fuelActions.cpp
 
 $(BIN)/dataSet.o: $(AUX)/dataSet.cpp $(INCLUDE_DIR)/dataSet.h $(OBJECTS)
 	@echo "Building data set"
@@ -143,6 +149,15 @@ $(BIN)/yearWindow.o: $(FILTER_WIN)/yearWindow.cpp $(INCLUDE_DIR)/yearWindow.h $(
 $(BIN)/manufacturerWindow.o: $(FILTER_WIN)/manufacturerWindow.cpp $(INCLUDE_DIR)/manufacturerWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
 	@echo "Building ask for manufacturer window"
 	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/manufacturerWindow.o $(FILTER_WIN)/manufacturerWindow.cpp
+
+# Efficiency menus
+$(BIN)/fuelWindow.o: $(FUEL_WIN)/fuelWindow.cpp $(INCLUDE_DIR)/fuelWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
+	@echo "Building ask for fuel efficiency data window"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/fuelWindow.o $(FUEL_WIN)/fuelWindow.cpp
+
+$(BIN)/elecFuelWindow.o: $(FUEL_WIN)/elecFuelWindow.cpp $(INCLUDE_DIR)/elecFuelWindow.h $(BIN)/formWindow.o $(MISC_OBJ)
+	@echo "Building ask for electric fuel efficiency data window"
+	@$(CXX) $(NOLINK) $(CXXFLAGS) $(INCLUDE) -o $(BIN)/elecFuelWindow.o $(FUEL_WIN)/elecFuelWindow.cpp
 
 # Pop up menus
 $(BIN)/formDriver.o: $(WIN_DRIVER)/formDriver.cpp $(INCLUDE_DIR)/formDriver.h $(MISC_OBJ)
