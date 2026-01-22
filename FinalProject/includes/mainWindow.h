@@ -15,7 +15,6 @@ private:
 
 public:
     PANEL *panel;
-    char selectedAction;
     uint16_t pressedKey;
     uint8_t dataLines;
     uint8_t menuLine;

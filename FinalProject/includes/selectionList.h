@@ -18,8 +18,7 @@ public:
                   std::shared_ptr<std::vector<std::string>> optText);
     void cursorDown(void);
     void cursorUp(void);
-    int8_t select(void);
-    size_t handleList(void);
+    int8_t handleList(void);
     void drawList(void);
     void printOption(size_t option);
 };

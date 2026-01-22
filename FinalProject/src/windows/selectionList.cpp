@@ -23,7 +23,7 @@ void SelectionList::cursorUp(void) {
     if (cursor < 0) { cursor = 0; }
 }
 
-size_t SelectionList::handleList(void) {
+int8_t SelectionList::handleList(void) {
     drawList();
     while (key != '\n') {
         key = wgetch(window);

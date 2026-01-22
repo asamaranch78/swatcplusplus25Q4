@@ -68,49 +68,48 @@ classDiagram
 		+float fuelEfficiency
 		+enum fueltype
 		+enum type
-		+info() void
-		+fuelEfficiencyCalc(msg) void
-        +saveToFile(file) void
-        +askUserForData(msg) void
-        +laodFromFile() void
+
+		+fuelEfficiencyCalc(uint16_t, double) void
+        +getFuelType() string
+        +getType() string
+        +getSpecial() string = 0
+        +getYaml() YAML::node
+        +loadYaml(YAML::node) void
 	}
 
 	class Car {
 		+uint doors
 		+uint trunkCapacity
-		+info() void
-		+fuelEfficiencyCalc(msg) void
-        +saveToFile(file) void
-        +askUserForData(msg) void
-        +laodFromFile() void
+
+        +getSpecial() string = 0
+        +getYaml() YAML::node
+        +loadYaml(YAML::node) void
 	}
 
 	class ElectricCar {
 		+uint range
-		+info() void
-		+fuelEfficiencyCalc(msg) void
-        +saveToFile(file) void
-        +askUserForData(msg) void
-        +laodFromFile() void
+
+		+fuelEfficiencyCalc(uint16_t, double) void
+        +getSpecial() string = 0
+        +getYaml() YAML::node
+        +loadYaml(YAML::node) void
 	}
 
 	class Truck {
 		+uint axles
 		+uint payloadCapacity
-		+info() void
-		+fuelEfficiencyCalc(msg): void
-        +saveToFile(file) void
-        +askUserForData(msg) void
-        +laodFromFile() void
+
+        +getSpecial() string = 0
+        +getYaml() YAML::node
+        +loadYaml(YAML::node) void
 	}
 
 	class Motorbike {
 		+uint seats
-		+info() void
-		+fuelEfficiencyCalc(msg): void
-        +saveToFile(file) void
-        +askUserForData(msg) void
-        +laodFromFile() void
+
+        +getSpecial() string = 0
+        +getYaml() YAML::node
+        +loadYaml(YAML::node) void
 	}
 ```
 
@@ -126,71 +125,58 @@ class DataSet {
     + vector Vehicle* dataSet
     + vector Vehicle* fileteredData
     + vector Vehicle* displayedData
+    + bool filtering
+
+    - importCar(YAML::Node) void
+    - importTruck(YAML::Node) void
+    - importMotorbike(YAML::Node) void
     + addVehicle(Vehicle*) void
     + deleteVehicle(Vehicle*) void
     + deleteAllData() void
+    + getDisplayData() vector Vechicle*
+    + clearFilter() void
+    + preFilter void
+    + filterByYear(uint, uint) void
+    + filterByManufacturer (string) void
+    + filterByType(enum) void
+    + exportToYaml(string) void
+    + importFromYaml(string) void
 }
 ```
 
-### Menu - CLI
-
-All the code to handle the menu will be encapsulated in a menu class to organise the code.
-
-```mermaid
-classDiagram
-class Menu {
-	- char selectedOption
-	+ askForSelection () bool
-	+ handleSelected ()
-	- addVehicle()
-    - removeVehicle()
-	- listVehicles()
-	- filterVehicle()
-	- filterByType() 
-	- filterByBrand()
-	- filterByYearRange()
-	- computeFuelEfficiency()
-	- exportData()
-	- deleteData() 
-	- importData()
-	
-}
-```
-
-The method on this class will be responsible of asking for the input from the user and call the necessary methods. There is also two files with all the messages as constants call messages.cpp and messages.h.
-
-### TUI - Ncurses (Later)
+### TUI - Ncurses
 
 ```mermaid
 classDiagram
     Window <-- PopUpWindow
     Window <-- MainWindow
-    PopUpWindow <-- AddCarWindow
-    formDriver <-- AddCarWindow
+    PopUpWindow <-- FormWindow
+    FormDriver <-- FormWindow
+    PopUpWindow <-- SelectionList
     class Window {
         + WINDOW* window
         + int width
         + int height
-        + int minWidth
         + int centerY
         + int centerX 
-        + print(x, y, str, color)
-        + removeColor(int color)
-        + changeColor(int color)
-        + refresh()
+        + print(x, y, str, color) void
+        + printBlankLine(line) void
+        + removeColor(int color) void
+        + changeColor(int color) void
+        + refresh() void
     }
     class PopUpWindow {
         + PANEL *panel
-        + mainWindow
-        + close()
-        + refresh()
-        + putOnTop()
-        + hide()
-        + show()
+        + WINDOW *mainWindow
+        + close() void
+        + refresh() void
+        + putOnTop() void
+        + hide() void
+        + show() void
     }
     class MainWindow {
         + PANEL *panel
-        + char selectedKey
+        + int pressedKey
         + int dataLines
         + int menuLine
         + int centerX
@@ -199,159 +185,51 @@ classDiagram
         + int cursor
         + int cursorMax
         + int cursorMin
-        + bool listenKeyboard()
-        + handleKey()
-        + cursorDown()
-        + cursorUp()
-        + refresh()
-        + drawConstantPart()
-        + drawDisplayData(begin, end)
+        + listenKeyboard() bool
+        + cursorDown() void
+        + cursorUp() void
+        + refresh() void
+        + drawConstantPart() void
+        + clearDisplayData() void
+        + drawDisplayData(begin, end) void
     }
-    class AddCarWindow {
-        + FIELD input[8]
-        + string inputName[8]
-        + Data dataSet
-        + saveToDataSet
-    }
-    class formDriver {
+    class FormDriver {
         + int key
-        + createForm(FIELD* [], sting)
-        + handleForm()
-        + destroyForm()
+        + FORM *form
+        + WINDOW *window
+        + createForm(FIELD* [], sting) void
+        + handleForm() void
+        + destroyForm() void
+    }
+    class FormWindow {
+        + FIELD *[]
+        + vector string inputNames
+    }
+    class SelectionList {
+        + Vector* string options
+        + int cursor
+        + int size
+        + int key
+        
+        + cursorDown() void
+        + cursorUp() void
+        + handleList() int 
+        + drawList() void
+        + printOption() void
     }
 
 ```
 
-## Class details
+All of the following classes will inherit from FromWindow, and will be use to get inputs form the user. If the data is impcomplete or wrongly formatted will get an error.
 
-Details on the necessary methods
+- AddCarWindow
+- AddTruckWindow
+- AddElectricWindow
+- AddMotorbikeWindow
+- YearWindow
+- ManufacturerWindow
+- PathWindow
+- ElecFuelWindow
+- fuelWindow
 
-### Menu
-
-Menu is the class that handle UI on the cli mode. Two methods one ask for a letter to select and operation from the user the other runs the operation. All menu messages are stored in const string, in the future this can be loaded from text adding multilanguage support.
-
-This are the options to be selected by the user, all of them are coded by letter.
-
-| Letter | Action |
-| --- | --- |
-| A | Add vehicles |
-| F | Filter vehicles |
-| L | List all vehicles |
-| C | Calculate fuel efficiency |
-| X | Export data |
-| E | Erase data |
-| I | Import data |
-
-#### Add vechile
-
-```mermaid
-flowchart TD
-A(["Ask for type"])
-B{"Switch Type"}
-C["Ask for car data"]
-D["Ask for electricCar data"]
-E["Ask for truck data"]
-F["Ask for motorbike data"]
-G["Create vehicle object"]
-H["Add new object to dataSet"]
-I(["Return 0"])
-A --> G
-G --> B
-B -- "car" --> C
-B -- "electricCar" --> D
-B -- "truck" --> E
-B -- "motorbike" --> F
-C --> H
-D --> H
-E --> H
-F --> H
-H --> I
-```
-
-Each time user inputs data check validity and throw exception if invalid
-
-#### Filter vehicle
-
-```mermaid
-flowchart TD
-A(["Ask for type of filter"])
-B{"Switch Filter"}
-C["Ask Type"]
-D{"for vhc type?"}
-E["Display"]
-F["Do nothing"]
-G(["return 0"])
-H["Ask year range"]
-I["Ask brand"] 
-J["Make loop"]
-K["Make loop"]
-L(["return 0"])
-M(["return 0"])
-
-A --> B 
-B -- "type" --> C
-C --> D
-D -- "loopdone"--> G
-D --"yes"--> E
-D --"no"--> F
-E --> D 
-F --> D 
-B --"year"--> H 
-B --"brand"--> I 
-H --> J
-I --> K
-J --> L
-K --> M
-```
-
-#### List all vehicles
-
-Loop through the entire dataset vector executing info method for each datapoint.
-
-#### Calculate Fuel efficiency
-
-
-#### Export data
-
-```mermaid
-flowchart TD
-A(["Ask for directory to save"])
-B{"if file conflict"}
-C{"ask for replace"}
-G(["Create csv header"])
-H(["Execute save to csv in each data point"])
-E(["return 0"])
-F(["return 1"])
-
-A --> B 
-B --"yes"--> C 
-B --"no"--> G
-C --"no"--> F
-C --"yes"--> G
-G --> H
-H --> E
-```
-
-#### Erase data
-
-Loop through data set delete each object from memory and removing it from the data set vector
-
-#### Import data
-
-```mermaid
-flowchart TD
-A(["Ask for directory to load"])
-B["throw and exception if no file"]
-C{"for each line in csv"}
-D["check type"]
-E["check valid data"]
-F["create object of type with data"]
-G["add object to data set"]
-
-A --> B
-B --> C
-C --> D 
-D --> E
-E --> F
-F --> G
-G --> C
+This classes are compose jsut by a contructor what sets up the fields, and a series of function that get the data from the form after saving by the user.
