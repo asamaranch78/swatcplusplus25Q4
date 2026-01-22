@@ -8,5 +8,6 @@ void filter(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 void filterByYear(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 void filterByManufacturer(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 void filterByType(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
+void sort(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 
 #endif

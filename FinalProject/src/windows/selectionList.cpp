@@ -25,7 +25,9 @@ void SelectionList::cursorUp(void) {
 
 int8_t SelectionList::handleList(void) {
     drawList();
+    keypad(window, TRUE);
     while (key != '\n') {
+
         key = wgetch(window);
         switch (key) {
             case 'j':

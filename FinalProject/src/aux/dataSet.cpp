@@ -159,3 +159,39 @@ std::shared_ptr<Vehicle> DataSet::getVehicle (uint16_t index) {
     vehicles = getDisplayData();
     return vehicles.at(index);
 }
+
+void DataSet::sortByYear(void)
+{
+    auto& vec = filtering ? filteredData : dataSet;
+
+    std::stable_sort(vec.begin(), vec.end(),
+        [](const std::shared_ptr<Vehicle>& a, const std::shared_ptr<Vehicle>& b)
+        {
+                return a->year < b->year;
+        }
+    );
+}
+
+void DataSet::sortByManufacturer(void)
+{
+    auto& vec = filtering ? filteredData : dataSet;
+
+    std::stable_sort(vec.begin(), vec.end(),
+        [](const std::shared_ptr<Vehicle>& a, const std::shared_ptr<Vehicle>& b)
+        {
+                return a->manufacturer < b->manufacturer;
+        }
+    );
+}
+
+void DataSet::sortByType(void)
+{
+    auto& vec = filtering ? filteredData : dataSet;
+
+    std::stable_sort(vec.begin(), vec.end(),
+        [](const std::shared_ptr<Vehicle>& a, const std::shared_ptr<Vehicle>& b)
+        {
+                return a->type < b->type;
+        }
+    );
+}

@@ -29,6 +29,9 @@ public:
     void filterByType(enum Types type);
     void exportToYaml(std::string path);
     void importFromYaml(std::string path);
+    void sortByYear();
+    void sortByType();
+    void sortByManufacturer();
 };
 
 #endif

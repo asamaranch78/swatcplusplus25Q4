@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include "fuelActions.h"
-#include "showError.h"
 #include "stringManip.h"
 #include "dataSet.h"
 #include "constants.h"
@@ -17,9 +16,10 @@ int main (void);
 void initCurses(void);
 void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin);
 std::string askForPath(std::shared_ptr<MainWindow> mainWin);
-
+void terminate_handler(void);
 
 int main (void) {
+    std::set_terminate(terminate_handler);
     std::shared_ptr<DataSet> data = std::make_shared<DataSet>();
     uint16_t windowHeight, windowWidth;
     
@@ -108,11 +108,9 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             path = askForPath(mainWin);
             if (!equal(path, "")) {data->importFromYaml(path);}
             break;
-        case 'o':
-            showError("Some other error", mainWin);
-            break;
-        case 'O':
-            showError(TEST_ERROR, mainWin);
+        case 's':
+        case 'S':
+            sort(data, mainWin);
             break;
         case 'j':
         case 'J':
@@ -132,3 +130,28 @@ std::string askForPath(std::shared_ptr<MainWindow> mainWin) {
     if (pop.askForData()) { return pop.getPath(); }
     return "";
 }
+
+void terminate_handler() {
+    endwin(); // restore terminal before printing
+
+    std::exception_ptr eptr = std::current_exception();
+
+    if (eptr) {
+        try {
+            std::rethrow_exception(eptr);
+        } catch (const std::exception& ex) {
+            std::fprintf(stderr,
+                "Terminated due to unhandled exception:\n  %s\n",
+                ex.what());
+        } catch (...) {
+            std::fprintf(stderr,
+                "Terminated due to unknown (non-std::exception) error.\n");
+        }
+    } else {
+        std::fprintf(stderr,
+            "Terminated: no current exception.\n");
+    }
+
+    std::_Exit(EXIT_FAILURE);
+}
+

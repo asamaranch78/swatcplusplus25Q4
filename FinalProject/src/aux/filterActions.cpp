@@ -47,3 +47,22 @@ void filterByType(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mai
     uint8_t type = window1.handleList();
     data->filterByType(calculateType(type));
 }
+
+void sort(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin){
+    SelectionList window1(mainWin, FILTER_TYPE_TEXTS);
+    uint8_t filter = window1.handleList();
+
+    switch (calculateFilterType(filter)) {
+        case FilterTypes::YEAR:
+            data->sortByYear();
+            break;
+        case FilterTypes::MANUFACTURER:
+            data->sortByManufacturer();
+            break;
+        case FilterTypes::TYPE:
+            data->sortByType();
+            break;
+        default:
+            throw;
+    }
+}
