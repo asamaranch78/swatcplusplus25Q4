@@ -5,14 +5,20 @@
 #include <memory>
 #include "mainWindow.h"
 
-const auto TEST_ERROR = std::vector<std::string>(
+const auto COMMON_TEXT = std::vector<std::string>(
         std::initializer_list<std::string>{
-            "This is a test error message",
             "",
             "Any key to continue"}
     );
 
+const auto TEST_ERROR = std::vector<std::string>(
+        std::initializer_list<std::string>{
+            "This is a test error message"
+        }
+    );
+
 void showError (std::vector<std::string> msg, std::shared_ptr<MainWindow> mainWin);
+void showError (std::string msg, std::shared_ptr<MainWindow> mainWin);
 
 #endif
 

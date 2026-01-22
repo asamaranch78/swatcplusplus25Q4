@@ -1,6 +1,8 @@
 #include "addActions.h"
+#include <exception>
 #include "car.h"
 #include "motorbike.h"
+#include "showError.h"
 #include "truck.h"
 #include "addCarWindow.h"
 #include "addTruckWindow.h"
@@ -8,6 +10,7 @@
 #include "addElectricWindow.h"
 #include "enums.h"
 #include "selectionList.h"
+#include "showError.h"
 
 #include <memory>
 
@@ -43,8 +46,15 @@ void addCar(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) 
             popUp.saveToObject(newCar);
             data->addVehicle(newCar);
         }
-        catch (...) {
+        catch (const std::exception& e) {
+            std::vector<std::string> message {};
+            message.push_back("Data wrongly formatted or incomplete");
+            message.push_back("");
+            message.push_back("Triggered exception:");
+            message.push_back(e.what());
+            showError(message, mainWin);
         }
+
     }
 }
 
@@ -59,7 +69,13 @@ void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin
             popUp.saveToObject(newTruck);
             data->addVehicle(newTruck);
         }
-        catch (...) {
+        catch (const std::exception& e) {
+            std::vector<std::string> message {};
+            message.push_back("Data wrongly formatted or incomplete");
+            message.push_back("");
+            message.push_back("Triggered exception:");
+            message.push_back(e.what());
+            showError(message, mainWin);
         }
     }
 }
@@ -75,7 +91,13 @@ void addElectric(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> main
             popUp.saveToObject(newElectric);
             data->addVehicle(newElectric);
         }
-        catch (...) {
+        catch (const std::exception& e) {
+            std::vector<std::string> message {};
+            message.push_back("Data wrongly formatted or incomplete");
+            message.push_back("");
+            message.push_back("Triggered exception:");
+            message.push_back(e.what());
+            showError(message, mainWin);
         }
     }
 }
@@ -93,7 +115,13 @@ void addMotorbike(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mai
             popUp.saveToObject(newMotorbike);
             data->addVehicle(newMotorbike);
         }
-        catch (...) {
+        catch (const std::exception& e) {
+            std::vector<std::string> message {};
+            message.push_back("Data wrongly formatted or incomplete");
+            message.push_back("");
+            message.push_back("Triggered exception:");
+            message.push_back(e.what());
+            showError(message, mainWin);
         }
     }
 }

@@ -109,6 +109,8 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             if (!equal(path, "")) {data->importFromYaml(path);}
             break;
         case 'o':
+            showError("Some other error", mainWin);
+            break;
         case 'O':
             showError(TEST_ERROR, mainWin);
             break;
