@@ -108,7 +108,7 @@ void DataSet::importFromYaml(std::string path) {
     Types type;
     
     if (!list.IsSequence()) {
-        throw yamlIsNotList {};
+        throw yamlIsNotList();
     }
 
     for (const auto vehicle: list) {
@@ -128,7 +128,7 @@ void DataSet::importFromYaml(std::string path) {
                 importElectric(vehicle);
                 break;
             default:
-                throw badVehicleType {};
+                throw badVehicleType();
         }
     }
 }

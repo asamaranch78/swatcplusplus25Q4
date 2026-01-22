@@ -1,5 +1,6 @@
 #include <cstdint>
 #include "vehicle.h"
+#include "customExceptions.h"
 #include "enums.h"
 
 std::string Vehicle::getFuelType(void) {
@@ -53,7 +54,7 @@ void Vehicle::loadYaml(YAML::Node node) {
 
 void Vehicle::fuelEfficiencyCalc(uint16_t kilometers, double liters) {
     if (kilometers == 0) {
-        throw;
+        throw kmIsZero();
     }
 
     fuelEfficiency = 100.0 * liters / kilometers;

@@ -12,7 +12,7 @@ enum FuelTypes calculateFuelType(int8_t index) {
         case 2:
             return FuelTypes::ELECTRIC;
         default:
-            throw badFuelType {};
+            throw badFuelType();
     
     }
 }
@@ -28,7 +28,7 @@ enum Types calculateType(int8_t index) {
         case 3:
             return Types::MOTORBIKE;
         default:
-            throw badVehicleType {};
+            throw badVehicleType();
     }
 }
 
@@ -41,7 +41,7 @@ enum FilterTypes calculateFilterType(int8_t index) {
         case 2:
             return FilterTypes::TYPE;
         default:
-            throw badFilterType {};
+            throw badFilterType();
     }
 }
 
@@ -49,7 +49,7 @@ enum FuelTypes decodeFuelType(std::string type) {
     if (dieselString == type) { return FuelTypes::DIESEL;}
     if (gasolineString == type) { return FuelTypes::GASOLINE;}
     if (electricString == type) { return FuelTypes::ELECTRIC;}
-    throw badFuelType {};
+    throw badFuelType();
 }
 
 enum Types decodeType(std::string type) {
@@ -57,5 +57,5 @@ enum Types decodeType(std::string type) {
     if (elecCarString == type) { return Types::ELECTRIC_CAR;}
     if (motorString == type) { return Types::MOTORBIKE;}
     if (truckString == type) { return Types::TRUCK; }
-    throw badVehicleType {};
+    throw badVehicleType();
 }

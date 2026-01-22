@@ -2,6 +2,7 @@
 #include "fuelActions.h"
 #include "fuelWindow.h"
 #include "elecFuelWindow.h"
+#include "customExceptions.h"
 #include "showError.h"
 #include <cstdint>
 
@@ -25,6 +26,9 @@ void normalFuelEffiCalc(std::shared_ptr<Vehicle> vehicle, std::shared_ptr<MainWi
             liters = popUp.getLiters();
             vehicle->fuelEfficiencyCalc(kilometers, liters);
         }
+        catch (const kmIsZero& e) {
+            showError(e.what(), mainWin);
+        }
         catch (const std::exception& e) {
             std::vector<std::string> message {};
             message.push_back("Data wrongly formatted or incomplete");
@@ -46,6 +50,9 @@ void electricFuelEffiCalc(std::shared_ptr<Vehicle> vehicle, std::shared_ptr<Main
             kilometers = popUp.getKilometers();
             hours = popUp.getHours();
             vehicle->fuelEfficiencyCalc(kilometers, hours);
+        }
+        catch (const hoursIsZero& e) {
+            showError(e.what(), mainWin);
         }
         catch (const std::exception& e) {
             std::vector<std::string> message {};

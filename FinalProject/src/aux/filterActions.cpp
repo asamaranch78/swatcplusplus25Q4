@@ -20,7 +20,7 @@ void filter(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin){
             filterByType(data, mainWin);
             break;
         default:
-            throw badFilterType {};
+            throw badFilterType();
     }
 }
 
@@ -64,6 +64,6 @@ void sort(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin){
             data->sortByType();
             break;
         default:
-            throw badFilterType {};
+            throw badFilterType();
     }
 }
