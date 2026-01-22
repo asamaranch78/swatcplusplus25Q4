@@ -1,0 +1,5 @@
+id,type,brand,model,year,fuelType,weightKg,spec1,spec2
+1,Car,Toyota,Corolla,2020,Petrol,1300.0,4,470.0
+10,Truck,Volvo,FH16,2019,Diesel,8000.0,20000.0,5
+20,Bike,Specialized,Turbo,2024,Electric,22.5,city,1
+30,Motorcycle,Yamaha,MT-07,2021,Petrol,184.0,689,0

@@ -1,0 +1,19 @@
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch app (WSL)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/main/main",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "Build (g++ all src/*.cpp)"
+    }
+  ]
+}

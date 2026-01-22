@@ -1,0 +1,26 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build (g++ all src/*.cpp)",
+      "type": "shell",
+      "command": "/usr/bin/bash",
+      "args": [
+        "-c",
+        "mkdir -p main && g++ -std=c++17 -g src/*.cpp main/main.cpp -I include -I src -I main -o main/main"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Compila todos los .cpp usando Bash globbing (WSL)"
+    }
+  ]
+}
