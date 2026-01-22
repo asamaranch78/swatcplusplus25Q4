@@ -36,6 +36,16 @@ void showError (std::string msg, std::shared_ptr<MainWindow> mainWin) {
     showError(message, mainWin);
 }
 
+void badInputError (std::string msg, std::shared_ptr<MainWindow> mainWin) {
+    std::vector<std::string> message {};
+    message.push_back("Data wrongly formatted or incomplete");
+    message.push_back("");
+    message.push_back("Triggered exception:");
+    message.push_back("");
+    message.push_back(msg);
+    showError(message, mainWin);
+}
+
 std::size_t longest_length(const std::vector<std::string>& v) {
     std::size_t max_len = 0;
 
@@ -45,7 +55,6 @@ std::size_t longest_length(const std::vector<std::string>& v) {
     }
     return max_len;
 }
-
 
 std::vector<std::string> combine(
     const std::vector<std::string>& a,

@@ -111,25 +111,31 @@ void DataSet::importFromYaml(std::string path) {
         throw yamlIsNotList();
     }
 
-    for (const auto vehicle: list) {
-        type = decodeType(vehicle["Type"].as<std::string>());
+    try {
 
-        switch (type) {
-            case Types::CAR:
-                importCar(vehicle);
-                break;
-            case Types::TRUCK:
-                importTruck(vehicle);
-                break;
-            case Types::MOTORBIKE:
-                importMotorbike(vehicle);
-                break;
-            case Types::ELECTRIC_CAR:
-                importElectric(vehicle);
-                break;
-            default:
-                throw badVehicleType();
+        for (const auto vehicle: list) {
+            type = decodeType(vehicle["Type"].as<std::string>());
+    
+            switch (type) {
+                case Types::CAR:
+                    importCar(vehicle);
+                    break;
+                case Types::TRUCK:
+                    importTruck(vehicle);
+                    break;
+                case Types::MOTORBIKE:
+                    importMotorbike(vehicle);
+                    break;
+                case Types::ELECTRIC_CAR:
+                    importElectric(vehicle);
+                    break;
+                default:
+                    throw badVehicleType();
+            }
         }
+    }
+    catch (const std::exception& e) {
+        throw badYaml(e.what());
     }
 }
 

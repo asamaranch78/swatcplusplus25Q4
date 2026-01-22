@@ -72,12 +72,7 @@ void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin
             data->addVehicle(newTruck);
         }
         catch (const std::exception& e) {
-            std::vector<std::string> message {};
-            message.push_back("Data wrongly formatted or incomplete");
-            message.push_back("");
-            message.push_back("Triggered exception:");
-            message.push_back(e.what());
-            showError(message, mainWin);
+            badInputError(e.what(), mainWin);
         }
     }
 }
@@ -95,12 +90,7 @@ void addElectric(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> main
             data->addVehicle(newElectric);
         }
         catch (const std::exception& e) {
-            std::vector<std::string> message {};
-            message.push_back("Data wrongly formatted or incomplete");
-            message.push_back("");
-            message.push_back("Triggered exception:");
-            message.push_back(e.what());
-            showError(message, mainWin);
+            badInputError(e.what(), mainWin);
         }
     }
 }
@@ -120,12 +110,7 @@ void addMotorbike(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mai
             data->addVehicle(newMotorbike);
         }
         catch (const std::exception& e) {
-            std::vector<std::string> message {};
-            message.push_back("Data wrongly formatted or incomplete");
-            message.push_back("");
-            message.push_back("Triggered exception:");
-            message.push_back(e.what());
-            showError(message, mainWin);
+            badInputError(e.what(), mainWin);
         }
     }
 }

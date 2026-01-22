@@ -3,7 +3,9 @@
 #include <memory>
 #include <unistd.h>
 #include <ncurses.h>
+#include "customExceptions.h"
 #include "fuelActions.h"
+#include "showError.h"
 #include "stringManip.h"
 #include "dataSet.h"
 #include "constants.h"
@@ -105,8 +107,28 @@ void handleKey(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWi
             break;
         case 'i':
         case 'I':
-            path = askForPath(mainWin);
-            if (!equal(path, "")) {data->importFromYaml(path);}
+            try {
+                path = askForPath(mainWin);
+                if (!equal(path, "")) {data->importFromYaml(path);}
+            }
+            catch (const yamlIsNotList& e) {
+                showError(e.what(), mainWin);
+            }
+            catch (const badYaml& e) {
+                std::vector<std::string> message {};
+                message.push_back(e.what());
+                message.push_back("");
+                message.push_back("Triggered exception:");
+                message.push_back("");
+                message.push_back(e.originalMsg);
+                showError(message, mainWin);
+            }
+            catch (const std::exception& e) {
+                badInputError(e.what(), mainWin);
+            }
+            catch (...) {
+                showError("Unknown exception triggered", mainWin);
+            }
             break;
         case 's':
         case 'S':

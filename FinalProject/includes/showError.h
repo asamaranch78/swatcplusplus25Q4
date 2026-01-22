@@ -19,6 +19,7 @@ const auto TEST_ERROR = std::vector<std::string>(
 
 void showError (std::vector<std::string> msg, std::shared_ptr<MainWindow> mainWin);
 void showError (std::string msg, std::shared_ptr<MainWindow> mainWin);
+void badInputError (std::string msg, std::shared_ptr<MainWindow> mainWin);
 
 #endif
 

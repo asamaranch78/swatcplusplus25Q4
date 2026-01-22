@@ -61,6 +61,10 @@ public:
 
 class badYaml: public std::exception {
 public:
+    std::string originalMsg;
+    badYaml(std::string original) {
+        originalMsg = original;
+    }
     ~badYaml() = default;
     virtual const char * what() const noexcept {
         return "Error occured during yaml processing";
