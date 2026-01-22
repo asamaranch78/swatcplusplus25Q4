@@ -1,4 +1,5 @@
 #include "electric.h"
+#include "customExceptions.h"
 
 
 std::string Electric::getSpecial(void) {
@@ -22,7 +23,7 @@ void Electric::loadYaml(YAML::Node node) {
 }
 
 void Electric::fuelEfficiencyCalc(uint16_t kilometers, double hours) {
-    if (hours == 0) { throw; }
+    if (hours == 0) { throw hoursIsZero {}; }
     fuelEfficiency = kilometers / hours;
 
 }

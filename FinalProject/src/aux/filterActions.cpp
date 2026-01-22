@@ -3,6 +3,7 @@
 #include "manufacturerWindow.h"
 #include "selectionList.h"
 #include "yearWindow.h"
+#include "customExceptions.h"
 
 void filter(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin){
     SelectionList window1(mainWin, FILTER_TYPE_TEXTS);
@@ -19,7 +20,7 @@ void filter(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin){
             filterByType(data, mainWin);
             break;
         default:
-            throw;
+            throw badFilterType {};
     }
 }
 
@@ -63,6 +64,6 @@ void sort(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin){
             data->sortByType();
             break;
         default:
-            throw;
+            throw badFilterType {};
     }
 }

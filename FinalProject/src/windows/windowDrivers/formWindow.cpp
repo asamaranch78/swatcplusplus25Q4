@@ -1,5 +1,6 @@
 #include "formWindow.h"
 #include "constants.h"
+#include "customExceptions.h"
 
 
 FormWindow::FormWindow(std::shared_ptr<MainWindow> mainWin, uint16_t fields) :
@@ -8,7 +9,7 @@ FormWindow::FormWindow(std::shared_ptr<MainWindow> mainWin, uint16_t fields) :
                 SELECTED_COLOR, 
                 mainWin),
     FormDriver(window) {
-    if (fields > MAX_FIELDS) { throw; }
+    if (fields > MAX_FIELDS) { throw tooManyFields{}; }
     int16_t fieldRow;
     keypad(window, TRUE);
     for (size_t i=0; i < fields; i++) {

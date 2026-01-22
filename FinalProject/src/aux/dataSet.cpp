@@ -1,4 +1,5 @@
 #include "dataSet.h"
+#include "customExceptions.h"
 #include "stringManip.h"
 #include "truck.h"
 #include "car.h"
@@ -107,7 +108,7 @@ void DataSet::importFromYaml(std::string path) {
     Types type;
     
     if (!list.IsSequence()) {
-        throw;
+        throw yamlIsNotList {};
     }
 
     for (const auto vehicle: list) {
@@ -126,6 +127,8 @@ void DataSet::importFromYaml(std::string path) {
             case Types::ELECTRIC_CAR:
                 importElectric(vehicle);
                 break;
+            default:
+                throw badVehicleType {};
         }
     }
 }
