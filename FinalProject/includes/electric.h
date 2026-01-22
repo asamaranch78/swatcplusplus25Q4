@@ -2,6 +2,7 @@
 #define __ELECTRIC_H__
 
 #include "car.h"
+#include <cstdint>
 
 class Electric: public Car {
 public:
@@ -9,7 +10,7 @@ public:
 
     Electric() = default;
     ~Electric() = default;
-    virtual void fuelEfficiencyCalc() override;
+    virtual void fuelEfficiencyCalc(uint16_t kilometers, double hours) override;
     virtual std::string getSpecial(void) override;
     virtual YAML::Node getYaml() override;
     virtual void loadYaml(YAML::Node node) override;

@@ -29,7 +29,3 @@ void Car::loadYaml(YAML::Node node) {
     trunkCapacity = node["TrunkCapacity"].as<uint16_t>();
 }
 
-void Car::fuelEfficiencyCalc(void) {
-    return;
-}
-

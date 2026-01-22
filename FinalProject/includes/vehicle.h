@@ -20,7 +20,7 @@ public:
 
     std::string getFuelType(void);
     std::string getType(void);
-    virtual void fuelEfficiencyCalc() = 0;
+    virtual void fuelEfficiencyCalc(uint16_t liters, double kilometers);
     virtual std::string getSpecial(void) = 0;
     virtual YAML::Node getYaml();
     virtual void loadYaml(YAML::Node node);

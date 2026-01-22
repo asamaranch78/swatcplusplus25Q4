@@ -26,7 +26,3 @@ void Truck::loadYaml(YAML::Node node) {
     payloadCapacity = node["PayloadCapacity"].as<uint16_t>();
 }
 
-void Truck::fuelEfficiencyCalc(void) {
-    return;
-}
-

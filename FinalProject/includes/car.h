@@ -12,7 +12,6 @@ public:
 
     Car() = default;
     ~Car() = default;
-    virtual void fuelEfficiencyCalc() override;
     virtual std::string getSpecial(void) override;
     virtual YAML::Node getYaml() override;
     virtual void loadYaml(YAML::Node node) override;

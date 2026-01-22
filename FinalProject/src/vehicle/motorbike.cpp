@@ -1,9 +1,5 @@
 #include "motorbike.h"
 
-void Motorbike::fuelEfficiencyCalc() {
-    return;
-}
-
 std::string Motorbike::getSpecial(void) {
     return "Seats: " + std::to_string(seats);
 }

@@ -55,11 +55,12 @@ void MainWindow::drawConstantPart(bool filtering) {
     Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 2, "D: Delete");
     Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 3, "X: Export");
     Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 4, "I: Import");
-    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 5, "F: Filter");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 5, "C: Calc effi");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 6, "F: Filter");
     if (filtering) {
-        Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 6, "C: Clear filter");
+        Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 7, "C: Clear filter");
     }
-    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 8, "Q: Quit");
+    Window::print(menuLine, MANUFACTURER_COL + WIDE_GAP * 9, "Q: Quit");
     Window::removeColor(MENU_COLOR);
 
     Window::print(HEARDER_LINE, MANUFACTURER_COL, "Manufacturer");

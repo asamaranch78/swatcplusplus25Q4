@@ -1,10 +1,6 @@
 #include "electric.h"
 
 
-void Electric::fuelEfficiencyCalc() {
-    return;
-}
-
 std::string Electric::getSpecial(void) {
     std::string special {Car::getSpecial()};
     special += "\t";
@@ -23,4 +19,10 @@ void Electric::loadYaml(YAML::Node node) {
     type = Types::ELECTRIC_CAR;
 
     range = node["Range"].as<uint16_t>();
+}
+
+void Electric::fuelEfficiencyCalc(uint16_t kilometers, double hours) {
+    if (hours == 0) { throw; }
+    fuelEfficiency = kilometers / hours;
+
 }
