@@ -9,5 +9,6 @@ void ltrim_in_place(std::string& s);
 std::string trim(std::string s);
 void normalize_newlines(std::string& s);
 bool equal(std::string a, std::string b);
+std::string cleanUp(std::string s);
 
 #endif

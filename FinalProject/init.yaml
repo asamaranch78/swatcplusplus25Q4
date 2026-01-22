@@ -33,13 +33,40 @@
   FuelType: Gasoline
   Type: Motorbike
   Seats: 2
-- Manufacturer: "Tesla          "
-  Model: "Model3         "
-  Year: 2025
+- Manufacturer: Tesla
+  Model: Model3
+  Year: 2003
   Weight: 3000
-  FuelEfficiency: 4
+  FuelEfficiency: 5
   FuelType: Electric
-  Type: Car
+  Type: Electric car
   Doors: 4
-  TrunkCapacity: 100
+  TrunkCapacity: 1000
   Range: 500
+- Manufacturer: Merecedes
+  Model: L14
+  Year: 2019
+  Weight: 5000
+  FuelEfficiency: 13.399999618530273
+  FuelType: Diesel
+  Type: Truck
+  Axles: 3
+  PayloadCapacity: 10000
+- Manufacturer: Honda
+  Model: CR4
+  Year: 2000
+  Weight: 500
+  FuelEfficiency: 3.4000000953674316
+  FuelType: Diesel
+  Type: Motorbike
+  Seats: 1
+- Manufacturer: Opel
+  Model: Amperea
+  Year: 2015
+  Weight: 2500
+  FuelEfficiency: 2
+  FuelType: Electric
+  Type: Electric car
+  Doors: 4
+  TrunkCapacity: 1000
+  Range: 350

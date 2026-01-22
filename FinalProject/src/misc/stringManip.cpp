@@ -62,3 +62,10 @@ bool equal(std::string a, std::string b) {
     return  a == b;
 }
 
+std::string cleanUp(std::string s) {
+    rtrim_in_place(s);
+    ltrim_in_place(s);
+    normalize_newlines(s);
+    return s;
+}
+

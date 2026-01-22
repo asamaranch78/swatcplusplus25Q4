@@ -1,4 +1,5 @@
 #include "addMotorbikeWindow.h"
+#include "stringManip.h"
 
 AddMotorbikeWindow::AddMotorbikeWindow(std::shared_ptr<MainWindow> mainWin) :
     FormWindow(mainWin, 6) {
@@ -12,8 +13,8 @@ AddMotorbikeWindow::AddMotorbikeWindow(std::shared_ptr<MainWindow> mainWin) :
 
 
 void AddMotorbikeWindow::saveToObject(std::shared_ptr<Motorbike> motorbike) {
-    motorbike->manufacturer = field_buffer(inputFields[MANUFACTURER_INDEX], 0);
-    motorbike->model = field_buffer(inputFields[MODEL_INDEX], 0);
+    motorbike->manufacturer = cleanUp(field_buffer(inputFields[MANUFACTURER_INDEX], 0));
+    motorbike->model = cleanUp(field_buffer(inputFields[MODEL_INDEX], 0));
     motorbike->year = std::stoi(field_buffer(inputFields[YEAR_INDEX], 0));
     motorbike->weight = std::stoi(field_buffer(inputFields[WEIGHT_INDEX], 0));
     motorbike->fuelEfficiency = std::stof(field_buffer(inputFields[EFFICIENCY_INDEX], 0));

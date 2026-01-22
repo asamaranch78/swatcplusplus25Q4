@@ -2,6 +2,7 @@
 #include "stringManip.h"
 #include "truck.h"
 #include "car.h"
+#include "electric.h"
 #include "motorbike.h"
 #include "enums.h"
 #include <cstdlib>
@@ -123,6 +124,7 @@ void DataSet::importFromYaml(std::string path) {
                 importMotorbike(vehicle);
                 break;
             case Types::ELECTRIC_CAR:
+                importElectric(vehicle);
                 break;
         }
     }
@@ -144,6 +146,12 @@ void DataSet::importMotorbike(YAML::Node node) {
     std::shared_ptr<Motorbike> bike = std::make_shared<Motorbike>();
     bike->loadYaml(node);
     addVehicle(bike);
+}
+
+void DataSet::importElectric(YAML::Node node) {
+    std::shared_ptr<Electric> car = std::make_shared<Electric>();
+    car->loadYaml(node);
+    addVehicle(car);
 }
 
 std::shared_ptr<Vehicle> DataSet::getVehicle (uint16_t index) {

@@ -1,5 +1,6 @@
 #include "addCarWindow.h"
 #include "constants.h"
+#include "stringManip.h"
 
 AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
     FormWindow(mainWin,7) {
@@ -13,8 +14,8 @@ AddCarWindow::AddCarWindow(std::shared_ptr<MainWindow> mainWin) :
 }
 
 void AddCarWindow::saveToObject(std::shared_ptr<Car> car) {
-    car->manufacturer = field_buffer(inputFields[MANUFACTURER_INDEX], 0);
-    car->model = field_buffer(inputFields[MODEL_INDEX], 0);
+    car->manufacturer = cleanUp(field_buffer(inputFields[MANUFACTURER_INDEX], 0));
+    car->model = cleanUp(field_buffer(inputFields[MODEL_INDEX], 0));
     car->year = std::stoi(field_buffer(inputFields[YEAR_INDEX], 0));
     car->weight = std::stoi(field_buffer(inputFields[WEIGHT_INDEX], 0));
     car->fuelEfficiency = std::stof(field_buffer(inputFields[EFFICIENCY_INDEX], 0));

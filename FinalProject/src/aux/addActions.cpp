@@ -40,6 +40,7 @@ void addCar(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin) 
     SelectionList window1(mainWin, FUEL_TYPE_TEXTS);
     uint8_t fuel = window1.handleList();
     newCar->fuelType = calculateFuelType(fuel);
+    newCar->type = Types::CAR;
 
     if (popUp.askForData()) {
         try { 
@@ -63,6 +64,7 @@ void addTruck(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mainWin
     std::shared_ptr<Truck> newTruck = std::make_shared<Truck>();
 
     newTruck->fuelType = FuelTypes::DIESEL;
+    newTruck->type = Types::TRUCK;
 
     if (popUp.askForData()) {
         try { 
@@ -85,6 +87,7 @@ void addElectric(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> main
     std::shared_ptr<Electric> newElectric = std::make_shared<Electric>();
 
     newElectric->fuelType = FuelTypes::ELECTRIC;
+    newElectric->type = Types::ELECTRIC_CAR;
 
     if (popUp.askForData()) {
         try { 
@@ -109,6 +112,7 @@ void addMotorbike(std::shared_ptr<DataSet> data, std::shared_ptr<MainWindow> mai
     SelectionList window1(mainWin, FUEL_TYPE_TEXTS);
     uint8_t fuel = window1.handleList();
     newMotorbike->fuelType = calculateFuelType(fuel);
+    newMotorbike->type = Types::MOTORBIKE;
 
     if (popUp.askForData()) {
         try { 
