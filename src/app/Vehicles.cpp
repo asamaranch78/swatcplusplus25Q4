@@ -3,7 +3,7 @@
 #include <memory>
 #include <fstream>
 #include <algorithm>
-#include "Utils.h"
+#include "common/Utils.h"
 #include "Vehicles.h"
 
 void Vehicles::display() const {
@@ -54,7 +54,7 @@ bool Vehicles::calc_efficiency(std::unique_ptr<Vehicle> vehicle) {
 
 bool Vehicles::save_data(std::unique_ptr<Vehicle> vehicle) {
     if(vehicle == nullptr){
-        std::ofstream write_in {"Data/data", std::ios::trunc};
+        std::ofstream write_in {"data/data", std::ios::trunc};
         if(!write_in){
             std::cerr << "Error creating write file" << std::endl;
             return false;

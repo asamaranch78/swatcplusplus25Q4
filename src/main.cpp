@@ -8,12 +8,12 @@
 #include <memory>
 #include <algorithm>
 #include <map>
-#include "Utils.h"
-#include "Vehicles.h"
-#include "Car.h"
-#include "Bike.h"
-#include "Truck.h"
-#include "Exceptions.h"
+#include "common/Utils.h"
+#include "app/Vehicles.h"
+#include "app/Car.h"
+#include "app/Bike.h"
+#include "app/Truck.h"
+#include "common/Exceptions.h"
 
 bool user_interface(Vehicles &vehicles);
 void display_menu();
@@ -184,7 +184,7 @@ void load_data_from_file(Vehicles &vehicles){
     std::string fuelType_s {};
     int weight {};
     std::string efficiency {};
-    std::ifstream read_in("Data/data");
+    std::ifstream read_in("data/data");
     try{
         if(!read_in){
             std::cerr << "File not found" << std::endl;

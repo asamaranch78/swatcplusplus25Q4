@@ -7,7 +7,7 @@
             "command": "bash",
             "args": [
                 "-c",
-                "g++ -std=c++20 -fdiagnostics-color=always -g $(find \"${workspaceFolder}/Libraries/Cpp\" -name \"*.cpp\") \"${workspaceFolder}/main.cpp\" -I \"${workspaceFolder}/Libraries/Header\" -o \"${workspaceFolder}/app\""
+                "g++ -std=c++20 -fdiagnostics-color=always -g $(find \"${workspaceFolder}/src\" -name \"*.cpp\") -I \"${workspaceFolder}/src\" -o \"${workspaceFolder}/build/app\""
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
